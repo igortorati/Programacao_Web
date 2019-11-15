@@ -10,6 +10,7 @@ public class ServiceFactory {
     private static PesquisadorService pesquisadorService;
     private static TesteService testeService;
     private static ImagemService imagemService;
+    private static PerguntaService perguntaService;
     
     //private static LoginService loginService;
     
@@ -21,6 +22,12 @@ public class ServiceFactory {
         
         return loginService;
     }*/
+    public static PerguntaService getPerguntaService(){
+        if(perguntaService == null){
+            perguntaService = new PerguntaService();
+        }
+        return perguntaService;
+    }
     
     public static PesquisadorService getPesquisadorService(){
         if(pesquisadorService == null){

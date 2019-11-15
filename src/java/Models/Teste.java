@@ -55,13 +55,13 @@ public class Teste {
 
     public String getCreatedAt() { 
         SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String date = fmt.format(createdAt);
+        String date = fmt.format(this.createdAt);
         return date;
     }
     
     public String getCreatedAtDay(){
         SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-        String date = fmt.format(createdAt);
+        String date = fmt.format(this.createdAt);
         return date;
     }
 

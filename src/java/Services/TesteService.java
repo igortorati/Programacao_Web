@@ -13,7 +13,8 @@ import static java.util.Collections.sort;
 import java.util.Date;
 
 public class TesteService {
-    private static final int QTD_PAGINACAO = 10;
+    private static final int QTD_PAGINACAO = 7;
+
 
     public ArrayList<Teste> listaTestes(String nome, Integer pagina) throws Exception {
         Connection conn = DbConnection.getInstance().getConnection();

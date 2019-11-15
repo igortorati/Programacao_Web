@@ -12,8 +12,16 @@ public class Pergunta implements Comparable<Pergunta>{
     private Integer idTeste;
     private Integer indice; //posicao que esta no teste
     private Date updatedAt;
+    
+    public Pergunta(){   
+    }
 
-    public Pergunta(){
+    public Pergunta(String Descricao, Integer tipo, Integer codigo, Integer idTeste, Integer indice) {
+        this.Descricao = Descricao;
+        this.tipo = tipo;
+        this.codigo = codigo;
+        this.idTeste = idTeste;
+        this.indice = indice;
     }
 
     public Pergunta(String Descricao, Integer tipo, Integer codigo, Integer idPergunta, Integer idTeste, Integer indice, Date updatedAt) {
@@ -49,7 +57,7 @@ public class Pergunta implements Comparable<Pergunta>{
     public Integer getIndice() {
         return indice;
     }
-
+    
     public String getUpdatedAt(){
         SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String date = fmt.format(this.updatedAt);
@@ -83,7 +91,6 @@ public class Pergunta implements Comparable<Pergunta>{
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-
     @Override
     public int compareTo(Pergunta o) {
         if(this.indice < o.indice) return -1;
