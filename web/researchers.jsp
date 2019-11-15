@@ -30,7 +30,7 @@
                 <div class="col-md-5 search">
                     <form method="GET" id="deleteForm" action="pesquisador.do">
                         <input type="text" class="form-control" name="q" placeholder="Pesquisar" />
-                        <button class="input-button"><i class="material-icons input-icon">search</i></button>
+                        <button class="input-button" ><i class="material-icons input-icon">search</i></button>
                     </form>
                 </div>
             </div>

@@ -29,9 +29,13 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
+                    
                     <div class="col-md-5 code">
-                        <input type="text" class="form-control" name="code" placeholder="Código" />
-                        <button class="input-button"><i class="material-icons input-icon">send</i></button>
+                        <form method="POST" id="searchCode" action="ValidaCodigoController.do">
+                            <input type="text" class="form-control" name="code" placeholder="Código" />
+                            <button class="input-button" type="submit"><i class="material-icons input-icon">send</i></button>
+                        </form>
+                        
                     </div>
                 </div>
             </div>

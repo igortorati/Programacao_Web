@@ -27,48 +27,55 @@
             </div>
             <div class="row align-items-center full">
                 <div class="container col-md-12">
-                    <div class="row justify-content-center">
-                        <div class="col-md-5">
-                            <div class='title'>
-                                Informações iniciais
+                    <form method="POST" name="addUser" action="CadastroUsuarioController.do">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5">
+                                <div class='title'>
+                                    Informações iniciais
+                                    <%out.print(request.getSession().getAttribute("code"));%>
+                                </div>
+                                <div class='form-group'>
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" name="email" placeholder="Email" required/>
+                                </div>
+                                <div class='form-group'>
+                                    <label for="age">Idade</label>
+                                    <input type="text" class="form-control" name="age" placeholder="Idade" required/>
+                                </div>
+                                <div class='form-group'>
+                                    <label for="phone">Telefone</label>
+                                    <input type="text" class="form-control" name="phone" placeholder="Telefone" required/>
+                                </div>
+                                <div class='form-group'>
+                                    <label for="gender">Sexo</label><br> 
+                                    <input type="radio" name="gender" value="m" required/>Masculino
+                                    <input type="radio" name="gender" value="f"/>Feminino
+                                </div>
+                                <div class='form-group'>
+                                    <label for="zipcode" required>CEP</label>
+                                    <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="CEP" required/>
+                                </div>
+                                <select class="browser-default custom-select" name="color" required>
+                                    <option selected value="">Abrir menu</option>
+                                    <option value="amarela">Amarela</option>
+                                    <option value="branca">Branca</option>
+                                    <option value="indigena">Indígena</option>
+                                    <option value="parda">Parda</option>
+                                    <option value="preta">Preta</option>
+                                </select>
+                                <div class='form-group'>
+                                    <label for="disease" required>Endermidade</label>
+                                    <input type="text" class="form-control" name="disease" placeholder="Problema de visão severo..."/>
+                                </div>
                             </div>
-                            <div class='form-group'>
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" name="email" placeholder="Email" />
-                            </div>
-                            <div class='form-group'>
-                                <label for="age">Idade</label>
-                                <input type="text" class="form-control" name="age" placeholder="Idade" />
-                            </div>
-                            <div class='form-group'>
-                                <label for="phone">Telefone</label>
-                                <input type="text" class="form-control" name="phone" placeholder="Telefone" />
-                            </div>
-                            <div class='form-group'>
-                                <label for="gender">Sexo</label><br> 
-                                <input type="radio" name="gender" placeholder="Email" value="m"/>Masculino
-                                <input type="radio" name="gender" placeholder="Email" value="f"/>Feminino
-                            </div>
-                            <div class='form-group'>
-                                <label for="zipcode">CEP</label>
-                                <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="CEP" />
-                            </div>
-                            <select class="browser-default custom-select">
-                                <option selected>Abrir menu</option>
-                                <option value="amarela">Amarela</option>
-                                <option value="branca">Branca</option>
-                                <option value="indigena">Indígena</option>
-                                <option value="parda">Parda</option>
-                                <option value="preta">Preta</option>
-                            </select>
                         </div>
-                    </div>
-                    <div class="row justify-content-center add-button-row" style="margin-bottom: 20px">
-                        <button class="btn btn-primary button-with-icon">
-                            Responder Teste
-                            <i class="material-icons">navigate_next</i>
-                        </button>
-                    </div>
+                        <div class="row justify-content-center add-button-row" style="margin-bottom: 20px">
+                            <button class="btn btn-primary button-with-icon">
+                                Responder Teste
+                                <i class="material-icons">navigate_next</i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -179,6 +179,30 @@ public class TesteService {
         return teste;
     }
     
+    public Integer getTestIdByCode(String codigo) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Integer id = null;
+        try {
+            ps = conn.prepareStatement("SELECT Teste_TES_idTeste FROM codigounico WHERE idCodigoUnico LIKE ?");
+            ps.setString(1, codigo);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                id = rs.getInt("Teste_TES_idTeste");
+            }
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            if(rs != null){
+                rs.close();
+            }
+            conn.close();
+        }
+        return id;
+    }
+    
     public ArrayList<Pergunta> getPerguntas(Integer id) throws Exception{
         Connection conn = DbConnection.getInstance().getConnection();
         ArrayList<Pergunta> pergunta = null;
