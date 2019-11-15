@@ -109,11 +109,12 @@ public class TesteService {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("INSERT INTO Teste (TES_titulo, TES_descricao, Pesquisador_PES_id, TES_visibilidade)" +
-                    "VALUES (?, ?, ?, ?); SELECT LAST_INSERT_ID();");
+                    "VALUES (?, ?, ?, ?);");
             ps.setString(1, teste.getTitulo());
             ps.setString(2, teste.getDescricao());
             ps.setInt(3, teste.getIdPesquisador());
             ps.setInt(4, teste.getVisibilidade());
+            ps.execute();
         } finally {
             if(ps != null){
                 ps.close();

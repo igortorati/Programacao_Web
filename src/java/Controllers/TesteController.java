@@ -61,7 +61,7 @@ public class TesteController extends HttpServlet {
             dispatcher.forward(request, response);
 
         }
-        
+
     }
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -77,12 +77,12 @@ public class TesteController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         LoginControl.checkLogin(request, response);
         Pesquisador pesquisador = (Pesquisador) request.getSession().getAttribute("login");
-        Teste teste = new Teste(request.getParameter("name"), request.getParameter("description"), pesquisador.getId(), 0);
+        Teste teste = new Teste(request.getParameter("description"), request.getParameter("name"), pesquisador.getId(), 0);
         try  {
             ServiceFactory.getTesteService().salvarTeste(teste);
             Integer id = ServiceFactory.getTesteService().getId(teste);
             if(id != null){
-                response.sendRedirect(request.getContextPath()+"/TesteController.do?id="+teste.getId());
+                response.sendRedirect(request.getContextPath()+"/TesteController.do?id="+id);
             }
         } catch(Exception e) {
             PrintWriter out = response.getWriter();
