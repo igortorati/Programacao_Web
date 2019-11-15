@@ -22,31 +22,42 @@
         <%@include file="header2.jsp"%>
         <div class="row align-items-center full">
             <div class="container col-md-12">
-                <div class="row justify-content-center">
-                    <div class="col-md-5">
-                        <div class='title'>
-                            Criar Teste
-                        </div>
-                        <div class='form-group'>
-                            <label for="name">Nome do Teste</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Nome" />
-                        </div>
-                        <div class='form-group'>
-                            <label for="description">Descrição do teste</label>
-                            <textarea id="description" class="form-control" rows="3" placeholder="Descrição" required></textarea>
+                <form method="POST" name="createTestForm" action="TesteController.do" onSubmit="return validate()">
+                    <div class="row justify-content-center">
+                        <div class="col-md-5">
+                            <div class='title'>
+                                Criar Teste
+                            </div>
+                            <div class='form-group'>
+                                <label for="name">Nome do Teste</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Nome" required/>
+                            </div>
+                            <div class='form-group'>
+                                <label for="description">Descrição do teste</label>
+                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Descrição" required></textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row justify-content-center add-button-row">
-                    <button class="btn btn-primary button-with-icon">
-                        Avançar
-                        <i class="material-icons">navigate_next</i>
-                    </button>
-                </div>
+                    <div class="row justify-content-center add-button-row">
+                        <button type="submit" class="btn btn-primary button-with-icon">
+                            Criar Teste
+                            <i class="material-icons">navigate_next</i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
+    <script>
+        function validate(){
+            var name = document.forms["createTestForm"]["name"].value
+            var description = document.forms["createTestForm"]["description"].value
+            if(name !== "" && description !== ""){
+                return true
+            }
+            return false
+        }
+    </script>   
 </body>
 
 </html>

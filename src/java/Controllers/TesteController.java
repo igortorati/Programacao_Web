@@ -82,7 +82,7 @@ public class TesteController extends HttpServlet {
             ServiceFactory.getTesteService().salvarTeste(teste);
             Integer id = ServiceFactory.getTesteService().getId(teste);
             if(id != null){
-                response.sendRedirect(request.getContextPath()+"/teste.do?id="+teste.getId());
+                response.sendRedirect(request.getContextPath()+"/TesteController.do?id="+teste.getId());
             }
         } catch(Exception e) {
             PrintWriter out = response.getWriter();
