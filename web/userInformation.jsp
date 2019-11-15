@@ -32,7 +32,6 @@
                             <div class="col-md-5">
                                 <div class='title'>
                                     Informações iniciais
-                                    <%out.print(request.getSession().getAttribute("code"));%>
                                 </div>
                                 <div class='form-group'>
                                     <label for="email">Email</label>
