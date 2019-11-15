@@ -1,14 +1,16 @@
 package Services;
 
+import Models.Pergunta;
 import Models.Teste;
 import java.util.ArrayList;
 import Utils.DbConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Date;
 
 public class TesteService {
-    private static final int QTD_PAGINACAO = 1;
+    private static final int QTD_PAGINACAO = 10;
 
     public ArrayList<Teste> listaTestes(String nome, Integer pagina) throws Exception {
         Connection conn = DbConnection.getInstance().getConnection();
@@ -171,5 +173,59 @@ public class TesteService {
             conn.close();
         }
         return teste;
+    }
+    
+    public ArrayList<Pergunta> getPerguntas(Integer id) throws Exception{
+        Connection conn = DbConnection.getInstance().getConnection();
+        ArrayList<Pergunta> pergunta = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            ps = conn.prepareStatement("SELECT * from Pergunta WHERE Teste_TES_idTeste = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            pergunta = new ArrayList<>();
+            while(rs.next()){
+                Pergunta p = new Pergunta(rs.getString("PER_descricao"), rs.getInt("PER_tipo"), rs.getInt("PER_codigo"), rs.getInt("PER_idPergunta"), rs.getInt("Teste_TES_idTeste"), rs.getInt("PER_indice"),rs.getDate("PER_updatedAt"));
+                pergunta.add(p);
+            }   
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+
+            if (rs != null) {
+                rs.close();
+            }
+
+            conn.close();
+        }
+        return pergunta;
+    }
+    public ArrayList<String> getKeys(Integer id) throws Exception{
+        Connection conn = DbConnection.getInstance().getConnection();
+        ArrayList<String> keys = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            ps = conn.prepareStatement("SELECT * from codigounico WHERE Teste_TES_idTeste = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            keys = new ArrayList<String>();
+            while(rs.next()){
+                keys.add(rs.getString("idCodigoUnico"));
+            }   
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+
+            if (rs != null) {
+                rs.close();
+            }
+
+            conn.close();
+        }
+        return keys;
     }
 }
