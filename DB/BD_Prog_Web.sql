@@ -89,8 +89,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `progweb`.`Pergunta` (
   `PER_descricao` VARCHAR(200) NULL DEFAULT NULL,
-  `PER_codigo` VARCHAR(20) NULL DEFAULT NULL,
-  `PER_tipo` INT(11) NULL DEFAULT NULL,
+  `PER_tipo` TINYINT(1) NULL DEFAULT NULL,
   `PER_idPergunta` INT(11) NOT NULL AUTO_INCREMENT,
   `Teste_TES_idTeste` INT(11) NOT NULL,
   `PER_indice` INT(11) NOT NULL,

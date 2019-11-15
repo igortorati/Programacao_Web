@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class TesteService {
-    private static final int QTD_PAGINACAO = 1;
+    private static final int QTD_PAGINACAO = 7;
 
     public ArrayList<Teste> listaTestes(String nome, Integer pagina) throws Exception {
         Connection conn = DbConnection.getInstance().getConnection();
