@@ -23,7 +23,7 @@ public class Pergunta {
         this.idTeste = idTeste;
         this.indice = indice;
     }
-    
+
     public Pergunta(String Descricao, Integer tipo, Integer codigo, Integer idPergunta, Integer idTeste, Integer indice, Date updatedAt) {
         this.Descricao = Descricao;
         this.tipo = tipo;

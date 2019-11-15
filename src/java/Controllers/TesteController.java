@@ -5,12 +5,14 @@
  */
 package Controllers;
 
+import Models.Pergunta;
 import Models.Pesquisador;
 import Models.Teste;
 import Utils.LoginControl;
 import Utils.ServiceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -46,11 +48,15 @@ public class TesteController extends HttpServlet {
             id = Integer.parseInt(request.getParameter("id"));
         }
         Teste teste = null;
+        ArrayList<Pergunta> perguntas = null;
         try {
             if(id != null){
                 teste = ServiceFactory.getTesteService().getTeste(id);
             }
             if(teste != null){
+                perguntas = ServiceFactory.getTesteService().getPerguntas(id);
+                request.setAttribute("perguntas", perguntas);
+                request.setAttribute("teste", teste);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("test.jsp"); 
                 dispatcher.forward(request, response);
             }

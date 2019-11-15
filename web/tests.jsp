@@ -42,7 +42,7 @@
             </div>
             <div class="container col-md-10 col-12 list">
                 <% for(Teste t:testes){%>
-                    <div class="item-list dense" onclick="location.href='TesteController.do?id=<% out.print(t.getId()); %>'">
+                    <div class="item-list dense" >
                         
                             <% if(t.getVisibilidade() == 1){ %>
                                 <button class="icon-button visibility">
@@ -55,7 +55,7 @@
                             <%}%>
                             <div class="container justify-content-between">
                                 <div class="row">
-                                    <div class="col-9 item-text">
+                                    <div class="col-9 item-text" onclick="location.href='TesteController.do?id=<% out.print(t.getId()); %>'">
                                         <span class="test-name"><%out.print(t.getTitulo());%></span>
                                         <p class="test-description d-none d-md-block"><%out.print(t.getDescricao());%></p>
                                         <span class="test-date d-none d-lg-block">Criado em: <%out.print(t.getCreatedAtDay());%></span>
@@ -64,7 +64,7 @@
                                         <button class="icon-button edit">
                                             <i class="material-icons">edit</i>
                                         </button>
-                                        <button class="icon-button download">
+                                        <button class="icon-button download" onclick="location.href='DownloadController.do?id=<% out.print(t.getId()); %>'">
                                             <i class="material-icons">cloud_download</i>
                                         </button>
                                         <button class="icon-button delete">

@@ -4,6 +4,9 @@
     Author     : Eduardo
 --%>
 
+<%@page import="Models.Teste"%>
+<%@page import="Models.Pergunta"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,16 +23,19 @@
     <body>
         <div class="container col-md-12 justify-content-center">
             <%@include file="header2.jsp"%>
+            <% ArrayList<Pergunta> perguntas = (ArrayList<Pergunta>) request.getAttribute("perguntas");%>
+            <% Teste teste = (Teste) request.getAttribute("teste");%>
             <div class="row justify-content-center">
                 <div class="col-md-5">
                     <div class='title'>
-                        Nome do teste
+                        <%out.print(teste.getTitulo());%>
                     </div>
                     <div class='subtitle'>
-                        Descrição do teste
+                        <%out.print(teste.getDescricao());%>
                     </div>
                 </div>
             </div>
+            
             <div class="row justify-content-center add-button-row">
                 <div class="row col-md-10 justify-content-between">
                     <button class="btn btn-primary button-with-icon" id="editSaveButton" onclick="edit()">
@@ -53,42 +59,26 @@
             </div>
             <div class="container col-md-10 col-12">
                 <ul class="list sortable">
-                    <li class="question-list ">
-                        <i class="material-icons handle">drag_indicator</i>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-9 item-text">
-                                    <p class="test-name">Pergunta 1</span>
-                                </div>
-                                <div class="col-3 icons">
-                                    <button class="icon-button edit">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                    <button class="icon-button delete">
-                                        <i class="material-icons">delete</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="question-list " >
-                        <i class="material-icons handle">drag_indicator</i>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-9 item-text">
-                                    <p class="test-name">Pergunta 2</span>
-                                </div>
-                                <div class="col-3 icons">
-                                    <button class="icon-button edit">
-                                        <i class="material-icons">edit</i>
-                                    </button>
-                                    <button class="icon-button delete">
-                                        <i class="material-icons">delete</i>
-                                    </button>
+                    <% for(Pergunta p:perguntas){%>
+                        <li class="question-list ">
+                            <i class="material-icons handle">drag_indicator</i>
+                            <div class="container" >
+                                <div class="row">
+                                    <div class="col-9 item-text">
+                                        <p class="test-name"><%out.print(p.getDescricao());%></span>
+                                    </div>
+                                    <div class="col-3 icons">
+                                        <button class="icon-button edit">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        <button class="icon-button delete">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    <% } %>
 
                 </ul>
             </div>
