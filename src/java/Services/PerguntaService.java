@@ -81,4 +81,40 @@ public class PerguntaService {
         }
         return idValido;
     }
+    
+    public void alterarIndice(Integer idPergunta, Integer novoIndice) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("UPDATE Pergunta SET PER_indice = ? WHERE PER_idPergunta = ?");
+            ps.setInt(1, novoIndice);
+            ps.setInt(2, idPergunta);
+            ps.execute();
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            conn.close();
+        }
+    }
+    
+    public void alterarPergunta(Pergunta pergunta) throws Exception{
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareCall("UPDATE Pergunta SET PER_descricao=?, PER_codigo=?, PER_tipo=? WHERE PER_idPergunta=? "
+                    + "AND Teste_TES_idTeste=? ");
+            ps.setString(1, pergunta.getDescricao());
+            ps.setInt(2, pergunta.getCodigo());
+            ps.setInt(3, pergunta.getTipo());
+            ps.setInt(4, pergunta.getIdPergunta());
+            ps.setInt(5, pergunta.getIdTeste());
+            ps.execute();
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            conn.close();
+        }
+    }
 }

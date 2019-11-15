@@ -11,17 +11,16 @@ public class ServiceFactory {
     private static TesteService testeService;
     private static ImagemService imagemService;
     private static PerguntaService perguntaService;
+    private static RespostaService respostaService;
     
-    //private static LoginService loginService;
     
-    /*public static LoginService getLoginService() {
-        
-        if ( loginService == null ) {
-            loginService = new LoginService();
+    public static RespostaService getRespostaService(){
+        if(respostaService == null){
+            respostaService = new RespostaService();
         }
-        
-        return loginService;
-    }*/
+        return respostaService;
+    }
+    
     public static PerguntaService getPerguntaService(){
         if(perguntaService == null){
             perguntaService = new PerguntaService();
