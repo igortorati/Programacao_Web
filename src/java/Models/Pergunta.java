@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class Pergunta {
+public class Pergunta implements Comparable<Pergunta>{
     private String Descricao;
     private Integer tipo; //continua ou ordinal
     private Integer codigo; //tem ou nao descricao
@@ -82,5 +82,12 @@ public class Pergunta {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public int compareTo(Pergunta o) {
+        if(this.indice < o.indice) return -1;
+        else if(this.indice == o.indice)return 0;
+        else return 0;
     }
 }

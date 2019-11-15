@@ -1,3 +1,5 @@
+
+
 USE `progweb`;
 DELIMITER $$
 
@@ -68,7 +70,7 @@ BEGIN
 			  LEAVE cursor_questions_loop;
 			END IF;
             IF (question = '') THEN
-				SET @questions = CONCAT(@questions,question_code,',');
+				SET @questions = CONCAT(@questions,'\"Código\",\"Resposta\",');
             ELSE
 				SET @questions = CONCAT(@questions,"\"",question,"\",");
             END IF;
@@ -86,6 +88,7 @@ BEGIN
 		END IF;
         SELECT CONCAT("\"",USU_contato,'\",\"',USU_email,'\",',USU_idade,',\"',USU_sexo,'\",\"',USU_cep,'\",\"',USU_cor,'\",\"',USU_enfermidade,'\"') FROM `Usuario` WHERE `USU_idUsuario` = id
         INTO @user_data;
+        ##SELECT @user_data;
         ##Selecionar apenas as respostas de um usuário e verificar qual resposta não é null e salvar no answer, ao final salvar tudo em um csv contendo dado de quem respondeu e as respostas.
         BLOCK_2: BEGIN
             DECLARE continuous DECIMAL(2,2);
@@ -112,8 +115,16 @@ BEGIN
                     END IF;
                 ELSE
 					SET @answer = CONCAT("\"",descript,"\"");
+                    IF (continuous is not null) THEN
+						SET @answer = CONCAT(@answer,",",continuous);
+                        ##SELECT @answer;
+					ELSE
+						##SELECT @answer;
+						SET @answer = CONCAT(@answer,",",ordinal);
+                    END IF;
                 END IF;
                 SET @all_answer = CONCAT(@all_answer,',',@answer);
+                ##SELECT @all_answer;
             END LOOP cursor_answer_loop;
             
             CLOSE cursor_answer_id;
@@ -137,6 +148,6 @@ BEGIN
 END;$$
 DELIMITER ;
 ##Setar o --secure-file-priv para uma pasta específica.
-##CALL answers_to_csv(2);
+##CALL answers_to_csv(1);
 
 

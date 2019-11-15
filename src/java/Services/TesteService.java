@@ -7,6 +7,9 @@ import Utils.DbConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Arrays;
+import java.util.Collections;
+import static java.util.Collections.sort;
 import java.util.Date;
 
 public class TesteService {
@@ -189,6 +192,10 @@ public class TesteService {
                 Pergunta p = new Pergunta(rs.getString("PER_descricao"), rs.getInt("PER_tipo"), rs.getInt("PER_codigo"), rs.getInt("PER_idPergunta"), rs.getInt("Teste_TES_idTeste"), rs.getInt("PER_indice"),rs.getDate("PER_updatedAt"));
                 pergunta.add(p);
             }   
+            Collections.sort(pergunta);
+            for(int i = 0; i < pergunta.size();++i){
+                System.out.println(pergunta.get(i).getDescricao()+"|"+pergunta.get(i).getDescricao().length());
+            }
         } finally {
             if (ps != null) {
                 ps.close();
@@ -214,7 +221,35 @@ public class TesteService {
             keys = new ArrayList<String>();
             while(rs.next()){
                 keys.add(rs.getString("idCodigoUnico"));
-            }   
+            }
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+
+            if (rs != null) {
+                rs.close();
+            }
+
+            conn.close();
+        }
+        return keys;
+    }
+    
+    public ArrayList<String> generateKeys(Integer id, Integer n) throws Exception{
+        Connection conn = DbConnection.getInstance().getConnection();
+        ArrayList<String> keys = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            keys = getKeys(id);
+            ps = conn.prepareStatement("CALL genkeys(?,?)");
+            ps.setInt(1, id);
+            ps.setInt(1, n);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                keys.add(rs.getString("idCodigoUnico"));
+            }
         } finally {
             if (ps != null) {
                 ps.close();

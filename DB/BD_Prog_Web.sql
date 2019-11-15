@@ -89,8 +89,8 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `progweb`.`Pergunta` (
   `PER_descricao` VARCHAR(200) NULL DEFAULT NULL,
-  `PER_codigo` VARCHAR(20) NULL DEFAULT NULL,
-  `PER_tipo` INT(11) NULL DEFAULT NULL,
+  `PER_codigo` TINYINT(4) NOT NULL,
+  `PER_tipo` TINYINT(4) NOT NULL,
   `PER_idPergunta` INT(11) NOT NULL AUTO_INCREMENT,
   `Teste_TES_idTeste` INT(11) NOT NULL,
   `PER_indice` INT(11) NOT NULL,
@@ -214,38 +214,38 @@ INSERT INTO `CodigoUnico` (`idCodigoUnico`, `Teste_TES_idTeste`) VALUES ('sad513
 INSERT INTO `CodigoUnico` (`idCodigoUnico`, `Teste_TES_idTeste`) VALUES ('hvn328fh', 1);
 INSERT INTO `CodigoUnico` (`idCodigoUnico`, `Teste_TES_idTeste`) VALUES ('awe2368k', 2);
 
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o método de ensino que utilizam?', NULL, 0, NULL, 2, 1);
+INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o método de ensino que utilizam?', 0, 0, NULL, 2, 1);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (1, 1, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (1, 2, 2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (1, 3, 1);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o método de de avaliação que utilizam?', NULL, 0, NULL, 2, 3);
+INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o método de de avaliação que utilizam?', 0, 0, NULL, 2, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (2, 1, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (2, 2, 2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (2, 3, 1);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o horário de atendimento disponibilizado por eles?', NULL, 0, NULL, 2, 2);
+INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o horário de atendimento disponibilizado por eles?', 0, 0, NULL, 2, 2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (3, 1, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (3, 2, 2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (3, 3, 1);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o monitor da disciplina?', NULL, 0, NULL, 2,4);
+INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o monitor da disciplina?', 0, 0, NULL, 2,4);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (4, 1, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (4, 2, 2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (4, 3, 1);
 
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('O quão satisfeito você está com a quantidade de tempo de lazer (tempo livre) que você tem diariamente?', NULL, 1, NULL, 1, 4);
+INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('O quão satisfeito você está com a quantidade de tempo de lazer (tempo livre) que você tem diariamente?', 0, 1, NULL, 1, 4);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (5, 1, 5);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (5, 2, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (5, 3, 1);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (5, 4, 2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (5, 5, 4);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Qual seu animo para fazer atividades ao acordar?', NULL, 0, NULL, 1,2);
+INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Qual seu animo para fazer atividades ao acordar?', 0, 0, NULL, 1,2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (6, 1, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (6, 2, 2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (6, 3, 1);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('', 236, 0, NULL, 1, 1);
+INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('', 1, 0, NULL, 1, 1);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (7, 1, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (7, 2, 2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (7, 3, 1);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Quão satisfeito você está com o curso?', NULL, 0, NULL, 1, 3);
+INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Quão satisfeito você está com o curso?', 0, 0, NULL, 1, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (8, 1, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (8, 2, 2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (8, 3, 1);
@@ -261,12 +261,12 @@ INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_re
 
 INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,0.56,null,null,3,5,CURRENT_TIMESTAMP);
 INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,0,null,3,6,CURRENT_TIMESTAMP);
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,null,'Parece ser uma garrafa de vidro.',3,7,CURRENT_TIMESTAMP);
+INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,2,'12354',3,7,CURRENT_TIMESTAMP);
 INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,1,null,3,8,CURRENT_TIMESTAMP);
 
 INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,0.73,null,null,2,5,CURRENT_TIMESTAMP);
 INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,2,null,2,6,CURRENT_TIMESTAMP);
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,null,'Possui uma textura lisa, parece ser vidro, talvez seja um vaso ou uma garrafa de vidro.',2,7,CURRENT_TIMESTAMP);
+INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,1,'12354',2,7,CURRENT_TIMESTAMP);
 INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,0,null,2,8,CURRENT_TIMESTAMP);
 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'eduardoigorjoao';

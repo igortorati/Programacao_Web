@@ -65,7 +65,13 @@
                             <div class="container" >
                                 <div class="row">
                                     <div class="col-9 item-text">
-                                        <p class="test-name"><%out.print(p.getDescricao());%></span>
+                                        <span class="test-name"><%out.print("Pergunta "+p.getIndice()+".");%></span>
+                                        <% if(p.getDescricao().length()== 0){ %>
+                                            <p class="test-description d-none d-md-block"><%out.print("(Pergunta sem descrição).");%></span>
+                                        <%} else {%>
+                                            <p class="test-description d-none d-md-block"><%out.print(p.getDescricao());%></span>
+                                        <%}%>
+                                        
                                     </div>
                                     <div class="col-3 icons">
                                         <button class="icon-button edit">
