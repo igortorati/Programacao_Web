@@ -234,6 +234,7 @@ public class TesteService {
         }
         return pergunta;
     }
+    
     public ArrayList<String> getKeys(Integer id) throws Exception{
         Connection conn = DbConnection.getInstance().getConnection();
         ArrayList<String> keys = null;
@@ -287,5 +288,39 @@ public class TesteService {
             conn.close();
         }
         return keys;
+    }
+    
+    public void alterarTeste(Teste teste) throws Exception{
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("UPDATE Teste SET TES_titulo=?, TES_descricao=?, TES_visibilidade=?, WHERE TES_idTeste=?");
+            ps.setString(1, teste.getTitulo());
+            ps.setString(2, teste.getDescricao());
+            ps.setInt(3, teste.getVisibilidade());
+            ps.setInt(4, teste.getId());
+            ps.execute();
+        } finally {
+             if (ps != null) {
+                ps.close();
+            }
+            conn.close();
+        }
+    }
+    
+    public void deletarTeste(Integer idTeste) throws Exception{
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("DELETE from Teste WHERE TES_idTeste = ?");
+            ps.setInt(1, idTeste);
+            ps.execute();
+        } finally {
+             if (ps != null) {
+                ps.close();
+            }
+            conn.close();
+        }
+        
     }
 }
