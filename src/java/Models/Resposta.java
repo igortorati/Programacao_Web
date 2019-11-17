@@ -9,8 +9,8 @@ import java.util.Date;
  */
 public class Resposta {
     private int idResposta;
-    private int respostaContinua;
-    private int respostaOrdinal;
+    private Double respostaContinua;
+    private Integer respostaOrdinal;
     private String descricao;
     private int idUsuario;
     private int idPergunta;
@@ -19,7 +19,7 @@ public class Resposta {
     public Resposta() {
     }
 
-    public Resposta(int idResposta, int respostaContinua, int respostaOrdinal, String descricao, int idUsuario, int idPergunta, Date createdAt) {
+    public Resposta(int idResposta, Double respostaContinua, Integer respostaOrdinal, String descricao, int idUsuario, int idPergunta, Date createdAt) {
         this.idResposta = idResposta;
         this.respostaContinua = respostaContinua;
         this.respostaOrdinal = respostaOrdinal;
@@ -28,16 +28,24 @@ public class Resposta {
         this.idPergunta = idPergunta;
         this.createdAt = createdAt;
     }
+
+    public Resposta(Double respostaContinua, Integer respostaOrdinal, String descricao, int idUsuario, int idPergunta) {
+        this.respostaContinua = respostaContinua;
+        this.respostaOrdinal = respostaOrdinal;
+        this.descricao = descricao;
+        this.idUsuario = idUsuario;
+        this.idPergunta = idPergunta;
+    }
     
     public int getIdResposta() {
         return idResposta;
     }
 
-    public int getRespostaContinua() {
+    public Double getRespostaContinua() {
         return respostaContinua;
     }
 
-    public int getRespostaOrdinal() {
+    public Integer getRespostaOrdinal() {
         return respostaOrdinal;
     }
 
@@ -63,11 +71,11 @@ public class Resposta {
         this.idResposta = idResposta;
     }
 
-    public void setRespostaContinua(int respostaContinua) {
+    public void setRespostaContinua(Double respostaContinua) {
         this.respostaContinua = respostaContinua;
     }
 
-    public void setRespostaOrdinal(int respostaOrdinal) {
+    public void setRespostaOrdinal(Integer respostaOrdinal) {
         this.respostaOrdinal = respostaOrdinal;
     }
 

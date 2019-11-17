@@ -48,4 +48,20 @@ public class CodigoUnicoService {
             conn.close();
         }
     }
+    
+    public void deletarCodigoUnico(String idCodigoUnico) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("DELETE FROM CodigoUnico WHERE idCodigoUnico = ?");
+            ps.setString(1, idCodigoUnico);
+            ps.execute();
+        } finally {
+            if(ps != null){
+                    ps.close();
+            }
+            conn.close();
+        }
+          
+    }
 }

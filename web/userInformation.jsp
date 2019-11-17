@@ -66,7 +66,7 @@
                                     </select>
                                 </div>
                                 <div class='form-group'>
-                                    <label for="disease" required>Endermidade</label>
+                                    <label for="disease" required>Enfermidade</label>
                                     <input type="text" class="form-control" name="disease" placeholder="Problema de visão severo..."/>
                                 </div>
                             </div>

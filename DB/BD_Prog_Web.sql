@@ -163,7 +163,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `progweb`.`Resposta` (
   `RES_idResposta` INT(11) NOT NULL AUTO_INCREMENT,
-  `RES_respostaContinua` DECIMAL(2,2) NULL DEFAULT NULL,
+  `RES_respostaContinua` DECIMAL(4,2) NULL DEFAULT NULL,
   `RES_respostaOrdinal` INT(1) NULL DEFAULT NULL,
   `RES_descricao` VARCHAR(200) NULL DEFAULT NULL,
   `Usuario_USU_idUsuario` INT(11) NOT NULL,
@@ -242,7 +242,7 @@ INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergun
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (6, 1, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (6, 2, 2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (6, 3, 1);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('', 1, 0, NULL, 1, 1);
+INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES (NULL, 1, 0, NULL, 1, 1);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (7, 1, 3);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (7, 2, 2);
 INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (7, 3, 1);

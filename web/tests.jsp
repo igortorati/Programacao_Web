@@ -95,6 +95,7 @@
                 <%}%>
                 <% int ultimaPag = (Integer) request.getAttribute("ultimaPag"); %>
                 <% if(a < ultimaPag) { %>
+                     
                     <a href="testes.do?pag=<% out.print(a + 1); %>&q=<% out.print(nome); %>">Próximo<i class="material-icons">arrow_forward</i></a>
                 <% } %>
             </div>

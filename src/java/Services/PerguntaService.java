@@ -117,4 +117,30 @@ public class PerguntaService {
             conn.close();
         }
     }
+    
+    public Integer getIdPergunta(Integer idTeste, Integer indice) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Integer id = null;
+        try {
+            ps = conn.prepareStatement("SELECT PER_idPergunta FROM Pergunta WHERE Teste_TES_idTeste = ? AND PER_indice = ?");
+            ps.setInt(1, idTeste);
+            ps.setInt(2, indice);
+            rs = ps.executeQuery();
+            if(rs.first()){
+                id = rs.getInt("PER_idPergunta");
+            }
+        } finally{
+            if(ps != null){
+                ps.close();
+            }
+            if(rs != null){
+                rs.close();
+            }
+            conn.close();
+        }
+        
+        return id;
+    }
 }

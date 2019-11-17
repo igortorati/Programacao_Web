@@ -69,7 +69,7 @@ public class TesteService {
             ps = conn.prepareStatement("SELECT count(*) FROM Teste");
             rs = ps.executeQuery();
             if(rs.next()){
-                ultimaPag= (rs.getInt("count(*)")/QTD_PAGINACAO) - 1;
+                ultimaPag= (rs.getInt("count(*)")/QTD_PAGINACAO);
             }
         } finally{
             if(ps != null){

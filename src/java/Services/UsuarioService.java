@@ -9,12 +9,14 @@ import Models.Usuario;
 import Utils.DbConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
  * @author igort
  */
 public class UsuarioService {
+    
     public void salvarUsuario(Usuario usuario) throws Exception{
         Connection conn = DbConnection.getInstance().getConnection();
         PreparedStatement ps = null;
@@ -36,5 +38,29 @@ public class UsuarioService {
             }
             conn.close();
         }
+    }
+    
+    public Integer getIdUsuarioByCodigoUnico(String codigoUnico) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Integer id = null;
+        try {
+            ps = conn.prepareStatement("SELECT USU_idUsuario FROM Usuario WHERE USU_codigo_unico_teste = ?");
+            ps.setString(1, codigoUnico);
+            rs = ps.executeQuery();
+            if(rs.first()){
+                id = rs.getInt("USU_idUsuario");
+            }
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            if(rs != null){
+                rs.close();
+            }
+            conn.close();
+        }
+        return id;
     }
 }

@@ -46,8 +46,13 @@ public class respondenteController extends HttpServlet {
             } else {
                 try {
                     Pergunta pergunta = ServiceFactory.getPerguntaService().getPergunta(codigoUnico.getIdTeste(), codigoUnico.getIndice());
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("question.jsp");
-                    dispatcher.forward(request, response);
+                    if(pergunta != null){
+                        request.setAttribute("pergunta", pergunta);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("question.jsp");
+                        dispatcher.forward(request, response);
+                    } else {
+                        response.sendRedirect(request.getContextPath()+"/finalizarTeste.do");
+                    }
                 } catch (Exception e){
                     out.print(e);
                 }
