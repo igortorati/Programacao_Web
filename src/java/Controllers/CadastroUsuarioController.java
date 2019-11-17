@@ -40,14 +40,18 @@ public class CadastroUsuarioController extends HttpServlet {
         CodigoUnico codigoUnico = (CodigoUnico) request.getSession().getAttribute("code");
         System.out.println(request.getParameter("email")+"|"+ Integer.parseInt(request.getParameter("age"))+"|"+ request.getParameter("phone")+"|"+ request.getParameter("gender")+"|"+ request.getParameter("zipcode")+"|"+ request.getParameter("color")+"|"+ request.getParameter("disease")+"|"+codigoUnico.getIdTeste()+"|"+codigoUnico.getIdCodigoUnico());
         Usuario usuario = new Usuario(request.getParameter("email"), Integer.parseInt(request.getParameter("age")), request.getParameter("phone"), request.getParameter("gender"), request.getParameter("zipcode"), request.getParameter("color"), request.getParameter("disease"),codigoUnico.getIdTeste(),codigoUnico.getIdCodigoUnico());
+        PrintWriter out = response.getWriter();
         try  {
-            ServiceFactory.getUsuarioService().salvarUsuario(usuario);
-            codigoUnico.setIndice(1);
-            ServiceFactory.getCodigoUnicoService().incrementarIndice(codigoUnico.getIdCodigoUnico());
-            request.getSession().setAttribute("code", codigoUnico);
-            response.sendRedirect(request.getContextPath()+"/respondenteController.do");
+            if(codigoUnico.getIndice() == 0){
+                ServiceFactory.getUsuarioService().salvarUsuario(usuario);
+                codigoUnico.setIndice(1);
+                ServiceFactory.getCodigoUnicoService().incrementarIndice(codigoUnico.getIdCodigoUnico());
+                request.getSession().setAttribute("code", codigoUnico);
+                response.sendRedirect(request.getContextPath()+"/respondenteController.do");
+            } else {
+                out.print("Você já inseriu seus dados");
+            }
         } catch(Exception e) {
-            PrintWriter out = response.getWriter();
             out.print(e);
         }
     }

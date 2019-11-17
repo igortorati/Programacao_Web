@@ -58,6 +58,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `progweb`.`CodigoUnico` (
   `idCodigoUnico` VARCHAR(10) NOT NULL,
   `Teste_TES_idTeste` INT(11) NOT NULL,
+  `indice` INT(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`Teste_TES_idTeste`, `idCodigoUnico`),
   UNIQUE INDEX `idCodigoUnico_UNIQUE` (`idCodigoUnico` ASC) ,
   INDEX `fk_CodigoUnico_Teste1_idx` (`Teste_TES_idTeste` ASC) ,
