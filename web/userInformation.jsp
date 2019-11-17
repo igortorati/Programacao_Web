@@ -54,14 +54,17 @@
                                     <label for="zipcode" required>CEP</label>
                                     <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="CEP" required/>
                                 </div>
-                                <select class="browser-default custom-select" name="color" required>
-                                    <option selected value="">Abrir menu</option>
-                                    <option value="amarela">Amarela</option>
-                                    <option value="branca">Branca</option>
-                                    <option value="indigena">Indígena</option>
-                                    <option value="parda">Parda</option>
-                                    <option value="preta">Preta</option>
-                                </select>
+                                <div class='form-group'>
+                                    <label for="zipcode" required>COR</label>
+                                    <select class="browser-default custom-select" name="color" required>
+                                        <option selected value="">Abrir menu</option>
+                                        <option value="amarela">Amarela</option>
+                                        <option value="branca">Branca</option>
+                                        <option value="indigena">Indígena</option>
+                                        <option value="parda">Parda</option>
+                                        <option value="preta">Preta</option>
+                                    </select>
+                                </div>
                                 <div class='form-group'>
                                     <label for="disease" required>Endermidade</label>
                                     <input type="text" class="form-control" name="disease" placeholder="Problema de visão severo..."/>

@@ -8,13 +8,12 @@ package Controllers;
 import Utils.ServiceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import Models.CodigoUnico;
 /**
  *
  * @author igort
@@ -36,16 +35,16 @@ public class ValidaCodigoController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         Integer idTeste = null;
         String codigo = (String) request.getParameter("code");
+        PrintWriter out = response.getWriter();
         try  {
-            idTeste = ServiceFactory.getTesteService().getTestIdByCode(codigo);
-            if(idTeste != null){
-                request.getSession().setAttribute("code",codigo);
-                request.getSession().setAttribute("idTeste",idTeste);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("userInformation.jsp");
-                dispatcher.forward(request, response);
+            CodigoUnico codigoUnico = ServiceFactory.getCodigoUnicoService().getCodigoUnico(codigo);
+            if(codigoUnico != null){
+                request.getSession().setAttribute("code", codigoUnico);
+                response.sendRedirect(request.getContextPath()+"/respondenteController.do");
+            } else {
+                out.print("Digite um código válido");
             }
         } catch(Exception e) {
-            PrintWriter out = response.getWriter();
             out.print(e);
         }
     }

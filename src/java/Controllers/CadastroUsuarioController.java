@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import Models.CodigoUnico;
 
 /**
  *
@@ -36,12 +37,15 @@ public class CadastroUsuarioController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Integer idTeste = (Integer) request.getSession().getAttribute("idTeste");
-        String codigo = (String) request.getSession().getAttribute("code");
-        System.out.println(request.getParameter("email")+"|"+ Integer.parseInt(request.getParameter("age"))+"|"+ request.getParameter("phone")+"|"+ request.getParameter("gender")+"|"+ request.getParameter("zipcode")+"|"+ request.getParameter("color")+"|"+ request.getParameter("disease")+"|"+idTeste+"|"+codigo);
-        Usuario usuario = new Usuario(request.getParameter("email"), Integer.parseInt(request.getParameter("age")), request.getParameter("phone"), request.getParameter("gender"), request.getParameter("zipcode"), request.getParameter("color"), request.getParameter("disease"),idTeste,codigo);
+        CodigoUnico codigoUnico = (CodigoUnico) request.getSession().getAttribute("code");
+        System.out.println(request.getParameter("email")+"|"+ Integer.parseInt(request.getParameter("age"))+"|"+ request.getParameter("phone")+"|"+ request.getParameter("gender")+"|"+ request.getParameter("zipcode")+"|"+ request.getParameter("color")+"|"+ request.getParameter("disease")+"|"+codigoUnico.getIdTeste()+"|"+codigoUnico.getIdCodigoUnico());
+        Usuario usuario = new Usuario(request.getParameter("email"), Integer.parseInt(request.getParameter("age")), request.getParameter("phone"), request.getParameter("gender"), request.getParameter("zipcode"), request.getParameter("color"), request.getParameter("disease"),codigoUnico.getIdTeste(),codigoUnico.getIdCodigoUnico());
         try  {
             ServiceFactory.getUsuarioService().salvarUsuario(usuario);
+            codigoUnico.setIndice(1);
+            ServiceFactory.getCodigoUnicoService().incrementarIndice(codigoUnico.getIdCodigoUnico());
+            request.getSession().setAttribute("code", codigoUnico);
+            response.sendRedirect(request.getContextPath()+"/respondenteController.do");
         } catch(Exception e) {
             PrintWriter out = response.getWriter();
             out.print(e);

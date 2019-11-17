@@ -13,7 +13,14 @@ public class ServiceFactory {
     private static PerguntaService perguntaService;
     private static UsuarioService usuarioService;
     private static RespostaService respostaService;
+    private static CodigoUnicoService codigoUnicoService;
     
+    public static CodigoUnicoService getCodigoUnicoService(){
+        if(codigoUnicoService == null){
+            codigoUnicoService = new CodigoUnicoService();
+        }
+        return codigoUnicoService;
+    }
     
     public static RespostaService getRespostaService(){
         if(respostaService == null){
