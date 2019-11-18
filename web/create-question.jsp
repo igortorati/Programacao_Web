@@ -214,12 +214,17 @@
                 var images = []
                 if(tab === 'Contínuo'){
                     for(let i = 0; i < 3; i++){
-                        images.push(imagesInputs[i].src)
+                        var src = imagesInputs[i].src
+                        var str = src.split('/')
+                        images.push('./'+str[str.length-2]+'/'+str[str.length-1])
+                        console.log('./'+str[str.length-2]+'/'+str[str.length-1])
                     }
                 } else {
                     var qtd = parseInt(document.getElementById("range").value)
                     for(let i = 3; i < qtd + 3; i++){
-                        images.push(imagesInputs[i].src)
+                        var src = imagesInputs[i].src
+                        var str = src.split('/')
+                        images.push('./'+str[str.length-2]+'/'+str[str.length-1])
                     }
                 }
                 var hasDescription = document.getElementById("customSwitch").checked
@@ -237,7 +242,7 @@
                 
                 console.log(question)
 //                
-                var params = getQueryVariable("indice") ? 'id='+getQueryVariable("id")+'&indice='+getQueryVariable("indice") : 'id='+getQueryVariable("id") 
+                var params = getQueryVariable("indice") ? 'idTeste='+getQueryVariable("id")+'&indice='+getQueryVariable("indice") : 'idTeste='+getQueryVariable("id") 
                 var url = "cadastroPergunta.do?"+params
                  $.ajax({
                     type: "POST",
@@ -250,7 +255,7 @@
                             alert("Erro");
                         }
                     },
-                    data: question
+                    data: JSON.stringify(question)
                 });
             }
             
