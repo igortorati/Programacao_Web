@@ -5,6 +5,7 @@ import Utils.DbConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 
 public class PerguntaService {
     
@@ -14,12 +15,15 @@ public class PerguntaService {
         try {
             ps = conn.prepareStatement("INSERT INTO Pergunta (PER_descricao, PER_codigo, PER_tipo," +
                                         "Teste_TES_idTeste, PER_indice) VALUES (?, ?, ?, ?, ?)");
-            ps.setString(1, pergunta.getDescricao());
+            if(pergunta.getCodigo() == 0){
+                ps.setString(1, pergunta.getDescricao());
+            } else {
+                ps.setNull(1, Types.VARCHAR);
+            }
             ps.setInt(2, pergunta.getCodigo());
             ps.setInt(3, pergunta.getTipo());
             ps.setInt(4, pergunta.getIdTeste());
             ps.setInt(5, pergunta.getIndice());
-            
             ps.execute();
         } finally {
             if(ps != null){
@@ -142,5 +146,23 @@ public class PerguntaService {
         }
         
         return id;
+    }
+    
+    public void salvarImagemEmPergunta(Integer idPergunta, Integer idImagem, Integer indice) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("INSERT INTO Pergunta_has_Imagem (Pergunta_PER_idPergunta, Imagem_IMG_idImagem, PHI_Indice) "
+                    + "VALUES (?, ?, ?)");
+            ps.setInt(1, idPergunta);
+            ps.setInt(2, idImagem);
+            ps.setInt(3, indice);
+            ps.execute();
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            conn.close();
+        }
     }
 }
