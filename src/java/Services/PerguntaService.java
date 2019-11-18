@@ -173,12 +173,14 @@ public class PerguntaService {
         ResultSet rs = null;
         ArrayList<String> imagens = null;
         try {
-            ps = conn.prepareStatement("SELECT IMG_endereco FROM Pergunta_has_Imagem as pi INNER JOIN Imagem as i "
+            ps = conn.prepareStatement("SELECT IMG_endereco FROM Pergunta_has_Imagem JOIN Imagem "
                     + "WHERE Pergunta_PER_idPergunta = ?");
             ps.setInt(1, idPergunta);
             rs = ps.executeQuery();
+            System.out.println("teste");
             imagens = new ArrayList();
             while(rs.next()){
+                System.out.println(rs.getString("IMG_endereco"));
                 imagens.add(rs.getString("IMG_endereco"));
             }
         } finally {

@@ -49,7 +49,8 @@ public class RespondenteController extends HttpServlet {
                     Pergunta pergunta = ServiceFactory.getPerguntaService().getPergunta(codigoUnico.getIdTeste(), codigoUnico.getIndice());
                     if(pergunta != null){
                         request.setAttribute("pergunta", pergunta);
-                        ArrayList<String> imagens = ServiceFactory.getPerguntaService().getImagensEmPergunta(pergunta.getIdPergunta());
+                        Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(pergunta.getIdTeste(), pergunta.getIndice());
+                        ArrayList<String> imagens = ServiceFactory.getPerguntaService().getImagensEmPergunta(idPergunta);
                         if(imagens != null){
                             request.setAttribute("imagens", imagens);
                         }

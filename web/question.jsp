@@ -4,6 +4,7 @@
     Author     : Eduardo
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Models.Pergunta"%>
 <!DOCTYPE html>
@@ -43,7 +44,17 @@
                                 </div>
                             </div>
                             <div class="row justify-content-center" style="margin-top: 30px; margin-bottom: 30px" >
-                                <div class="col-md-4">
+                                <% ArrayList<String> imagens = (ArrayList<String>) request.getAttribute("imagens"); %>
+                                <% for(String i : imagens){ %>
+                                    <div class="col-md-4">
+                                        <div class="row justify-content-center">
+                                            <div class="img-visualization">
+                                                <img src="<%out.print(i);%>" alt="imagem"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <%}%>
+<!--                                <div class="col-md-4">
                                     <div class="row justify-content-center">
                                         <div class="img-visualization">
                                             <img src="img/avatar.png" alt="imagem"/>
@@ -56,14 +67,7 @@
                                             <img src="img/avatar.png" alt="imagem"/>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="row justify-content-center">
-                                        <div class="img-visualization">
-                                            <img src="img/avatar.png" alt="imagem"/>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div>-->
                             </div>
                             <% if(pergunta.getTipo() == 0){ %>
                                 <div class="row justify-content-center">
