@@ -248,12 +248,8 @@
                     type: "POST",
                     url: url,
                     dataType: "json",
-                    success: function (msg) {
-                        if (msg) {
-                            alert("Pergunta adicionada");
-                        } else {
-                            alert("Erro");
-                        }
+                    success: function (resp) {
+                        window.location.href= "TesteController.do?id="+getQueryVariable("id")
                     },
                     data: JSON.stringify(question)
                 });

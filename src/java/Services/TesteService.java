@@ -211,6 +211,33 @@ public class TesteService {
         return pergunta;
     }
     
+       public Integer getNovoIndicePergunta(Integer idTeste) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Integer id = null;
+        try {
+            ps = conn.prepareStatement("SELECT count(*) FROM Pergunta WHERE Teste_TES_idTeste = ?");
+            ps.setInt(1, idTeste);
+            rs = ps.executeQuery();
+            if(rs.first()){
+                id = rs.getInt("count(*)")+1;
+            }
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+
+            if (rs != null) {
+                rs.close();
+            }
+
+            conn.close();
+        }
+        
+        return id;
+    }
+    
     public ArrayList<String> getKeys(Integer id) throws Exception{
         Connection conn = DbConnection.getInstance().getConnection();
         ArrayList<String> keys = null;

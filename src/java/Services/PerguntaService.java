@@ -145,7 +145,6 @@ public class PerguntaService {
             }
             conn.close();
         }
-        
         return id;
     }
     
@@ -173,7 +172,7 @@ public class PerguntaService {
         ResultSet rs = null;
         ArrayList<String> imagens = null;
         try {
-            ps = conn.prepareStatement("SELECT IMG_endereco FROM Pergunta_has_Imagem JOIN Imagem "
+            ps = conn.prepareStatement("SELECT IMG_endereco FROM Pergunta_has_Imagem as pi JOIN Imagem as i on (pi.Imagem_IMG_idImagem = i.IMG_idImagem)"
                     + "WHERE Pergunta_PER_idPergunta = ?");
             ps.setInt(1, idPergunta);
             rs = ps.executeQuery();
