@@ -17,12 +17,13 @@ import Models.CodigoUnico;
 import Utils.ServiceFactory;
 import javax.servlet.RequestDispatcher;
 import Models.Pergunta;
+import java.util.ArrayList;
 /**
  *
  * @author sid
  */
 @WebServlet(urlPatterns = {"/respondenteController.do"})
-public class respondenteController extends HttpServlet {
+public class RespondenteController extends HttpServlet {
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -48,6 +49,10 @@ public class respondenteController extends HttpServlet {
                     Pergunta pergunta = ServiceFactory.getPerguntaService().getPergunta(codigoUnico.getIdTeste(), codigoUnico.getIndice());
                     if(pergunta != null){
                         request.setAttribute("pergunta", pergunta);
+                        ArrayList<String> imagens = ServiceFactory.getPerguntaService().getImagensEmPergunta(pergunta.getIdPergunta());
+                        if(imagens != null){
+                            request.setAttribute("imagens", imagens);
+                        }
                         RequestDispatcher dispatcher = request.getRequestDispatcher("question.jsp");
                         dispatcher.forward(request, response);
                     } else {

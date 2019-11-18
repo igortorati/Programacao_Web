@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
+import java.util.ArrayList;
 
 public class PerguntaService {
     
@@ -164,5 +165,32 @@ public class PerguntaService {
             }
             conn.close();
         }
+    }
+    
+    public ArrayList<String> getImagensEmPergunta(Integer idPergunta) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<String> imagens = null;
+        try {
+            ps = conn.prepareStatement("SELECT IMG_endereco FROM Pergunta_has_Imagem as pi INNER JOIN Imagem as i "
+                    + "WHERE Pergunta_PER_idPergunta = ?");
+            ps.setInt(1, idPergunta);
+            rs = ps.executeQuery();
+            imagens = new ArrayList();
+            while(rs.next()){
+                imagens.add(rs.getString("IMG_endereco"));
+            }
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            if(rs != null){
+                rs.close();
+            }
+            conn.close();
+        }
+        
+        return imagens;
     }
 }
