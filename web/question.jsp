@@ -21,14 +21,6 @@
 
     <body>
         <div class="container col-md-12 justify-content-center">
-            <div class="row justify-content-between">
-                <button class="btn button-back">
-                    <span class="back">
-                        <i class="material-icons">navigate_before</i>
-                        Voltar
-                    </span>
-                </button>
-            </div>
             <form action="resposta.do" method="post" name="answerQuestion">
                 <div class="row ">
                     <% Pergunta pergunta = (Pergunta) request.getAttribute("pergunta");%>
@@ -50,7 +42,7 @@
                                     <% } %>
                                 </div>
                             </div>
-                            <div class="row justify-content-center" style="margin-top: 30px">
+                            <div class="row justify-content-center" style="margin-top: 30px; margin-bottom: 30px" >
                                 <div class="col-md-4">
                                     <div class="row justify-content-center">
                                         <div class="img-visualization">

@@ -47,10 +47,10 @@
                             <button class="btn btn-primary button-with-icon" style="margin-right: 20px" data-toggle="modal" data-target="#myModal3">
                                 Chaves disponíveis
                             </button>
-                            <button class="btn btn-primary button-with-icon">
+                            <button class="btn btn-primary button-with-icon" onClick="createQuestion()">
                                 Criar pergunta
                                 <i class="material-icons">add</i>
-                            </button>    
+                            </button>
                         </div>
 
                     </div>
@@ -74,7 +74,7 @@
                                         
                                     </div>
                                     <div class="col-3 icons">
-                                        <button class="icon-button edit">
+                                        <button class="icon-button edit" onClick="editQuestion(<% out.print(p.getIndice()); %>)">
                                             <i class="material-icons">edit</i>
                                         </button>
                                         <button class="icon-button delete">
@@ -122,6 +122,26 @@
                                 item.style.visibility = 'visible'
                                 })
                         }
+            function getQueryVariable(variable)
+            {
+                   var query = window.location.search.substring(1);
+                   var vars = query.split("&");
+                   for (var i=0;i<vars.length;i++) {
+                           var pair = vars[i].split("=");
+                           if(pair[0] == variable){return pair[1];}
+                   }
+                   return(false);
+            }
+            
+            function createQuestion(){
+                var idTest = getQueryVariable("id")
+                window.location.href = 'create-question.jsp?id='+idTest
+            }
+            
+            function editQuestion(indice){
+                var idTest = getQueryVariable("id")
+                window.location.href = 'cadastroPergunta.do?idTeste='+idTest+'&indice='+indice
+            }
         </script>
     </body>
 </html>

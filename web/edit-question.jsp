@@ -4,6 +4,7 @@
     Author     : Eduardo
 --%>
 
+<%@page import="Models.Pergunta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,6 +21,7 @@
     <body>
         <div class="container col-md-12 justify-content-center">
             <%@include file="header2.jsp"%>
+            <% Pergunta pergunta = (Pergunta) request.getAttribute("pergunta");%>
             <div class="row ">
                 <div class="container col-md-12">
                     <div class="row justify-content-center">
@@ -34,23 +36,36 @@
                                 <div class='form-group'>
                                     <!-- Default checked -->
                                     <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch" checked onchange="customSwitch()">
+                                        <% if( pergunta.getCodigo() == 0 ){%>
+                                            <input type="checkbox" class="custom-control-input" id="customSwitch" checked onchange="customSwitch()" />
+                                        <%} else {%>
+                                            <input type="checkbox" class="custom-control-input" id="customSwitch" checked onchange="customSwitch()" />
+                                        <%}%>
                                         <label class="custom-control-label" for="customSwitch">Fornecer descrição?</label>
                                     </div>
                                 </div>
                             </div>
                             <div class='form-group'>
-                                <textarea id="description" class="form-control" rows="3" placeholder="Descrição" required></textarea>
+                                <textarea id="description" class="form-control" rows="3" placeholder="Descrição" required><%out.print(pergunta.getDescricao());%></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row justify-content-center">
                         <nav class="nav nav-pills">
-                            <a href="#" onClick="handleTab(1)" class="nav-item1 nav-item nav-link active">Contínuo</a>
-                            <a href="#" onClick="handleTab(2)" class="nav-item1 nav-item nav-link">Ordinal</a>
+                            <%if(pergunta.getTipo() == 1){%>
+                                <a href="#" onClick="handleTab(1)" class="nav-item1 nav-item nav-link active">Contínuo</a>
+                                <a href="#" onClick="handleTab(2)" class="nav-item1 nav-item nav-link">Ordinal</a>
+                            <%} else {%>
+                                <a href="#" onClick="handleTab(1)" class="nav-item1 nav-item nav-link">Contínuo</a>
+                                <a href="#" onClick="handleTab(2)" class="nav-item1 nav-item nav-link active">Ordinal</a>
+                            <%}%>
                         </nav>
                     </div>
-                    <div class="tab">
+                    <%if(pergunta.getTipo() == 1) {%>
+                        <div class="tab">
+                    <%} else { %>
+                        <div class="tab" style="display: none">
+                    <%}%>
                         <div class="row justify-content-center">
                             <div class="col-md-4">
                                 <div class="row justify-content-center">
@@ -96,7 +111,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab" style="display: none">
+                    <%if(pergunta.getTipo() == 0) {%>
+                        <div class="tab">
+                    <%} else { %>
+                        <div class="tab" style="display: none">
+                    <%}%>
                         <div class="row justify-content-center">
                             <div class="row col-md-10 justify-content-between label-number">
                                 <div>5</div>
@@ -255,6 +274,7 @@
             }
             
             handleChangeQuantityOfImages()
+
 
 
         </script>
