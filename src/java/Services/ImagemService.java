@@ -87,4 +87,29 @@ public class ImagemService {
         }
         return imagens;
     }
+    
+    public Integer getIdByCaminho(String caminho) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Integer id = null;
+        try {
+            ps = conn.prepareStatement("SELECT IMG_idImagem FROM Imagem WHERE IMG_endereco = ?");
+            ps.setString(1, caminho);
+            rs = ps.executeQuery();
+            if(rs.first()){
+                id = rs.getInt("IMG_idImagem");
+            }
+        } finally {
+            if (ps != null){
+                ps.close();
+            }
+            if(rs != null){
+                rs.close();
+            }
+            conn.close();
+        }
+        
+        return id;
+    }
 }

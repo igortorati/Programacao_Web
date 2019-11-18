@@ -42,7 +42,7 @@ public class TesteController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        LoginControl.checkLogin(request, response);
+       // LoginControl.checkLogin(request, response);
         Integer id = null;
         if(request.getParameter("id") != null){
             id = Integer.parseInt(request.getParameter("id"));
@@ -61,11 +61,8 @@ public class TesteController extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } catch (Exception e){
-            request.setAttribute("erro", e);
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.html"); 
-            dispatcher.forward(request, response);
-
+            //PrintWriter out = response.getWriter();
+            //out.print(e);
         }
 
     }
