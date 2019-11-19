@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `progweb`.`Pergunta_has_Imagem` (
   `Pergunta_PER_idPergunta` INT(11) NOT NULL,
   `Imagem_IMG_idImagem` INT(11) NOT NULL,
   `PHI_indice` INT(11) NOT NULL,
-  PRIMARY KEY (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`),
+  PRIMARY KEY (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`),
   INDEX `fk_Pergunta_has_Imagem_Imagem1_idx` (`Imagem_IMG_idImagem` ASC) ,
   INDEX `fk_Pergunta_has_Imagem_Pergunta_idx` (`Pergunta_PER_idPergunta` ASC) ,
   CONSTRAINT `fk_Pergunta_has_Imagem_Imagem1`
