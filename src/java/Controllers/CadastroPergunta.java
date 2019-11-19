@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Models.Pergunta;
+import Utils.LoginControl;
 import Utils.ServiceFactory;
 import java.io.BufferedReader;
 import javax.servlet.RequestDispatcher;
@@ -39,18 +40,22 @@ public class CadastroPergunta extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        LoginControl.checkLogin(request, response);
         Integer idTeste = Integer.parseInt(request.getParameter("idTeste"));
         Integer indice = Integer.parseInt(request.getParameter("indice"));
         try {
             Pergunta pergunta = ServiceFactory.getPerguntaService().getPergunta(idTeste, indice);
+            ArrayList<String> imagens = ServiceFactory.getPerguntaService().getImagensEmPergunta(pergunta.getIdPergunta());
             request.setAttribute("pergunta", pergunta);
+            request.setAttribute("imagens", imagens);
             RequestDispatcher dispatcher = request.getRequestDispatcher("edit-question.jsp"); 
             dispatcher.forward(request, response);
         } catch (Exception e){
             PrintWriter out = response.getWriter();
             out.print(e);
         }
-    }
+    } 
 
     /**
      * Handles the HTTP <code>POST</code> method.

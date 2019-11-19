@@ -5,7 +5,6 @@
  */
 package Controllers;
 
-import Utils.LoginControl;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,16 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Models.Pergunta;
 import Utils.ServiceFactory;
-import javax.servlet.RequestDispatcher;
 
 /**
  *
  * @author sid
  */
-@WebServlet(name = "PerguntaController", urlPatterns = {"/pergunta.do"})
-public class PerguntaController extends HttpServlet {
+@WebServlet(name = "AlterarTeste", urlPatterns = {"/alterarTeste.do"})
+public class AlterarTesteController extends HttpServlet {
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -37,7 +34,15 @@ public class PerguntaController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //
+        //alterar visibilidade
+        Integer idTeste = Integer.parseInt(request.getParameter("id"));
+        try {
+            ServiceFactory.getTesteService().alterarVisibilidade(idTeste);
+            response.sendRedirect(request.getContextPath()+"/testes.do");
+        } catch(Exception e){
+            PrintWriter out = response.getWriter();
+            out.print(e);
+        }
     }
 
     /**
@@ -51,22 +56,7 @@ public class PerguntaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        LoginControl.checkLogin(request, response);
-        Pergunta pergunta = new Pergunta(request.getParameter("descricao"), Integer.parseInt(request.getParameter("tipo")), 
-                                        Integer.parseInt(request.getParameter("codigo")),
-                                        Integer.parseInt(request.getParameter("idTeste")), 
-                                        Integer.parseInt(request.getParameter("indice")));
-        try {
-            Boolean vaiCriar = ServiceFactory.getPerguntaService().isIdValido(pergunta);
-            if(vaiCriar){
-                ServiceFactory.getPerguntaService().criarPergunta(pergunta);
-                response.sendRedirect(request.getContextPath()+"/pergunta.do?idTeste="+pergunta.getIdTeste()+"&indice="+pergunta.getIndice());
-            }
-        } catch (Exception e){
-            PrintWriter out = response.getWriter();
-            out.print(e);
-        }
+        //processRequest(request, response);
     }
 
     /**
