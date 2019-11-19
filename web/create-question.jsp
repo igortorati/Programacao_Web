@@ -25,7 +25,7 @@
                     <div class="row justify-content-center">
                         <div class="col-md-5">
                             <div class='title'>
-                                Pergunta 1:
+                                Nova Pergunta:
                             </div>
                             <div class="subtitle">
                                 Você pode dar uma descrição ou permitir que o usuário informe o id do item a ser avaliado.

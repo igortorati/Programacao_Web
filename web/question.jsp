@@ -45,40 +45,48 @@
                             </div>
                             <div class="row justify-content-center" style="margin-top: 30px; margin-bottom: 30px" >
                                 <% ArrayList<String> imagens = (ArrayList<String>) request.getAttribute("imagens"); %>
-                                <% for(String i : imagens){ %>
-                                    <div class="col-md-4">
-                                        <div class="row justify-content-center">
-                                            <div class="img-visualization">
-                                                <img src="<%out.print(i);%>" alt="imagem"/>
+                                <%if(imagens.size() == 3){%>
+                                    <% for(String i : imagens){ %>
+                                        <div class="col-md-4">
+                                            <div class="row justify-content-center">
+                                                <div class="img-visualization">
+                                                    <img src="<%out.print(i);%>" alt="imagem"/>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <%}%>
+                                <%} else if(imagens.size() == 5){ %>
+                                    <% for(String i : imagens){ %>
+                                        <div class="col-md-2">
+                                            <div class="row justify-content-center">
+                                                <div class="img-visualization">
+                                                    <img src="<%out.print(i);%>" alt="imagem"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <%}%>
+                                <%} else {%>
+                                    <% for(String i : imagens){ %>
+                                        <div class="col-md-1">
+                                            <div class="row justify-content-center">
+                                                <div class="img-visualization">
+                                                    <img src="<%out.print(i);%>" alt="imagem"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <%}%>
                                 <%}%>
-<!--                                <div class="col-md-4">
-                                    <div class="row justify-content-center">
-                                        <div class="img-visualization">
-                                            <img src="img/avatar.png" alt="imagem"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="row justify-content-center">
-                                        <div class="img-visualization">
-                                            <img src="img/avatar.png" alt="imagem"/>
-                                        </div>
-                                    </div>
-                                </div>-->
                             </div>
                             <% if(pergunta.getTipo() == 0){ %>
                                 <div class="row justify-content-center">
                                     <div class="row col-md-10 justify-content-center">
-                                        <input class="custom-range" name="ordinal" value="1" type="range" min="1" max="3" step="1" />
+                                        <input class="custom-range" name="ordinal" value="2" type="range" min="1" max="3" step="1" />
                                     </div>
                                 </div>
                             <% } else { %>
                                 <div class="row justify-content-center">
                                     <div class="row col-md-10 justify-content-center">
-                                        <input class="custom-range" name="continua" value="0"  type="range" min="0" max="10" step="0.01" />
+                                        <input class="custom-range" name="continua" value="5"  type="range" min="0" max="10" step="0.01" />
                                     </div>
                                 </div>
                             <% } %>
