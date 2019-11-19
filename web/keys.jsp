@@ -47,12 +47,7 @@
                             <p class="subtitle">Chaves para o acesso às perguntas</p>
                         </div>
                         <div class="row justify-content-center">
-                            <ul class="list-group" style="width: 80%">
-                                <li class="list-group-item">ASF23823FWF</li>
-                                <li class="list-group-item">DASDFAHSDFH</li>
-                                <li class="list-group-item">ASDFJASKD1S</li>
-                                <li class="list-group-item">ASDFJAS1312</li>
-                                <li class="list-group-item">213SSFHDJKK</li>
+                            <ul id="ul-keys" class="list-group" style="width: 80%">
                             </ul>
                         </div>
                         </div>
@@ -61,7 +56,49 @@
             </div>
         </div>
         <script>
-
+            function getQueryVariable(variable)
+            {
+                   var query = window.location.search.substring(1);
+                   var vars = query.split("&");
+                   for (var i=0;i<vars.length;i++) {
+                           var pair = vars[i].split("=");
+                           if(pair[0] == variable){return pair[1];}
+                   }
+                   return(false);
+            }
+            
+            function generateLis(keys){
+                var ul = document.getElementById("ul-keys")
+                ul.innerHTML = ""
+                keys.forEach((key) => {
+                    var keyLi = document.createElement('LI')
+                    keyLi.className = "list-group-item"
+                    keyLi.innerHTML = key
+                    ul.appendChild(keyLi)
+                })
+            }
+            
+            function showKeys(){
+                var keys = []
+                var id = getQueryVariable('id')
+                $.ajax('codigo.do?id='+id, (response) => console.log(response))
+                keys = resp.split(',')  
+                generateLis(keys)
+            }
+            
+            function generateKeys(){
+                var id = getQueryVariable('id')
+                $.ajax({
+                    type: "POST",
+                    url: "codigo.do?id="+id,
+                    success: function(response) {
+                        var keys = response.split(',')
+                        generateList(keys)
+                    },
+                })
+            }
+            
+            showKeys()
         </script>
     </body>
 
