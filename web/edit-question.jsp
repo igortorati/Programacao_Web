@@ -4,6 +4,7 @@
     Author     : Eduardo
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="Models.Pergunta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -66,49 +67,31 @@
                     <%} else { %>
                         <div class="tab" style="display: none">
                     <%}%>
+                        <% ArrayList<String> imagens = (ArrayList<String>) request.getAttribute("imagens"); %>
+                        <% out.print(imagens); %>
                         <div class="row justify-content-center">
-                            <div class="col-md-4">
-                                <div class="row justify-content-center">
-                                    <div class="img-visualization">
-                                        <img class="image" src="img/avatar.png" alt="imagem"/>
-                                        <div class="row justify-content-center">
-                                            <button class="icon-button" data-toggle="modal" data-target="#myModal" onClick="active(0)">
-                                                <a>
-                                                    <i class="material-icons">add</i>
-                                                </a>
-                                            </button>
+                            <% for (String i : imagens){ %>
+                                <% if(imagens.size() == 3) { %>
+                                    <div class="col-md-4">
+                                <% } else if (imagens.size() == 5) { %>
+                                    <div class="col-md-2">
+                                <% } else { %>
+                                    <div class="col-md-1">
+                                <% } %>
+                                    <div class="row justify-content-center">
+                                        <div class="img-visualization">
+                                            <img class="image" src="<%out.print(i);%>" alt="imagem"/>
+                                            <div class="row justify-content-center">
+                                                <button class="icon-button" data-toggle="modal" data-target="#myModal" onClick="active(0)">
+                                                    <a>
+                                                        <i class="material-icons">add</i>
+                                                    </a>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="row justify-content-center">
-                                    <div class="img-visualization">
-                                        <img class="image" src="img/avatar.png" alt="imagem"/>
-                                        <div class="row justify-content-center">
-                                            <button class="icon-button" data-toggle="modal" data-target="#myModal" onClick="active(1)">
-                                                <a>
-                                                    <i class="material-icons">add</i>
-                                                </a>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="row justify-content-center">
-                                    <div class="img-visualization">
-                                        <img class="image" src="img/avatar.png" alt="imagem"/>
-                                        <div class="row justify-content-center">
-                                            <button class="icon-button" data-toggle="modal" data-target="#myModal" onClick="active(2)">
-                                                <a>
-                                                    <i class="material-icons">add</i>
-                                                </a>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <%}%>
                         </div>
                     </div>
                     <%if(pergunta.getTipo() == 0) {%>

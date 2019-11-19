@@ -61,9 +61,6 @@
                                         <span class="test-date d-none d-lg-block">Criado em: <%out.print(t.getCreatedAtDay());%></span>
                                     </div>
                                     <div class="col-3 icons">
-                                        <button class="icon-button edit">
-                                            <i class="material-icons">edit</i>
-                                        </button>
                                         <button class="icon-button download" onclick="location.href='DownloadController.do?id=<% out.print(t.getId()); %>'">
                                             <i class="material-icons">cloud_download</i>
                                         </button>

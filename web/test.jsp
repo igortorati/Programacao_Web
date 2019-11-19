@@ -44,6 +44,9 @@
                     </button>
                     <div class="col-9">
                         <div class="row justify-content-end">
+                            <button class="btn btn-primary button-with-icon" style="margin-right: 20px" onClick="visualizarRespostas()">
+                                Visualizar respostas
+                            </button>
                             <button class="btn btn-primary button-with-icon" style="margin-right: 20px" data-toggle="modal" data-target="#myModal3">
                                 Chaves disponíveis
                             </button>
@@ -60,7 +63,7 @@
             <div class="container col-md-10 col-12">
                 <ul class="list sortable">
                     <% for(Pergunta p:perguntas){%>
-                        <li class="question-list ">
+                        <li class="question-list "  onClick="editQuestion(<% out.print(p.getIndice()); %>)">
                             <i class="material-icons handle">drag_indicator</i>
                             <div class="container" >
                                 <div class="row">
@@ -74,9 +77,6 @@
                                         
                                     </div>
                                     <div class="col-3 icons">
-                                        <button class="icon-button edit" onClick="editQuestion(<% out.print(p.getIndice()); %>)">
-                                            <i class="material-icons">edit</i>
-                                        </button>
                                         <button class="icon-button delete">
                                             <i class="material-icons">delete</i>
                                         </button>
@@ -141,6 +141,11 @@
             function editQuestion(indice){
                 var idTest = getQueryVariable("id")
                 window.location.href = 'cadastroPergunta.do?idTeste='+idTest+'&indice='+indice
+            }
+            
+            function visualizarRespostas(){
+                var idTest = getQueryVariable("id")
+                window.location.href = 'visualizarRespostas.do?id='+idTest
             }
         </script>
     </body>
