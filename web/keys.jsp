@@ -37,7 +37,7 @@
                                 </h5>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Gerar chaves</button>
+                                <button type="button" class="btn btn-primary" onClick="generateKeys()">Gerar chaves</button>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                 ul.innerHTML = ""
                 keys.forEach((key) => {
                     var keyLi = document.createElement('LI')
-                    keyLi.className = "list-group-item"
+                    keyLi.className = "list-group-item list-item-key"
                     keyLi.innerHTML = key
                     ul.appendChild(keyLi)
                 })
@@ -81,9 +81,15 @@
             function showKeys(){
                 var keys = []
                 var id = getQueryVariable('id')
-                $.ajax('codigo.do?id='+id, (response) => console.log(response))
-                keys = resp.split(',')  
-                generateLis(keys)
+                var resp = ""
+                $.ajax({
+                    type: "GET",
+                    url: 'codigo.do?id='+id,
+                    success: function(response){
+                        keys = response.split(',')
+                        generateLis(keys)
+                    }
+                })
             }
             
             function generateKeys(){
@@ -93,7 +99,7 @@
                     url: "codigo.do?id="+id,
                     success: function(response) {
                         var keys = response.split(',')
-                        generateList(keys)
+                        generateLis(keys)
                     },
                 })
             }

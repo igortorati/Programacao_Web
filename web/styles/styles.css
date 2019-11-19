@@ -436,3 +436,7 @@ li.sortable-placeholder {
     color: red;
     font-size: 20px;
 }
+
+.list-item-key {
+    text-align: center
+}
