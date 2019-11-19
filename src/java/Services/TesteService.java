@@ -237,62 +237,7 @@ public class TesteService {
         
         return id;
     }
-    
-    public ArrayList<String> getKeys(Integer id) throws Exception{
-        Connection conn = DbConnection.getInstance().getConnection();
-        ArrayList<String> keys = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try{
-            ps = conn.prepareStatement("SELECT * from CodigoUnico WHERE Teste_TES_idTeste = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            keys = new ArrayList<String>();
-            while(rs.next()){
-                keys.add(rs.getString("idCodigoUnico"));
-            }
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-
-            if (rs != null) {
-                rs.close();
-            }
-
-            conn.close();
-        }
-        return keys;
-    }
-    
-    public ArrayList<String> generateKeys(Integer id, Integer n) throws Exception{
-        Connection conn = DbConnection.getInstance().getConnection();
-        ArrayList<String> keys = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try{
-            keys = getKeys(id);
-            ps = conn.prepareStatement("CALL genkeys(?,?)");
-            ps.setInt(1, id);
-            ps.setInt(1, n);
-            rs = ps.executeQuery();
-            while(rs.next()){
-                keys.add(rs.getString("idCodigoUnico"));
-            }
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-
-            if (rs != null) {
-                rs.close();
-            }
-
-            conn.close();
-        }
-        return keys;
-    }
-    
+ 
     public void alterarTeste(Teste teste) throws Exception{
         Connection conn = DbConnection.getInstance().getConnection();
         PreparedStatement ps = null;
