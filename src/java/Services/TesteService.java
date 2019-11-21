@@ -242,7 +242,7 @@ public class TesteService {
         Connection conn = DbConnection.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE Teste SET TES_titulo=?, TES_descricao=?, WHERE TES_idTeste=?");
+            ps = conn.prepareStatement("UPDATE Teste SET TES_titulo=?, TES_descricao=? WHERE TES_idTeste=?");
             ps.setString(1, teste.getTitulo());
             ps.setString(2, teste.getDescricao());
             ps.setInt(3, teste.getId());
@@ -259,7 +259,7 @@ public class TesteService {
         Connection conn = DbConnection.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE Teste SET TES_visibilidade= IF(TES_visibilidade=1, 0, 1), WHERE TES_idTeste=?");
+            ps = conn.prepareStatement("UPDATE Teste SET TES_visibilidade= IF(TES_visibilidade=1, 0, 1) WHERE TES_idTeste=?");
             ps.setInt(1, idTeste);
             ps.execute();
         } finally {

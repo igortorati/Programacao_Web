@@ -68,7 +68,6 @@
                         <div class="tab" style="display: none">
                     <%}%>
                         <% ArrayList<String> imagens = (ArrayList<String>) request.getAttribute("imagens"); %>
-                        <% out.print(imagens); %>
                         <div class="row justify-content-center">
                             <% for (String i : imagens){ %>
                                 <% if(imagens.size() == 3) { %>

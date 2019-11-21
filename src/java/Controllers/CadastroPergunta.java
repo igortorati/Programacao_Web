@@ -46,7 +46,8 @@ public class CadastroPergunta extends HttpServlet {
         Integer indice = Integer.parseInt(request.getParameter("indice"));
         try {
             Pergunta pergunta = ServiceFactory.getPerguntaService().getPergunta(idTeste, indice);
-            ArrayList<String> imagens = ServiceFactory.getPerguntaService().getImagensEmPergunta(pergunta.getIdPergunta());
+            Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(idTeste, indice);
+            ArrayList<String> imagens = ServiceFactory.getPerguntaService().getImagensEmPergunta(idPergunta);
             request.setAttribute("pergunta", pergunta);
             request.setAttribute("imagens", imagens);
             RequestDispatcher dispatcher = request.getRequestDispatcher("edit-question.jsp"); 

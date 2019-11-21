@@ -45,11 +45,11 @@
                     <div class="item-list dense" >
                         
                             <% if(t.getVisibilidade() == 1){ %>
-                                <button class="icon-button visibility">
+                            <button class="icon-button visibility" onClick="changeVisibility(<%out.print(t.getId());%>)">
                                    <i class="material-icons">visibility</i>
                                 </button>
                             <%} else {%>
-                                <button class="icon-button visibility-off">
+                                <button class="icon-button visibility-off" onClick="changeVisibility(<%out.print(t.getId());%>)">
                                    <i class="material-icons">visibility_off</i>
                                 </button>
                             <%}%>
@@ -97,5 +97,10 @@
                 <% } %>
             </div>
         </div>
+        <script>
+            function changeVisibility(id){
+                window.location.href = "alterarTeste.do?id="+id
+            }
+        </script>
     </body>
 </html>

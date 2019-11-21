@@ -239,9 +239,7 @@
                     tipo: tab === 'Contínuo' ? 1 : 0,
                     imagens: images,
                 }
-                
-                console.log(question)
-//                
+              
                 var params = getQueryVariable("indice") ? 'idTeste='+getQueryVariable("id")+'&indice='+getQueryVariable("indice") : 'idTeste='+getQueryVariable("id") 
                 var url = "cadastroPergunta.do?"+params
                  $.ajax({
