@@ -194,4 +194,35 @@ public class PerguntaService {
         
         return imagens;
     }
+    
+    public void deletarPergunta(Integer idPergunta) throws Exception{
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("DELETE from Pergunta WHERE PER_idPergunta = ?");
+            ps.setInt(1, idPergunta);
+            ps.execute();
+        } finally {
+             if (ps != null) {
+                ps.close();
+            }
+            conn.close();
+        }
+    }
+    
+    public void updateIndiceAoDeletar(Integer idTeste, Integer indice) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("UPDATE Pergunta SET PER_indice = PER_indice-1 WHERE Teste_TES_idTeste = ? AND PER_indice > ?");
+            ps.setInt(1, idTeste);
+            ps.setInt(2, indice);
+            ps.execute();
+        } finally {
+             if (ps != null) {
+                ps.close();
+            }
+            conn.close();
+        }
+    }
 }
