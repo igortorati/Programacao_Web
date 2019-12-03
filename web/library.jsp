@@ -38,7 +38,7 @@
                         </nav>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="tab2">
+                        <div class="tab2" style="width: 80%">
                             <form id="imgForm" enctype="multipart/form-data" >
                                 <div class="row justify-content-center">
                                     <img id="img-preview" style="display: none" />

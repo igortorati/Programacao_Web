@@ -64,9 +64,12 @@
                                         <button class="icon-button download" onclick="location.href='DownloadController.do?id=<% out.print(t.getId()); %>'">
                                             <i class="material-icons">cloud_download</i>
                                         </button>
-                                        <button class="icon-button delete">
-                                            <i class="material-icons">delete</i>
-                                        </button>
+                                        <form method="GET" action="deletarTeste.do">
+                                            <input name="id" type="hidden" value="<% out.print(t.getId()); %>" />
+                                            <button class="icon-button delete" type="submit">
+                                                <i class="material-icons">delete</i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

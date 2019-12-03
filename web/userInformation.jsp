@@ -17,14 +17,6 @@
     </head>
     <body>
         <div class="container col-md-12 justify-content-center">
-            <div class="row justify-content-between">
-                <button class="btn button-back">
-                    <div class="back">
-                        <i class="material-icons">navigate_before</i>
-                        Voltar
-                    </div>
-                </button>
-            </div>
             <div class="row align-items-center full">
                 <div class="container col-md-12">
                     <form method="POST" name="addUser" action="CadastroUsuarioController.do">
