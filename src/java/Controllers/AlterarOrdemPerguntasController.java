@@ -5,22 +5,25 @@
  */
 package Controllers;
 
+import Utils.ServiceFactory;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Utils.ServiceFactory;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
  * @author sid
  */
-@WebServlet(name = "AlterarTeste", urlPatterns = {"/alterarTeste.do"})
-public class AlterarTesteController extends HttpServlet {
-
+@WebServlet(name = "AlterarOrdemPerguntas", urlPatterns = {"/alterarOrdemPerguntas.do"})
+public class AlterarOrdemPerguntasController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,15 +37,7 @@ public class AlterarTesteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //alterar visibilidade
-        Integer idTeste = Integer.parseInt(request.getParameter("id"));
-        try {
-            ServiceFactory.getTesteService().alterarVisibilidade(idTeste);
-            response.sendRedirect(request.getContextPath()+"/testes.do");
-        } catch(Exception e){
-            PrintWriter out = response.getWriter();
-            out.print(e);
-        }
+        //processRequest(request, response);
     }
 
     /**
@@ -56,7 +51,29 @@ public class AlterarTesteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //
+        PrintWriter out = response.getWriter();
+        StringBuilder jb = new StringBuilder();
+        String line = null;
+        try {
+            BufferedReader reader = request.getReader();
+            while ((line = reader.readLine()) != null)
+              jb.append(line);
+        } catch (Exception e) {
+            out.print(e);
+        }
+        JSONObject jsonObject =  new JSONObject(jb.toString());
+        JSONArray jArray = jsonObject.getJSONArray("questions");
+        ArrayList<Integer> perguntas = new ArrayList();
+        for(int i = 0; i < jArray.length(); ++i){
+            perguntas.add(jArray.getInt(i));
+        }
+        try {
+            for(int i = 0; i < perguntas.size(); ++i){
+                ServiceFactory.getPerguntaService().alterarIndice(perguntas.get(i), i+1);
+            }
+        } catch (Exception e) {
+            out.print(e);
+        }
     }
 
     /**
