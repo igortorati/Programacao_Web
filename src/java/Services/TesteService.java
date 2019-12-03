@@ -255,6 +255,32 @@ public class TesteService {
         }
     }
     
+    public Integer getVisibilidade(Integer idTeste) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Integer visibilidade = null;
+        try {
+            ps = conn.prepareStatement("SELECT TES_visibilidade FROM Teste WHERE TES_idTeste = ?");
+            ps.setInt(1, idTeste);
+            rs = ps.executeQuery();
+            if(rs.first()){
+                visibilidade = rs.getInt("TES_visibilidade");
+            }
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+
+            if (rs != null) {
+                rs.close();
+            }
+
+            conn.close();
+        }
+        
+        return visibilidade;
+    }
     public void alterarVisibilidade(Integer idTeste) throws Exception {
         Connection conn = DbConnection.getInstance().getConnection();
         PreparedStatement ps = null;

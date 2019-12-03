@@ -10,6 +10,7 @@ import Utils.DbConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -62,5 +63,30 @@ public class UsuarioService {
             conn.close();
         }
         return id;
+    }
+    
+    public ArrayList<Integer> getIdsUsuarioByIdTeste(Integer idTeste) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Integer> ids = null;
+        try {
+            ps = conn.prepareStatement("SELECT USU_idUsuario FROM Usuario WHERE Teste_TES_idTeste = ?");
+            ps.setInt(1, idTeste);
+            rs = ps.executeQuery();
+            ids = new ArrayList();
+            while(rs.next()){
+                ids.add(rs.getInt("USU_idUsuario"));
+            }
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            if(rs != null){
+                rs.close();
+            }
+            conn.close();
+        }
+        return ids;
     }
 }
