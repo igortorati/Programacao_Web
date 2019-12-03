@@ -4,6 +4,8 @@ import Utils.DbConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import Models.Resposta;
+import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.Types;
 
 /**

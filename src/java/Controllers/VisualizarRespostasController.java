@@ -5,35 +5,23 @@
  */
 package Controllers;
 
+import Utils.ServiceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Services.ServiceDeTeste;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import Utils.LoginControl;
 
-@WebServlet(name = "teste", urlPatterns = {"/teste.do"})
-public class ControllerDeTeste extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //
-    }
+/**
+ *
+ * @author sid
+ */
+@WebServlet(name = "VisualizarRespostas", urlPatterns = {"/visualizarRespostas.do"})
+public class VisualizarRespostasController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -47,7 +35,21 @@ public class ControllerDeTeste extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Integer id = null;
+        if(request.getParameter("id") != null){
+            id = Integer.parseInt(request.getParameter("id"));
+        }
+        PrintWriter out = response.getWriter();
+        try {
+            if(id != null){
+                ArrayList<Integer> userIds = ServiceFactory.getUsuarioService().getIdsUsuarioByIdTeste(id);
+                request.setAttribute("users", userIds);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("answers.jsp"); 
+                dispatcher.forward(request, response);
+            }
+        } catch (Exception e){
+            out.print(e);
+        }
     }
 
     /**
@@ -61,7 +63,7 @@ public class ControllerDeTeste extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
