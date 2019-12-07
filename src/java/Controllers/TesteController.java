@@ -84,10 +84,10 @@ public class TesteController extends HttpServlet {
         String erro = ""; //para validacao
         Pesquisador pesquisador = (Pesquisador) request.getSession().getAttribute("login");
         if(!(request.getParameter("description") instanceof String) || (request.getParameter("description").length() == 0)){
-            erro += "Descrição é obrigatória\n";
+            erro += "Descrição é obrigatória<br>";
         }
         if(!(request.getParameter("description") instanceof String) || (request.getParameter("description").length() == 0)){
-            erro += "Nome é obrigatório\n";
+            erro += "Título é obrigatório<br>";
         }
         if(!erro.equals("")){
             request.setAttribute("erro", erro);
@@ -98,7 +98,7 @@ public class TesteController extends HttpServlet {
                 String descricao = request.getParameter("description");
                 String titulo = request.getParameter("name");
                 if(ServiceFactory.getTesteService().existeNomeTeste(titulo) == 1){
-                    erro += "Título do teste já existe\n";
+                    erro += "Título do teste já existe<br>";
                     request.setAttribute("erro", erro);
                     RequestDispatcher dispatcher = request.getRequestDispatcher("create-test.jsp"); 
                     dispatcher.forward(request, response);
