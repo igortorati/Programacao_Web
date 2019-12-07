@@ -281,45 +281,53 @@
         var imagesInputs = document.querySelectorAll(".image")
         var tab = document.getElementsByClassName("nav-item1 nav-item nav-link active")[0].innerHTML
         var images = []
-        if (tab === 'Contínuo') {
-            for (let i = 0; i < 3; i++) {
-                images.push(imagesInputs[i].src)
+        if(tab === 'Contínuo'){
+            for(let i = 0; i < 3; i++){
+                var src = imagesInputs[i].src
+                var str = src.split('/')
+                images.push('./'+str[str.length-2]+'/'+str[str.length-1])
+                console.log('./'+str[str.length-2]+'/'+str[str.length-1])
             }
         } else {
             var qtd = parseInt(document.getElementById("range").value)
-            for (let i = 3; i < qtd + 3; i++) {
-                images.push(imagesInputs[i].src)
+            for(let i = 3; i < qtd + 3; i++){
+                var src = imagesInputs[i].src
+                var str = src.split('/')
+                images.push('./'+str[str.length-2]+'/'+str[str.length-1])
             }
         }
         var hasDescription = document.getElementById("customSwitch").checked
         var description = ""
-        if (hasDescription) {
+        if(hasDescription){
             description = document.getElementById('description').value
         }
-
-        var question = {
-            codigo: hasDescription ? 0 : 1,
-            descricao: hasDescription ? description : undefined,
-            tipo: tab === 'Contínuo' ? 1 : 0,
-            imagens: images,
+        var question = {}
+        if(hasDescription){
+            question = {
+                codigo: 0,
+                descricao: description,
+                tipo: tab === 'Contínuo' ? 1 : 0,
+                imagens: images,
+            }
+        } else {
+            question = {
+                codigo: 1,
+                tipo: tab === 'Contínuo' ? 1 : 0,
+                imagens: images,
+            }
         }
 
-        console.log(question)
-        //                
-        var params = getQueryVariable("indice") ? 'id=' + getQueryVariable("id") + '&indice=' + getQueryVariable("indice") : 'id=' + getQueryVariable("id")
-        var url = "cadastroPergunta.do?" + params
+        var params = 'idTeste=' + getQueryVariable("idTeste") + '&indice=' + getQueryVariable("indice")
+        var url = "alterarPergunta.do?" + params
         $.ajax({
             type: "POST",
             url: url,
             dataType: "json",
             success: function (msg) {
-                if (msg) {
-                    window.location.href= "TesteController.do?id="+getQueryVariable("id")
-                } else {
-                    alert("Erro");
-                }
+                console.log(msg)
+                window.location.href= "TesteController.do?id="+getQueryVariable("id")
             },
-            data: question
+            data: JSON.stringify(question)
         });
     }
 
