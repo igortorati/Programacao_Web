@@ -232,7 +232,6 @@
                 if(hasDescription){
                     description = document.getElementById('description').value
                 }
-                
                 var question = {
                     codigo: hasDescription ? 0 : 1,
                     descricao: hasDescription ? description : undefined,
@@ -240,7 +239,7 @@
                     imagens: images,
                 }
               
-                var params = getQueryVariable("indice") ? 'idTeste='+getQueryVariable("id")+'&indice='+getQueryVariable("indice") : 'idTeste='+getQueryVariable("id") 
+                var params = 'idTeste='+getQueryVariable("id") 
                 var url = "cadastroPergunta.do?"+params
                  $.ajax({
                     type: "POST",

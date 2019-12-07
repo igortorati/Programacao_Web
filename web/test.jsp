@@ -46,7 +46,7 @@
                     <div class="row justify-content-end">
                         <button class="btn btn-primary button-with-icon" style="margin-right: 20px"
                             onClick="visualizarRespostas()">
-                            Visualizar respostas
+                            Visualizar respondentes
                         </button>
                         <button class="btn btn-primary button-with-icon" style="margin-right: 20px" data-toggle="modal"
                             data-target="#myModal3">
