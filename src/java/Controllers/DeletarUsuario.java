@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import Utils.LoginControl;
 import Utils.ServiceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,6 +35,7 @@ public class DeletarUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        LoginControl.checkLogin(request, response);
         Integer id = Integer.parseInt(request.getParameter("id"));
         Integer idTeste = Integer.parseInt(request.getParameter("idTeste"));
         PrintWriter out = response.getWriter();

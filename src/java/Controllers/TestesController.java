@@ -42,7 +42,7 @@ public class TestesController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        LoginControl.checkLogin(request, response); 
+        LoginControl.checkLogin(request, response);
         try (PrintWriter out = response.getWriter()) {
             String nome = request.getParameter("q");
             Integer pagina = 0;

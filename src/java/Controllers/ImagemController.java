@@ -21,8 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import Utils.LoginControl;
 
 /**
  *
