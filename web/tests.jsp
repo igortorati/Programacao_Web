@@ -64,7 +64,7 @@
                                         <button class="icon-button download" onclick="location.href='DownloadController.do?id=<% out.print(t.getId()); %>'">
                                             <i class="material-icons">cloud_download</i>
                                         </button>
-                                        <form method="GET" action="deletarTeste.do">
+                                        <form method="GET" action="deletarTeste.do" onsubmit="return confirm('Você tem certeza que deseja excluir este teste?')">
                                             <input name="id" type="hidden" value="<% out.print(t.getId()); %>" />
                                             <button class="icon-button delete" type="submit">
                                                 <i class="material-icons">delete</i>
@@ -99,7 +99,8 @@
                     <a href="testes.do?pag=<% out.print(a + 1); %>&q=<% out.print(nome); %>">Próximo<i class="material-icons">arrow_forward</i></a>
                 <% } %>
             </div>
-        </div>
+        </div>        
+            
         <script>
             function changeVisibility(id){
                 window.location.href = "alterarTeste.do?id="+id

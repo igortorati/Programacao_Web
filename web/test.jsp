@@ -65,12 +65,11 @@
         <div class="container col-md-10 col-12">
             <ul class="list sortable">
                 <% for(Pergunta p:perguntas){%>
-                    <li class="question-list " id="<% out.print(p.getIdPergunta()); %>"
-                        onClick="editQuestion(<% out.print(p.getIndice()); %>)">
+                    <li class="question-list " id="<% out.print(p.getIdPergunta()); %>">
                         <i class="material-icons handle">drag_indicator</i>
                         <div class="container">
                             <div class="row">
-                                <div class="col-9 item-text">
+                                <div class="col-9 item-text" onClick="editQuestion(<% out.print(p.getIndice()); %>)">
                                     <span class="test-name"><%out.print("Pergunta "+p.getIndice()+".");%></span>
                                     <% if(p.getDescricao() == null){ %>
                                         <p class="test-description d-none d-md-block">
@@ -81,7 +80,7 @@
                                     <%}%>
                                 </div>
                                 <div class="col-3 icons">
-                                    <form method="GET" action="alterarPergunta.do">
+                                    <form method="GET" action="alterarPergunta.do" onsubmit="return confirm('Você tem certeza que deseja excluir esta pergunta?')">
                                         <input name="indice" type="hidden" value="<% out.print(p.getIndice());%>" />
                                         <input name="idTeste" type="hidden" value="<% out.print(teste.getId()); %>" />
                                         <button type="submit" class="icon-button delete">

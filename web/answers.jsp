@@ -56,7 +56,7 @@
                             <td><% out.print(u.getCor()); %></td>
                             <td><% out.print(u.getEnfermidade()); %></td>
                             <td>
-                                <form method="GET" action="deletarUsuario.do">
+                                <form method="GET" action="deletarUsuario.do" onsubmit="return confirm('Você tem certeza que deseja excluir este respondente?')">
                                     <input type="hidden" name="id" value="<%out.print(u.getIdUsuario());%>" />
                                     <input type="hidden" name="idTeste" id="idTeste" value="" />
                                     <button class="delete-button" type="submit">
