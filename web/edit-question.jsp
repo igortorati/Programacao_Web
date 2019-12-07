@@ -41,7 +41,7 @@
                                     <input type="checkbox" class="custom-control-input" id="customSwitch" checked
                                         onchange="customSwitch()" />
                                     <%} else {%>
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch" checked
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch"
                                         onchange="customSwitch()" />
                                     <%}%>
                                         <label class="custom-control-label" for="customSwitch">Fornecer descrição?</label>
@@ -49,7 +49,11 @@
                                 </div>
                             </div>
                             <div class='form-group'>
-                                <textarea id="description" class="form-control" rows="3" placeholder="Descrição" required><%out.print(pergunta.getDescricao());%></textarea>
+                                <% if(pergunta.getDescricao() != null){ %>
+                                    <textarea id="description" class="form-control" rows="3" placeholder="Descrição" required><%out.print(pergunta.getDescricao());%></textarea>
+                                <%} else { %>
+                                    <textarea style="display: none" id="description" class="form-control" rows="3" placeholder="Descrição" required></textarea>
+                                <%}%>
                                 </div>
                             </div>
                         </div>

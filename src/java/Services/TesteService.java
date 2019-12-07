@@ -193,11 +193,7 @@ public class TesteService {
                 Pergunta p = new Pergunta(rs.getString("PER_descricao"), rs.getInt("PER_tipo"), rs.getInt("PER_codigo"), rs.getInt("PER_idPergunta"), rs.getInt("Teste_TES_idTeste"), rs.getInt("PER_indice"),rs.getDate("PER_updatedAt"));
                 pergunta.add(p);
             }
-            System.out.println("teste");
             Collections.sort(pergunta);
-            for(int i = 0; i < pergunta.size();++i){
-                System.out.println(pergunta.get(i).getDescricao()+"|"+pergunta.get(i).getDescricao().length());
-            }
         } finally {
             if (ps != null) {
                 ps.close();

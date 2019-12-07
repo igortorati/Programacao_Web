@@ -72,7 +72,7 @@
                             <div class="row">
                                 <div class="col-9 item-text">
                                     <span class="test-name"><%out.print("Pergunta "+p.getIndice()+".");%></span>
-                                    <% if(p.getDescricao() != null){ %>
+                                    <% if(p.getDescricao() == null){ %>
                                         <p class="test-description d-none d-md-block">
                                             <%out.print("(Pergunta sem descrição).");%>
                                         </p>

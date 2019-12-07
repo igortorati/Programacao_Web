@@ -90,7 +90,7 @@ public class CadastroPergunta extends HttpServlet {
         }
         Integer codigo = jsonObject.getInt("codigo");
         String descricao = null;
-        if(jsonObject.has("descricao")){
+        if(codigo == 0){
             descricao = jsonObject.getString("descricao");
         }
         if(codigo == 0 && descricao == null){
