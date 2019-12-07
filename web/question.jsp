@@ -97,7 +97,7 @@
                         <% } else { %>
                         <div class="row justify-content-center">
                             <div class="row col-md-10 justify-content-center">
-                                <input class="custom-range" name="continua" value="5"  type="range" min="0" max="10" step="0.01" />
+                                <input class="custom-range" name="continua" value="5"  type="range" min="0" max="10" step="0.01"/>
                             </div>
                         </div>
                         <% }%>
