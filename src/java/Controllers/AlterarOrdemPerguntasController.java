@@ -71,6 +71,7 @@ public class AlterarOrdemPerguntasController extends HttpServlet {
             for(int i = 0; i < perguntas.size(); ++i){
                 ServiceFactory.getPerguntaService().alterarIndice(perguntas.get(i), i+1);
             }
+            out.print(true);
         } catch (Exception e) {
             out.print(e);
         }

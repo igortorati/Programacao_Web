@@ -25,6 +25,7 @@ public class Teste {
     }
     
     public Teste(Integer id, String descricao, String titulo, Integer idPesquisador, Integer visibilidade, Date createdAt, Date updatedAt) {
+        this.id = id;
         this.descricao = descricao;
         this.titulo = titulo;
         this.idPesquisador = idPesquisador;

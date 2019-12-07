@@ -358,17 +358,18 @@ li.sortable-placeholder {
 
 .tab , .tab2{
     margin-top: 30px;
+    width: 100%;
 }
 
 .img-visualization {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.22), 0 3px 6px rgba(0,0,0,0.22);
 }
 
 .img-visualization > img{
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 }
 
 .img-visualization .icon-button {
@@ -439,4 +440,16 @@ li.sortable-placeholder {
 
 .list-item-key {
     text-align: center 
+}
+
+.delete-button {
+    border: none;
+    background: none;
+    width: 40px;
+    height: 40px;
+}
+
+.delete-button i{
+    color: red;
+    font-size: 30px;
 }
