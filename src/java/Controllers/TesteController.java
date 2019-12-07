@@ -78,6 +78,7 @@ public class TesteController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         LoginControl.checkLogin(request, response);
         Pesquisador pesquisador = (Pesquisador) request.getSession().getAttribute("login");
         Teste teste = new Teste(request.getParameter("description"), request.getParameter("name"), pesquisador.getId(), 0);

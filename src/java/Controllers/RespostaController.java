@@ -49,6 +49,7 @@ public class RespostaController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
+        request.setCharacterEncoding("UTF-8");
         if((request.getParameter("ordinal") != null) || (request.getParameter("continua") != null)){
             Integer respOrdinal = null;
             Double respContinua = null;

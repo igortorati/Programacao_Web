@@ -49,6 +49,19 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
     
+    public Usuario(String email, Integer idade, String contato, String sexo, String cep, String cor, String enfermidade, Integer idTeste, Integer idUsuario) {
+        this.email = email;
+        this.idade = idade;
+        this.contato = contato;
+        this.sexo = sexo;
+        this.cep = cep;
+        this.cor = cor;
+        this.enfermidade = enfermidade;
+        this.idTeste = idTeste;
+        this.idUsuario = idUsuario;
+    }
+    
+    
     
 
     public String getContato() {

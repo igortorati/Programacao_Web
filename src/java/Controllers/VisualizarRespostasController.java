@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import Models.Usuario;
 import Utils.ServiceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,10 +43,13 @@ public class VisualizarRespostasController extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             if(id != null){
-                ArrayList<Integer> userIds = ServiceFactory.getUsuarioService().getIdsUsuarioByIdTeste(id);
-                request.setAttribute("users", userIds);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("answers.jsp"); 
-                dispatcher.forward(request, response);
+                ArrayList<Usuario> users = ServiceFactory.getUsuarioService().getUsuariosByIdTeste(id);
+                request.setAttribute("users", users);
+                for(Usuario u : users){
+                    out.print(u);
+                }
+                //RequestDispatcher dispatcher = request.getRequestDispatcher("answers.jsp"); 
+                //dispatcher.forward(request, response);
             }
         } catch (Exception e){
             out.print(e);

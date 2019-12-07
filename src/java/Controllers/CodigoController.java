@@ -63,6 +63,7 @@ public class CodigoController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         Integer id = Integer.parseInt(request.getParameter("id"));
         try {
             ServiceFactory.getCodigoUnicoService().gerarCodigos(id, qtd);

@@ -65,18 +65,21 @@ public class UsuarioService {
         return id;
     }
     
-    public ArrayList<Integer> getIdsUsuarioByIdTeste(Integer idTeste) throws Exception {
+    public ArrayList<Usuario> getUsuariosByIdTeste(Integer idTeste) throws Exception {
         Connection conn = DbConnection.getInstance().getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ArrayList<Integer> ids = null;
+        ArrayList<Usuario> usuarios = null;
         try {
-            ps = conn.prepareStatement("SELECT USU_idUsuario FROM Usuario WHERE Teste_TES_idTeste = ?");
+            ps = conn.prepareStatement("SELECT * FROM Usuario WHERE Teste_TES_idTeste = ?");
             ps.setInt(1, idTeste);
             rs = ps.executeQuery();
-            ids = new ArrayList();
+            usuarios = new ArrayList();
             while(rs.next()){
-                ids.add(rs.getInt("USU_idUsuario"));
+                Usuario usuario = new Usuario(rs.getString("USU_email"), rs.getInt("USU_idade"), rs.getString("USU_contato"), 
+                                            rs.getString("USU_sexo"), rs.getString("USU_cep"), rs.getString("USU_cor"),
+                                            rs.getString("USU_enfermidade"), rs.getInt("Teste_TES_idTeste"), rs.getInt("USU_idUsuario"));
+                usuarios.add(usuario);
             }
         } finally {
             if(ps != null){
@@ -87,6 +90,6 @@ public class UsuarioService {
             }
             conn.close();
         }
-        return ids;
+        return usuarios;
     }
 }

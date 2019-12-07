@@ -37,6 +37,7 @@ public class CadastroUsuarioController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         CodigoUnico codigoUnico = (CodigoUnico) request.getSession().getAttribute("code");
         System.out.println(request.getParameter("email")+"|"+ Integer.parseInt(request.getParameter("age"))+"|"+ request.getParameter("phone")+"|"+ request.getParameter("gender")+"|"+ request.getParameter("zipcode")+"|"+ request.getParameter("color")+"|"+ request.getParameter("disease")+"|"+codigoUnico.getIdTeste()+"|"+codigoUnico.getIdCodigoUnico());
         Usuario usuario = new Usuario(request.getParameter("email"), Integer.parseInt(request.getParameter("age")), request.getParameter("phone"), request.getParameter("gender"), request.getParameter("zipcode"), request.getParameter("color"), request.getParameter("disease"),codigoUnico.getIdTeste(),codigoUnico.getIdCodigoUnico());

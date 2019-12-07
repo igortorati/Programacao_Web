@@ -52,6 +52,7 @@ public class PerguntaController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         LoginControl.checkLogin(request, response);
         Pergunta pergunta = new Pergunta(request.getParameter("descricao"), Integer.parseInt(request.getParameter("tipo")), 
                                         Integer.parseInt(request.getParameter("codigo")),

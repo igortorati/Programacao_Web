@@ -33,6 +33,7 @@ public class ValidaCodigoController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Integer idTeste = null;
         String codigo = (String) request.getParameter("code");
         PrintWriter out = response.getWriter();
