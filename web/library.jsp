@@ -9,7 +9,7 @@
 <html>
 
 <head>
-    <title>Aplicação</title>
+    <title>Research Website</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles/styles.css" />
@@ -132,7 +132,6 @@
 
         function loadImages(data) {
             const gallery = document.getElementById('gallery-images')
-            //            fazer requisicao das imagens pela pesquisa
             gallery.innerHTML = ""
             if(data && data[0] !== ""){
                 data.forEach((img) => {
