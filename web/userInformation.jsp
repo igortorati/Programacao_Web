@@ -12,11 +12,12 @@
         <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="styles/styles.css" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <title>Aplication</title>
     </head>
     <body>
         <div class="container col-md-12 justify-content-center">
+            <% String error = (String) request.getAttribute("erro");%>
             <div class="row align-items-center full">
                 <div class="container col-md-12">
                     <form method="POST" name="addUser" action="CadastroUsuarioController.do">
@@ -35,7 +36,7 @@
                                 </div>
                                 <div class='form-group'>
                                     <label for="phone">Telefone</label>
-                                    <input type="text" class="form-control" name="phone" placeholder="Telefone" required/>
+                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Telefone" required/>
                                 </div>
                                 <div class='form-group'>
                                     <label for="gender">Sexo</label><br> 
@@ -63,6 +64,11 @@
                                 </div>
                             </div>
                         </div>
+                        <% if(error != null){ %>
+                            <div class="row justify-content-center">
+                                <p class="error-text" style="text-align: center"><%out.print(error);%></p>
+                            </div>
+                        <%}%>
                         <div class="row justify-content-center add-button-row" style="margin-bottom: 20px">
                             <button class="btn btn-primary button-with-icon">
                                 Responder Teste
@@ -73,5 +79,10 @@
                 </div>
             </div>
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+        <script>
+            $("#phone").mask("(99) 99999-9999");
+            $("#zipcode").mask("99999-999");
+        </script>   
     </body>
 </html>

@@ -9,7 +9,7 @@
 <html>
 
 <head>
-    <title>Aplicação</title>
+    <title>Research Website</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" />
@@ -34,7 +34,7 @@
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Nome" required/>
                             </div>
                             <div class='form-group'>
-                                <label for="description">Descrição do teste</label>
+                                <label for="description">Descrição do Teste</label>
                                 <textarea id="description" name="description" class="form-control" rows="3" placeholder="Descrição" required></textarea>
                             </div>
                         </div>

@@ -137,11 +137,11 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `progweb`.`Usuario` (
   `USU_idUsuario` INT(11) NOT NULL AUTO_INCREMENT,
-  `USU_contato` CHAR(13) NOT NULL,
+  `USU_contato` CHAR(15) NOT NULL,
   `USU_email` VARCHAR(60) NOT NULL,
   `USU_idade` INT(11) NOT NULL,
   `USU_sexo` CHAR(1) NOT NULL,
-  `USU_cep` CHAR(8) NOT NULL,
+  `USU_cep` CHAR(9) NOT NULL,
   `USU_cor` VARCHAR(15) NOT NULL,
   `USU_enfermidade` VARCHAR(200) NULL DEFAULT NULL,
   `Teste_TES_idTeste` INT(11) NOT NULL,
