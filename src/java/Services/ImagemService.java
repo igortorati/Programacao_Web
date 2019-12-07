@@ -11,8 +11,6 @@ import java.io.InputStream;
 import org.apache.commons.fileupload.FileItem;
 import java.util.Date;
 import java.util.ArrayList;
-import java.text.Normalizer;
-import java.util.regex.Pattern;
 
 public class ImagemService {
     public String salvarImagem(FileItem item, Imagem imagem, String caminhoStorage) throws Exception{
