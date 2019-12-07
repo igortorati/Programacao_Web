@@ -11,6 +11,8 @@ import java.io.InputStream;
 import org.apache.commons.fileupload.FileItem;
 import java.util.Date;
 import java.util.ArrayList;
+import java.text.Normalizer;
+import java.util.regex.Pattern;
 
 public class ImagemService {
     public String salvarImagem(FileItem item, Imagem imagem, String caminhoStorage) throws Exception{
@@ -20,22 +22,12 @@ public class ImagemService {
             diretorio.mkdir();
         }
         // Mandar o arquivo para o diretório informado
-        System.out.println(item.getName());
-        String[] splitNome = item.getName().split(" ");
-        String nome = String.join("", splitNome);
-        System.out.println(nome);
+        String nome = item.getName();
         //Concatenando timestamp a nome para garantir nome unico
         String nomeSeparado[] = nome.split("\\.");
         Date date = new Date();
         long time = date.getTime();
-        String nomeFinal = "";
-        for(int i = 0; i < nomeSeparado.length; ++i){
-            if(i == nomeSeparado.length-1){
-                nomeFinal += Long.toString(time);
-                nomeFinal += ".";
-            }
-            nomeFinal += nomeSeparado[i];
-        }
+        String nomeFinal = time + "." + nomeSeparado[nomeSeparado.length-1];
         File file = new File(diretorio, nomeFinal);
         try (FileOutputStream output = new FileOutputStream(file)) {
             InputStream is = item.getInputStream(); 
