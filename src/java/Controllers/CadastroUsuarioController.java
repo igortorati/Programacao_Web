@@ -50,7 +50,7 @@ public class CadastroUsuarioController extends HttpServlet {
         //validacao idade
         Boolean idadeValida = true;
         try {
-            Integer.parseInt(request.getParameter("email"));
+            Integer.parseInt(request.getParameter("age"));
         } catch(Exception e){
             idadeValida = false;
         }
@@ -64,7 +64,7 @@ public class CadastroUsuarioController extends HttpServlet {
         //validacao sexo
         String[] validGenders = new String[] {"m", "f"};
         if(!(request.getParameter("gender") instanceof String) || 
-            !Arrays.asList(validGenders).contains(request.getParameter("gender"))){
+           !Arrays.asList(validGenders).contains(request.getParameter("gender"))){
             erro += "Sexo inválido<br>";
         }
         //validacao CEP
@@ -72,10 +72,10 @@ public class CadastroUsuarioController extends HttpServlet {
             erro += "CEP inválido<br>";
         }
         //validacao cor
-        String[] validColors = new String[] {"Amarela", "Branca", "Indígena", "Parda", "Preta"};
+        String[] validColors = new String[] {"amarela", "branca", "indigena", "parda", "preta"};
         if(!(request.getParameter("color") instanceof String) || 
             !Arrays.asList(validColors).contains(request.getParameter("color"))){
-            erro += "Sexo inválido<br>";
+            erro += "Cor inválida<br>";
         }
         //validacao disease
         if(!(request.getParameter("gender") instanceof String)){
@@ -86,12 +86,11 @@ public class CadastroUsuarioController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("userInformation.jsp"); 
             dispatcher.forward(request, response);
         } else {
-            Usuario usuario = new Usuario(request.getParameter("email"), Integer.parseInt(request.getParameter("age")), 
+            try  {
+                Usuario usuario = new Usuario(request.getParameter("email"), Integer.parseInt(request.getParameter("age")), 
                             request.getParameter("phone"), request.getParameter("gender"), request.getParameter("zipcode"), 
                             request.getParameter("color"), request.getParameter("disease"),codigoUnico.getIdTeste(), 
                             codigoUnico.getIdCodigoUnico());
-
-            try  {
                 if(codigoUnico.getIndice() == 0){
                     ServiceFactory.getUsuarioService().salvarUsuario(usuario);
                     codigoUnico.setIndice(1);

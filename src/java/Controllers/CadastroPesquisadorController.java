@@ -76,6 +76,7 @@ public class CadastroPesquisadorController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        LoginControl.checkLogin(request, response);
         Pesquisador pesquisador = new Pesquisador(request.getParameter("email"));
         ArrayList<String> pesquisadores = null;
         try (PrintWriter out = response.getWriter()){
