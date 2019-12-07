@@ -200,6 +200,6 @@ INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'pedro.fachini.99@
 INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'dudupedrosao@gmail.com');
 INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'igortorati@gmail.com');
 
-INSERT INTO `imagem` (`IMG_endereco`,`IMG_tag`) VALUES ("./storage/default.png",'default');
+INSERT INTO `Imagem` (`IMG_endereco`,`IMG_tag`) VALUES ("./storage/default.png",'default');
 
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'eduardoigorjoao';
+# ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'eduardoigorjoao';
