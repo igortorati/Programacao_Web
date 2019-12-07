@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Models.CodigoUnico;
-
+import Utils.Validacoes;
+import java.util.Arrays;
+import javax.servlet.RequestDispatcher;
 /**
  *
  * @author igort
@@ -39,21 +41,71 @@ public class CadastroUsuarioController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         CodigoUnico codigoUnico = (CodigoUnico) request.getSession().getAttribute("code");
-        System.out.println(request.getParameter("email")+"|"+ Integer.parseInt(request.getParameter("age"))+"|"+ request.getParameter("phone")+"|"+ request.getParameter("gender")+"|"+ request.getParameter("zipcode")+"|"+ request.getParameter("color")+"|"+ request.getParameter("disease")+"|"+codigoUnico.getIdTeste()+"|"+codigoUnico.getIdCodigoUnico());
-        Usuario usuario = new Usuario(request.getParameter("email"), Integer.parseInt(request.getParameter("age")), request.getParameter("phone"), request.getParameter("gender"), request.getParameter("zipcode"), request.getParameter("color"), request.getParameter("disease"),codigoUnico.getIdTeste(),codigoUnico.getIdCodigoUnico());
         PrintWriter out = response.getWriter();
-        try  {
-            if(codigoUnico.getIndice() == 0){
-                ServiceFactory.getUsuarioService().salvarUsuario(usuario);
-                codigoUnico.setIndice(1);
-                ServiceFactory.getCodigoUnicoService().incrementarIndice(codigoUnico.getIdCodigoUnico());
-                request.getSession().setAttribute("code", codigoUnico);
-                response.sendRedirect(request.getContextPath()+"/respondenteController.do");
-            } else {
-                out.print("Você já inseriu seus dados");
+        String erro = "";
+        //validacao email
+        if(!Validacoes.emailValido(request.getParameter("email"))){
+            erro += "E-Mail inválido<br>";
+        }
+        //validacao idade
+        Boolean idadeValida = true;
+        try {
+            Integer.parseInt(request.getParameter("email"));
+        } catch(Exception e){
+            idadeValida = false;
+        }
+        if(!idadeValida){
+            erro += "Idade inválida<br>";
+        }
+        //validacao telefone
+        if(!Validacoes.telefoneValido(request.getParameter("phone"))){
+            erro += "Telefone inválido<br>";
+        }
+        //validacao sexo
+        String[] validGenders = new String[] {"m", "f"};
+        if(!(request.getParameter("gender") instanceof String) || 
+            !Arrays.asList(validGenders).contains(request.getParameter("gender"))){
+            erro += "Sexo inválido<br>";
+        }
+        //validacao CEP
+        if(!(Validacoes.cepValido(request.getParameter("zipcode")))){
+            erro += "CEP inválido<br>";
+        }
+        //validacao cor
+        String[] validColors = new String[] {"Amarela", "Branca", "Indígena", "Parda", "Preta"};
+        if(!(request.getParameter("color") instanceof String) || 
+            !Arrays.asList(validColors).contains(request.getParameter("color"))){
+            erro += "Sexo inválido<br>";
+        }
+        //validacao disease
+        if(!(request.getParameter("gender") instanceof String)){
+            erro += "Enfermidade inválida<br>";
+        }
+        if(!erro.equals("")){
+            request.setAttribute("erro", erro);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("userInformation.jsp"); 
+            dispatcher.forward(request, response);
+        } else {
+            Usuario usuario = new Usuario(request.getParameter("email"), Integer.parseInt(request.getParameter("age")), 
+                            request.getParameter("phone"), request.getParameter("gender"), request.getParameter("zipcode"), 
+                            request.getParameter("color"), request.getParameter("disease"),codigoUnico.getIdTeste(), 
+                            codigoUnico.getIdCodigoUnico());
+
+            try  {
+                if(codigoUnico.getIndice() == 0){
+                    ServiceFactory.getUsuarioService().salvarUsuario(usuario);
+                    codigoUnico.setIndice(1);
+                    ServiceFactory.getCodigoUnicoService().incrementarIndice(codigoUnico.getIdCodigoUnico());
+                    request.getSession().setAttribute("code", codigoUnico);
+                    response.sendRedirect(request.getContextPath()+"/respondenteController.do");
+                } else {
+                    erro += "Você já inseriu seus dados<br>";
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("userInformation.jsp"); 
+                    dispatcher.forward(request, response);
+                }
+            } catch(Exception e) {
+                response.sendRedirect(request.getContextPath()+"/error500.html");
             }
-        } catch(Exception e) {
-            out.print(e);
         }
     }
 

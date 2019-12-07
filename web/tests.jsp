@@ -16,7 +16,7 @@
         <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="styles/styles.css" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <title>Aplicação</title>
+        <title>Research Website</title>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
     </head>
     <body>
