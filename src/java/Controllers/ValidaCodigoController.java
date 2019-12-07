@@ -43,15 +43,15 @@ public class ValidaCodigoController extends HttpServlet {
                 idTeste = codigoUnico.getIdTeste();
                 if(ServiceFactory.getTesteService().getVisibilidade(idTeste) == 1){
                     request.getSession().setAttribute("code", codigoUnico);
-                    response.sendRedirect(request.getContextPath()+"/respondenteController.do");
+                    out.print(true);
                 } else {
-                    out.print("Digite um código válido");
+                    out.print(false);
                 }
             } else {
-                out.print("Digite um código válido");
+                out.print(false);
             }
         } catch(Exception e) {
-            out.print(e);
+            System.out.println(e);
         }
     }
 

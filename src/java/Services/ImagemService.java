@@ -20,7 +20,10 @@ public class ImagemService {
             diretorio.mkdir();
         }
         // Mandar o arquivo para o diretório informado
-        String nome = item.getName();
+        System.out.println(item.getName());
+        String[] splitNome = item.getName().split(" ");
+        String nome = String.join("", splitNome);
+        System.out.println(nome);
         //Concatenando timestamp a nome para garantir nome unico
         String nomeSeparado[] = nome.split("\\.");
         Date date = new Date();
