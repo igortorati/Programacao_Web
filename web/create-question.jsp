@@ -232,13 +232,22 @@
                 if(hasDescription){
                     description = document.getElementById('description').value
                 }
-                var question = {
-                    codigo: hasDescription ? 0 : 1,
-                    descricao: hasDescription ? description : undefined,
-                    tipo: tab === 'Contínuo' ? 1 : 0,
-                    imagens: images,
+                var question = {}
+                if(hasDescription){
+                    question = {
+                        codigo: 0,
+                        descricao: description,
+                        tipo: tab === 'Contínuo' ? 1 : 0,
+                        imagens: images,
+                    }
+                } else {
+                    question = {
+                        codigo: 1,
+                        tipo: tab === 'Contínuo' ? 1 : 0,
+                        imagens: images,
+                    }
                 }
-              
+                
                 var params = 'idTeste='+getQueryVariable("id") 
                 var url = "cadastroPergunta.do?"+params
                  $.ajax({
