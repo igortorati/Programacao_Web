@@ -17,7 +17,7 @@
                     <button class="btn button-back" onClick="goBack()">
                         <span class="back">
                             <i class="material-icons">navigate_before</i>
-                            Voltar
+                            Página inicial
                         </span>
                     </button>
                 </a>

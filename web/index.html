@@ -20,6 +20,11 @@
                     <div class="g-signin2 login-button" data-onsuccess="onSignIn"></div>
                 </div>
             </div>
+            <div class="row justify-content-end">
+                <div class="col-md-3">
+                    <p class="error-text" id="errorLogin" style="text-align: center"></p>
+                </div>
+            </div>
         </div>
         <div class='row full align-items-center'>
             <div class='col-md-12'>
@@ -35,11 +40,34 @@
                             <input type="text" class="form-control" name="code" placeholder="Código" />
                             <button class="input-button" type="submit"><i class="material-icons input-icon">send</i></button>
                         </form>
-                        
+                        <div class="row justify-content-center">
+                            <p class="error-text" id="errorMessage"></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <input id="allow-login" type="hidden" value=0 />
+        <script>
+            $("#searchCode").submit(function(e){
+                e.preventDefault()
+                var form = $(this)
+                var url = form.attr("action")
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form.serialize(), // serializes the form's elements.
+                    success: function(data)
+                    {
+                        if(data === "true"){
+                            window.location.href = "respondenteController.do"
+                        } else {
+                            const errorMessage = document.getElementById("errorMessage")
+                            errorMessage.innerHTML = "Código inválido"
+                        }
+                    },
+                })
+            })
+        </script>
     </body>
 </html>

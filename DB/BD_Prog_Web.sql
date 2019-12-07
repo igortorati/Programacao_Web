@@ -193,8 +193,13 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 USE progweb;
+INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'pes1@teste.com');
+INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'pes2@teste.com');
+INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'pes3@teste.com');
 INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'pedro.fachini.99@gmail.com');
 INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'dudupedrosao@gmail.com');
 INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'igortorati@gmail.com');
+
+INSERT INTO `imagem` (`IMG_endereco`,`IMG_tag`) VALUES ("./storage/default.png",'default');
 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'eduardoigorjoao';

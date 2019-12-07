@@ -1,4 +1,6 @@
 function onSignIn(response) {
+    var message = document.getElementById("errorLogin")
+    message.innerHTML = ""
     var perfil = response.getBasicProfile();
     var userID = perfil.getId();
     var userName = perfil.getName();
@@ -13,7 +15,11 @@ function onSignIn(response) {
     .done(function(data) {
         if(data === 'true'){
             window.location.href = 'testes.do';
+        } else {
+            var message = document.getElementById("errorLogin")
+            message.innerHTML = "Login inválido"
         }
-    });
+    })
+    
     response.disconnect()
 };
