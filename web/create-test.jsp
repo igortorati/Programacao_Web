@@ -20,6 +20,7 @@
 <body>
     <div class="container col-md-12 justify-content-center">
         <%@include file="header2.jsp"%>
+        <% String error = (String) request.getAttribute("erro");%>
         <div class="row align-items-center full">
             <div class="container col-md-12">
                 <form method="POST" name="createTestForm" action="TesteController.do" onSubmit="return validate()">
@@ -38,6 +39,11 @@
                             </div>
                         </div>
                     </div>
+                    <% if(error != null){ %>
+                        <div class="row justify-content-center">
+                            <p class="error-text" style="text-align: center"><%out.print(error);%></p>
+                        </div>
+                    <%}%>
                     <div class="row justify-content-center add-button-row">
                         <button type="submit" class="btn btn-primary button-with-icon">
                             Criar Teste
