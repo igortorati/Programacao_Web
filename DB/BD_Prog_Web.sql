@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema progweb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `progweb` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `progweb` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `progweb` ;
 
 -- -----------------------------------------------------
@@ -193,81 +193,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 USE progweb;
-INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'pes1@teste.com');
-INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'pes2@teste.com');
-INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'pes3@teste.com');
 INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'pedro.fachini.99@gmail.com');
 INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'dudupedrosao@gmail.com');
 INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'igortorati@gmail.com');
-
-INSERT INTO `Imagem` (`IMG_idImagem`, `IMG_endereco`, `IMG_tag`) VALUES (NULL, '/images/1.png', 'Feliz');
-INSERT INTO `Imagem` (`IMG_idImagem`, `IMG_endereco`, `IMG_tag`) VALUES (NULL, '/images/2.png', 'Neutro');
-INSERT INTO `Imagem` (`IMG_idImagem`, `IMG_endereco`, `IMG_tag`) VALUES (NULL, '/images/3.png', 'Triste');
-INSERT INTO `Imagem` (`IMG_idImagem`, `IMG_endereco`, `IMG_tag`) VALUES (NULL, '/images/4.png', 'Triste-Neutro');
-INSERT INTO `Imagem` (`IMG_idImagem`, `IMG_endereco`, `IMG_tag`) VALUES (NULL, '/images/5.png', 'Neutro-Feliz');
-
-INSERT INTO `Teste`(`TES_idTeste`, `TES_descricao`, `TES_titulo`, `Pesquisador_PES_id`, `TES_visibilidade`) VALUES (NULL,'Teste para avaliar perfil psicológico dos alunos de Ciência da Computação da UFLA.','Perfil psicológico GCC-UFLA.',1,1);
-INSERT INTO `Teste`(`TES_idTeste`, `TES_descricao`, `TES_titulo`, `Pesquisador_PES_id`, `TES_visibilidade`) VALUES (NULL,'Teste para avaliar satisfação dos alunos do curso de Engenharia de Alimentos da UFLA.','Satisfação GCA-UFLA.',3,0);
-
-INSERT INTO `CodigoUnico` (`idCodigoUnico`, `Teste_TES_idTeste`) VALUES ('gfr543x2', 1);
-INSERT INTO `CodigoUnico` (`idCodigoUnico`, `Teste_TES_idTeste`) VALUES ('htf658n3', 2);
-INSERT INTO `CodigoUnico` (`idCodigoUnico`, `Teste_TES_idTeste`) VALUES ('sad51396', 1);
-INSERT INTO `CodigoUnico` (`idCodigoUnico`, `Teste_TES_idTeste`) VALUES ('hvn328fh', 1);
-INSERT INTO `CodigoUnico` (`idCodigoUnico`, `Teste_TES_idTeste`) VALUES ('awe2368k', 2);
-
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o método de ensino que utilizam?', 0, 0, NULL, 2, 1);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (1, 1, 3);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (1, 2, 2);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (1, 3, 1);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o método de de avaliação que utilizam?', 0, 0, NULL, 2, 3);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (2, 1, 3);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (2, 2, 2);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (2, 3, 1);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o horário de atendimento disponibilizado por eles?', 0, 0, NULL, 2, 2);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (3, 1, 3);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (3, 2, 2);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (3, 3, 1);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Com relação aos professores do curso, qual sua satisfação com o monitor da disciplina?', 0, 0, NULL, 2,4);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (4, 1, 3);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (4, 2, 2);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (4, 3, 1);
-
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('O quão satisfeito você está com a quantidade de tempo de lazer (tempo livre) que você tem diariamente?', 0, 1, NULL, 1, 4);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (5, 1, 5);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (5, 2, 3);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (5, 3, 1);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (5, 4, 2);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (5, 5, 4);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Qual seu animo para fazer atividades ao acordar?', 0, 0, NULL, 1,2);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (6, 1, 3);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (6, 2, 2);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (6, 3, 1);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES (NULL, 1, 0, NULL, 1, 1);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (7, 1, 3);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (7, 2, 2);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (7, 3, 1);
-INSERT INTO `Pergunta` (`PER_descricao`, `PER_codigo`, `PER_tipo`, `PER_idPergunta`, `Teste_TES_idTeste`, `PER_indice`) VALUES ('Quão satisfeito você está com o curso?', 0, 0, NULL, 1, 3);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (8, 1, 3);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (8, 2, 2);
-INSERT INTO `Pergunta_has_Imagem` (`Pergunta_PER_idPergunta`, `Imagem_IMG_idImagem`, `PHI_indice`) VALUES (8, 3, 1);
-
-INSERT INTO `progweb`.`Usuario`(`USU_idUsuario`,`USU_contato`,`USU_email`,`USU_idade`,`USU_sexo`,`USU_cep`,`USU_cor`,`USU_enfermidade`,`Teste_TES_idTeste`,`USU_codigo_unico_teste`)VALUES(null,'35991501894','usu1@mail.com',26,'M','13873207','Branco','Problema de Visão severo.',2,'aaaaaa00');
-INSERT INTO `progweb`.`Usuario`(`USU_idUsuario`,`USU_contato`,`USU_email`,`USU_idade`,`USU_sexo`,`USU_cep`,`USU_cor`,`USU_enfermidade`,`Teste_TES_idTeste`,`USU_codigo_unico_teste`)VALUES(null,'35999999999','usu2@mail.com',17,'F','13720000','Preto','',1,'bbbbbb11');
-INSERT INTO `progweb`.`Usuario`(`USU_idUsuario`,`USU_contato`,`USU_email`,`USU_idade`,`USU_sexo`,`USU_cep`,`USU_cor`,`USU_enfermidade`,`Teste_TES_idTeste`,`USU_codigo_unico_teste`)VALUES(null,'35991501894','usu1@mail.com',26,'M','13873207','Branco','Problema de Visão severo.',1,'cccccc22');
-
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,1,null,1,1,CURRENT_TIMESTAMP);
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,2,null,1,2,CURRENT_TIMESTAMP);
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,0,null,1,3,CURRENT_TIMESTAMP);
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,2,null,1,4,CURRENT_TIMESTAMP);
-
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,0.56,null,null,3,5,CURRENT_TIMESTAMP);
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,0,null,3,6,CURRENT_TIMESTAMP);
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,2,'12354',3,7,CURRENT_TIMESTAMP);
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,1,null,3,8,CURRENT_TIMESTAMP);
-
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,0.73,null,null,2,5,CURRENT_TIMESTAMP);
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,2,null,2,6,CURRENT_TIMESTAMP);
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,1,'12354',2,7,CURRENT_TIMESTAMP);
-INSERT INTO `progweb`.`Resposta`(`RES_idResposta`,`RES_respostaContinua`,`RES_respostaOrdinal`,`RES_descricao`,`Usuario_USU_idUsuario`,`Pergunta_PER_idPergunta`,`RES_createdAt`)VALUES(null,null,0,null,2,8,CURRENT_TIMESTAMP);
 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'eduardoigorjoao';

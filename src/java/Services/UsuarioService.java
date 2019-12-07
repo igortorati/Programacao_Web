@@ -99,6 +99,7 @@ public class UsuarioService {
         try {
             ps = conn.prepareStatement("DELETE FROM Usuario WHERE USU_idUsuario = ?");
             ps.setInt(1, idUsuario);
+            ps.execute();
         } finally {
             if(ps != null){
                 ps.close();

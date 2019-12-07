@@ -310,7 +310,7 @@
             dataType: "json",
             success: function (msg) {
                 if (msg) {
-                    alert("Pergunta adicionada");
+                    window.location.href= "TesteController.do?id="+getQueryVariable("id")
                 } else {
                     alert("Erro");
                 }
