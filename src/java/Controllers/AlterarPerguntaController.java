@@ -95,22 +95,21 @@ public class AlterarPerguntaController extends HttpServlet {
             out.print("Descrição é obrigatório");
         } else {
             try {
-                Pergunta pergunta = new Pergunta(descricao, tipo, codigo, idTeste, indice);
+                Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(idTeste, indice);
+                Pergunta pergunta = new Pergunta(descricao, tipo, codigo, idPergunta, idTeste, indice);
                 //alterando pergunta
                 ServiceFactory.getPerguntaService().alterarPergunta(pergunta);
-                
                 //alterando imagens
-                Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(idTeste, indice);
                 for(int i = 0; i < imagens.size(); ++i){
                     Integer idImagem = ServiceFactory.getImagemService().getIdByCaminho(imagens.get(i));
                     if(idImagem != null){
                         if(ServiceFactory.getPerguntaService().existeImagem(idPergunta, idImagem, i) == 0){
-                            ServiceFactory.getPerguntaService().deletarImagemEmPergunta(idPergunta, idImagem, i);
+                            System.out.println("teste");
+                            ServiceFactory.getPerguntaService().deletarImagemEmPergunta(idPergunta, i);
                             ServiceFactory.getPerguntaService().salvarImagemEmPergunta(idPergunta, idImagem, i);
                         }
                     }
                 }
-                
                 out.print(true);
             } catch (Exception e){
                 out.print(e);

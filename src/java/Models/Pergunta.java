@@ -23,6 +23,15 @@ public class Pergunta implements Comparable<Pergunta>{
         this.idTeste = idTeste;
         this.indice = indice;
     }
+    
+    public Pergunta(String Descricao, Integer tipo, Integer codigo, Integer idPergunta, Integer idTeste, Integer indice) {
+        this.Descricao = Descricao;
+        this.tipo = tipo;
+        this.codigo = codigo;
+        this.idPergunta = idPergunta;
+        this.idTeste = idTeste;
+        this.indice = indice;
+    }
 
     public Pergunta(String Descricao, Integer tipo, Integer codigo, Integer idPergunta, Integer idTeste, Integer indice, Date updatedAt) {
         this.Descricao = Descricao;

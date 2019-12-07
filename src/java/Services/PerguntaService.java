@@ -170,15 +170,14 @@ public class PerguntaService {
         }
     }
     
-    public void deletarImagemEmPergunta(Integer idPergunta, Integer idImagem, Integer indice) throws Exception {
+    public void deletarImagemEmPergunta(Integer idPergunta, Integer indice) throws Exception {
         Connection conn = DbConnection.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM Pergunta_has_Imagem WHERE Pergunta_PER_idPergunta=? AND Imagem_IMG_idImagem=?"
-                    + "AND PHI_indice=?");
+            ps = conn.prepareStatement("DELETE FROM Pergunta_has_Imagem WHERE Pergunta_PER_idPergunta=? AND "
+                    + "PHI_indice=?");
             ps.setInt(1, idPergunta);
-            ps.setInt(2, idImagem);
-            ps.setInt(3, indice);
+            ps.setInt(2 , indice);
             ps.execute();
         } finally {
             if(ps != null){
@@ -195,7 +194,7 @@ public class PerguntaService {
         Integer existe = null;
         try {
             ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Pergunta_has_Imagem WHERE Pergunta_PER_idPergunta=? AND Imagem_IMG_idImagem=?"
-                    + "AND PHI_indice=?) as exist");
+                    + " AND PHI_indice=?) as exist");
             ps.setInt(1, idPergunta);
             ps.setInt(2, idImagem);
             ps.setInt(3, indice);
@@ -222,7 +221,7 @@ public class PerguntaService {
         ArrayList<String> imagens = null;
         try {
             ps = conn.prepareStatement("SELECT IMG_endereco FROM Pergunta_has_Imagem as pi JOIN Imagem as i on (pi.Imagem_IMG_idImagem = i.IMG_idImagem)"
-                    + "WHERE Pergunta_PER_idPergunta = ?");
+                    + "WHERE Pergunta_PER_idPergunta = ? ORDER BY PHI_indice");
             ps.setInt(1, idPergunta);
             rs = ps.executeQuery();
             System.out.println("teste");
