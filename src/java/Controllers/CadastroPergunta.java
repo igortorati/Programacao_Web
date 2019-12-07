@@ -89,8 +89,10 @@ public class CadastroPergunta extends HttpServlet {
            imagens.add(jArray.getString(i));
         }
         Integer codigo = jsonObject.getInt("codigo");
-        String descricao = jsonObject.getString("descricao");
-        
+        String descricao = null;
+        if(jsonObject.has("descricao")){
+            descricao = jsonObject.getString("descricao");
+        }
         if(codigo == 0 && descricao == null){
             out.print("Descrição é obrigatório");
         } else {

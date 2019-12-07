@@ -92,4 +92,18 @@ public class UsuarioService {
         }
         return usuarios;
     }
+    
+    public void deletarUsuario(Integer idUsuario) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("DELETE FROM Usuario WHERE USU_idUsuario = ?");
+            ps.setInt(1, idUsuario);
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            conn.close();
+        }
+    }
 }
