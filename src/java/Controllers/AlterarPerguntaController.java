@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import Models.Pergunta;
 import Utils.LoginControl;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Utils.ServiceFactory;
+import java.io.BufferedReader;
+import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 /**
  *
  * @author sid
@@ -61,7 +66,56 @@ public class AlterarPerguntaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
+        StringBuilder jb = new StringBuilder();
+        String line = null;
+        try {
+            BufferedReader reader = request.getReader();
+            while ((line = reader.readLine()) != null)
+              jb.append(line);
+        } catch (Exception e) {
+            out.print(e);
+        }
+        JSONObject jsonObject =  new JSONObject(jb.toString());
+        Integer idTeste = Integer.parseInt(request.getParameter("idTeste"));
+        Integer indice = Integer.parseInt(request.getParameter("indice"));
+        Integer tipo = jsonObject.getInt("tipo");
+        JSONArray jArray = jsonObject.getJSONArray("imagens");
+        ArrayList<String> imagens = new ArrayList();
+        for(int i = 0; i < jArray.length(); ++i){
+           imagens.add(jArray.getString(i));
+        }
+        Integer codigo = jsonObject.getInt("codigo");
+        String descricao = null;
+        if(jsonObject.has("descricao")){
+            descricao = jsonObject.getString("descricao");
+        }
+        if(codigo == 0 && descricao == null){
+            out.print("Descrição é obrigatório");
+        } else {
+            try {
+                Pergunta pergunta = new Pergunta(descricao, tipo, codigo, idTeste, indice);
+                //alterando pergunta
+                ServiceFactory.getPerguntaService().alterarPergunta(pergunta);
+                
+                //alterando imagens
+                Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(idTeste, indice);
+                for(int i = 0; i < imagens.size(); ++i){
+                    Integer idImagem = ServiceFactory.getImagemService().getIdByCaminho(imagens.get(i));
+                    if(idImagem != null){
+                        if(ServiceFactory.getPerguntaService().existeImagem(idPergunta, idImagem, i) == 0){
+                            ServiceFactory.getPerguntaService().deletarImagemEmPergunta(idPergunta, idImagem, i);
+                            ServiceFactory.getPerguntaService().salvarImagemEmPergunta(idPergunta, idImagem, i);
+                        }
+                    }
+                }
+                
+                out.print(true);
+            } catch (Exception e){
+                out.print(e);
+            }
+        }
     }
 
     /**

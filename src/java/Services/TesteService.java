@@ -162,7 +162,7 @@ public class TesteService {
             ps = conn.prepareStatement("SELECT * FROM Teste WHERE TES_idTeste= ?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
-            if(rs.next()){
+            if(rs.first()){
                 teste = new Teste(rs.getInt("TES_idTeste"), rs.getString("TES_descricao"), rs.getString("TES_titulo"), 
                         rs.getInt("Pesquisador_PES_id"), rs.getInt("TES_visibilidade"), rs.getDate("TES_createdAt"), 
                         rs.getDate("TES_updatedAt"));
@@ -192,7 +192,8 @@ public class TesteService {
             while(rs.next()){
                 Pergunta p = new Pergunta(rs.getString("PER_descricao"), rs.getInt("PER_tipo"), rs.getInt("PER_codigo"), rs.getInt("PER_idPergunta"), rs.getInt("Teste_TES_idTeste"), rs.getInt("PER_indice"),rs.getDate("PER_updatedAt"));
                 pergunta.add(p);
-            }   
+            }
+            System.out.println("teste");
             Collections.sort(pergunta);
             for(int i = 0; i < pergunta.size();++i){
                 System.out.println(pergunta.get(i).getDescricao()+"|"+pergunta.get(i).getDescricao().length());

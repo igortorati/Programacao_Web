@@ -61,8 +61,8 @@ public class TesteController extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } catch (Exception e){
-            //PrintWriter out = response.getWriter();
-            //out.print(e);
+            PrintWriter out = response.getWriter();
+            out.print(e);
         }
 
     }

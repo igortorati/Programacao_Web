@@ -108,8 +108,12 @@ public class PerguntaService {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareCall("UPDATE Pergunta SET PER_descricao=?, PER_codigo=?, PER_tipo=? WHERE PER_idPergunta=? "
-                    + "AND Teste_TES_idTeste=? ");
-            ps.setString(1, pergunta.getDescricao());
+                    + "AND Teste_TES_idTeste=?");
+            if(pergunta.getCodigo() == 0){
+                ps.setString(1, pergunta.getDescricao());
+            } else {
+                ps.setNull(1, Types.VARCHAR);
+            }
             ps.setInt(2, pergunta.getCodigo());
             ps.setInt(3, pergunta.getTipo());
             ps.setInt(4, pergunta.getIdPergunta());
@@ -164,6 +168,51 @@ public class PerguntaService {
             }
             conn.close();
         }
+    }
+    
+    public void deletarImagemEmPergunta(Integer idPergunta, Integer idImagem, Integer indice) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("DELETE FROM Pergunta_has_Imagem WHERE Pergunta_PER_idPergunta=? AND Imagem_IMG_idImagem=?"
+                    + "AND PHI_indice=?");
+            ps.setInt(1, idPergunta);
+            ps.setInt(2, idImagem);
+            ps.setInt(3, indice);
+            ps.execute();
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            conn.close();
+        }
+    }
+    
+    public Integer existeImagem(Integer idPergunta, Integer idImagem, Integer indice) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Integer existe = null;
+        try {
+            ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Pergunta_has_Imagem WHERE Pergunta_PER_idPergunta=? AND Imagem_IMG_idImagem=?"
+                    + "AND PHI_indice=?) as exist");
+            ps.setInt(1, idPergunta);
+            ps.setInt(2, idImagem);
+            ps.setInt(3, indice);
+            rs = ps.executeQuery();
+            if(rs.first()){
+                existe = rs.getInt("exist");
+            }
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            if(rs != null){
+                rs.close();
+            }
+            conn.close();
+        }
+        return existe;
     }
     
     public ArrayList<String> getImagensEmPergunta(Integer idPergunta) throws Exception {
