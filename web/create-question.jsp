@@ -55,7 +55,7 @@
                             <div class="col-md-4">
                                 <div class="row justify-content-center">
                                     <div class="img-visualization">
-                                        <img class="image" src="img/avatar.png" alt="imagem"/>
+                                        <img class="image" src="storage/default.png" alt="imagem"/>
                                         <div class="row justify-content-center">
                                             <button class="icon-button" data-toggle="modal" data-target="#myModal" onClick="active(0)">
                                                 <a>
@@ -69,7 +69,7 @@
                             <div class="col-md-4">
                                 <div class="row justify-content-center">
                                     <div class="img-visualization">
-                                        <img class="image" src="img/avatar.png" alt="imagem"/>
+                                        <img class="image" src="storage/default.png" alt="imagem"/>
                                         <div class="row justify-content-center">
                                             <button class="icon-button" data-toggle="modal" data-target="#myModal" onClick="active(1)">
                                                 <a>
@@ -83,7 +83,7 @@
                             <div class="col-md-4">
                                 <div class="row justify-content-center">
                                     <div class="img-visualization">
-                                        <img class="image" src="img/avatar.png" alt="imagem"/>
+                                        <img class="image" src="storage/default.png" alt="imagem"/>
                                         <div class="row justify-content-center">
                                             <button class="icon-button" data-toggle="modal" data-target="#myModal" onClick="active(2)">
                                                 <a>
@@ -160,7 +160,7 @@
                 for (let i = 0; i < qtd; i++) {
                     const html = '<div class="row justify-content-center">' +
                         '<div class="img-visualization">' +
-                        '<img class="image" src="img/avatar.png" alt="imagem"/>' +
+                        '<img class="image" src="storage/default.png" alt="imagem"/>' +
                         '<div class="row justify-content-center">' +
                         '<button class="icon-button" data-toggle="modal" data-target="#myModal" onClick="active('+(i+3)+')">' +
                         '<a>' +
@@ -247,7 +247,6 @@
                         imagens: images,
                     }
                 }
-                
                 var params = 'idTeste='+getQueryVariable("id") 
                 var url = "cadastroPergunta.do?"+params
                  $.ajax({

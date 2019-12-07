@@ -23,6 +23,12 @@
     <div class="container col-md-12 justify-content-center">
         <% ArrayList<Usuario> users = (ArrayList<Usuario>) request.getAttribute("users");%>
         <%@include file="header2.jsp"%>
+        <div class="row justify-content-end col-md-11" style="margin-top: 50px">
+            <button class="btn btn-primary" onclick="downloadCSV()">
+                Download CSV
+                <i class="material-icons" style="vertical-align: text-top">cloud_download</i>
+            </button>
+        </div>
         <div class="row justify-content-center" style="margin-top: 60px">
             <table class="table">
                 <thead>
@@ -74,6 +80,11 @@
                 if (pair[0] == variable) { return pair[1]; }
             }
             return (false);
+        }
+        
+        function downloadCSV(){
+            console.log(getQueryVariable("id"))
+            window.location.href = "DownloadController.do?id="+getQueryVariable("id")
         }
         
         const input = document.getElementById("idTeste")

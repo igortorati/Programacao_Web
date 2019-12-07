@@ -55,7 +55,8 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Pesquisador pesquisador = new Pesquisador(request.getParameter("email"), request.getParameter("token"));
-        try (PrintWriter out = response.getWriter()){
+        PrintWriter out = response.getWriter();
+        try {
             boolean ehCadastrado = ServiceFactory.getPesquisadorService().ehCadastrado(pesquisador);
             if(ehCadastrado){
                 Integer idPes = ServiceFactory.getPesquisadorService().getId(pesquisador);
@@ -64,10 +65,7 @@ public class LoginController extends HttpServlet {
             }
             out.print(ehCadastrado);
         } catch(Exception e){
-            request.setAttribute("erro", e);
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.html"); 
-            dispatcher.forward(request, response);
+            out.print(false);
         }
     }
 

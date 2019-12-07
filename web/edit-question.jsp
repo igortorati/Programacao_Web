@@ -121,7 +121,7 @@
                                     <div class="col-md-4">
                                         <div class="row justify-content-center">
                                             <div class="img-visualization">
-                                                <img class="image" src="./img/avatar.png" alt="imagem" />
+                                                <img class="image" src="storage/default.png" alt="imagem" />
                                                 <div class="row justify-content-center">
                                                     <button class="icon-button" data-toggle="modal"
                                                         data-target="#myModal"
@@ -230,7 +230,7 @@
         for (let i = 0; i < qtd; i++) {
             const html = '<div class="row justify-content-center">' +
                 '<div class="img-visualization">' +
-                '<img class="image" src="img/avatar.png" alt="imagem"/>' +
+                '<img class="image" src="storage/default.png" alt="imagem"/>' +
                 '<div class="row justify-content-center">' +
                 '<button class="icon-button" data-toggle="modal" data-target="#myModal" onClick="active(' + (i + 3) + ')">' +
                 '<a>' +
@@ -307,28 +307,29 @@
                 codigo: 0,
                 descricao: description,
                 tipo: tab === 'Contínuo' ? 1 : 0,
-                imagens: images,
+                imagens: images
             }
         } else {
             question = {
                 codigo: 1,
                 tipo: tab === 'Contínuo' ? 1 : 0,
-                imagens: images,
+                imagens: images
             }
         }
 
         var params = 'idTeste=' + getQueryVariable("idTeste") + '&indice=' + getQueryVariable("indice")
         var url = "alterarPergunta.do?" + params
+        console.log(url, question)
         $.ajax({
             type: "POST",
             url: url,
             dataType: "json",
             success: function (msg) {
                 console.log(msg)
-                window.location.href= "TesteController.do?id="+getQueryVariable("id")
+                window.location.href= "TesteController.do?id="+getQueryVariable("idTeste")
             },
             data: JSON.stringify(question)
-        });
+        })
     }
 
 
