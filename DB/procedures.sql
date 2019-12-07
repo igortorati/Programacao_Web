@@ -1,5 +1,6 @@
 
-
+drop procedure if exists genkeys;
+drop procedure if exists answers_to_csv;
 USE `progweb`;
 DELIMITER $$
 
@@ -13,7 +14,7 @@ BEGIN
 	WHILE @count > 0 DO
 		SET @gen = LEFT(MD5(RAND()), 8);
         
-        if not exists (select * from `progweb`.`CodigoUnico` where `idCodigoUnico` LIKE CONCAT(@gen,'%')) then
+        if not exists (select * from `progweb`.`codigounico` where `idCodigoUnico` LIKE CONCAT(@gen,'%')) then
 			SET @i = 1;
             SET @sum = 0;
 			verifier_digit_1: LOOP
@@ -36,7 +37,7 @@ BEGIN
             END LOOP;
             SET @sum = MOD(@sum,7);
             SET @fin = CONCAT(@gen,@sum);
-            insert into `progweb`.`CodigoUnico` (`idCodigoUnico`, `Teste_TES_idTeste`) Values(@fin,TES_id);
+            insert into `progweb`.`codigounico` (`idCodigoUnico`, `Teste_TES_idTeste`) Values(@fin,TES_id);
             SET @count = @count-1;
         end if;
         
@@ -60,26 +61,26 @@ BEGIN
 	BLOCK_get_perguntas: BEGIN
 		DECLARE question VARCHAR(200);
         DECLARE question_code VARCHAR(20);
+        DECLARE question_index INT(11);
 		DECLARE finished_question INTEGER DEFAULT 0;
-		DECLARE cursor_questions CURSOR FOR SELECT `PER_descricao`, `PER_codigo` FROM `Pergunta` WHERE `Teste_TES_idTeste` = TES_id ORDER BY `PER_indice`;
+		DECLARE cursor_questions CURSOR FOR SELECT `PER_descricao`, `PER_codigo`, `PER_indice` FROM `Pergunta` WHERE `Teste_TES_idTeste` = TES_id ORDER BY `PER_indice`;
 		DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished_question = 1;
 		OPEN cursor_questions;
         cursor_questions_loop: LOOP
-            FETCH cursor_questions INTO question, question_code;
+            FETCH cursor_questions INTO question, question_code, question_index;
 			IF finished_question THEN
 			  LEAVE cursor_questions_loop;
 			END IF;
-            IF (question = '') THEN
-				SET @questions = CONCAT(@questions,'\"Código\",\"Resposta\",');
-            ELSE
-				SET @questions = CONCAT(@questions,"\"",question,"\",");
-            END IF;
+            SET @questions = CONCAT(@questions,"\"",question_index,"-Código\",\"",question_index,"-Resposta\",");
+            
         END LOOP cursor_questions_loop;
 		CLOSE cursor_questions;
         SET @questions = SUBSTRING(@questions,1,CHAR_LENGTH(@questions)-1);
         
     END BLOCK_get_perguntas;
+	
     SET @write_data = CONCAT("\"Contato\",\"Email\",\"Idade\",\"Sexo\",\"CEP\",\"Cor\",\"Deficiência\",",@questions);
+    ##select @write_data;
     OPEN cur;
     curLoop: LOOP
 		FETCH cur INTO id;
@@ -91,7 +92,7 @@ BEGIN
         ##SELECT @user_data;
         ##Selecionar apenas as respostas de um usuário e verificar qual resposta não é null e salvar no answer, ao final salvar tudo em um csv contendo dado de quem respondeu e as respostas.
         BLOCK_2: BEGIN
-            DECLARE continuous DECIMAL(2,2);
+            DECLARE continuous DECIMAL(4,2);
 			DECLARE ordinal INT(11);
             DECLARE descript VARCHAR(200);
             DECLARE finished_2 INTEGER DEFAULT 0;
@@ -104,25 +105,30 @@ BEGIN
             SET @all_answer = "";
             cursor_answer_loop: LOOP
 				FETCH cursor_answer_id INTO continuous, ordinal, descript;
+                ##select continuous;
 				IF finished_2 THEN
 					LEAVE cursor_answer_loop;
 				END IF;
-				IF (descript is null) THEN
-					IF (continuous is not null) THEN
-						SET @answer = continuous;
-					ELSE
-						SET @answer = ordinal;
-                    END IF;
-                ELSE
+                IF (descript is not null) THEN
 					SET @answer = CONCAT("\"",descript,"\"");
-                    IF (continuous is not null) THEN
+					IF (continuous is not null) THEN
 						SET @answer = CONCAT(@answer,",",continuous);
-                        ##SELECT @answer;
+						##SELECT @answer;
 					ELSE
 						##SELECT @answer;
 						SET @answer = CONCAT(@answer,",",ordinal);
-                    END IF;
+					END IF;
+				ELSE
+					SET @answer = CONCAT("\"","","\"");
+					IF (continuous is not null) THEN
+						SET @answer = CONCAT(@answer,",",continuous);
+						##SELECT @answer;
+					ELSE
+						##SELECT @answer;
+						SET @answer = CONCAT(@answer,",",ordinal);
+					END IF;
                 END IF;
+				
                 SET @all_answer = CONCAT(@all_answer,',',@answer);
                 ##SELECT @all_answer;
             END LOOP cursor_answer_loop;
@@ -148,6 +154,7 @@ BEGIN
 END;$$
 DELIMITER ;
 ##Setar o --secure-file-priv para uma pasta específica.
-##CALL answers_to_csv(1);
+CALL answers_to_csv(1);CALL answers_to_csv(2);
+
 
 
