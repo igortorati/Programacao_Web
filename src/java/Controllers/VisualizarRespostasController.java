@@ -45,11 +45,8 @@ public class VisualizarRespostasController extends HttpServlet {
             if(id != null){
                 ArrayList<Usuario> users = ServiceFactory.getUsuarioService().getUsuariosByIdTeste(id);
                 request.setAttribute("users", users);
-                for(Usuario u : users){
-                    out.print(u);
-                }
-                //RequestDispatcher dispatcher = request.getRequestDispatcher("answers.jsp"); 
-                //dispatcher.forward(request, response);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("answers.jsp"); 
+                dispatcher.forward(request, response);
             }
         } catch (Exception e){
             out.print(e);

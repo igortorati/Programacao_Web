@@ -54,7 +54,7 @@ public class RespostaController extends HttpServlet {
             Integer respOrdinal = null;
             Double respContinua = null;
             if(request.getParameter("ordinal") != null){
-                    respOrdinal = Integer.parseInt(request.getParameter("ordinal"));
+                respOrdinal = Integer.parseInt(request.getParameter("ordinal"));
             } else {
                 respContinua = Double.parseDouble(request.getParameter("continua"));
             }
