@@ -60,6 +60,30 @@ public class TesteService {
         return testes;
     }
     
+    public Integer existeNomeTeste(String nome) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Integer existe = null;
+        try {
+            ps = conn.prepareStatement("SELECT EXISTS(SELECT * FROM Teste WHERE TES_titulo=?) as exist");
+            ps.setString(1, nome); 
+            rs = ps.executeQuery();
+            if(rs.first()){
+                existe = rs.getInt("exist");
+            }
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            if(rs != null){
+                rs.close();
+            }
+            conn.close();
+        }
+        return existe;
+    }
+    
     public Integer ultimaPagina() throws Exception{
         Connection conn = DbConnection.getInstance().getConnection();
         PreparedStatement ps = null;

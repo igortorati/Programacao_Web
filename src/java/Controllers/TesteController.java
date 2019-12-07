@@ -80,18 +80,42 @@ public class TesteController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         LoginControl.checkLogin(request, response);
+        PrintWriter out = response.getWriter();
+        String erro = ""; //para validacao
         Pesquisador pesquisador = (Pesquisador) request.getSession().getAttribute("login");
-        Teste teste = new Teste(request.getParameter("description"), request.getParameter("name"), pesquisador.getId(), 0);
-        try  {
-            ServiceFactory.getTesteService().salvarTeste(teste);
-            Integer id = ServiceFactory.getTesteService().getId(teste);
-            if(id != null){
-                response.sendRedirect(request.getContextPath()+"/TesteController.do?id="+id);
-            }
-        } catch(Exception e) {
-            PrintWriter out = response.getWriter();
-            out.print(e);
+        if(!(request.getParameter("description") instanceof String) || (request.getParameter("description").length() == 0)){
+            erro += "Descrição é obrigatória\n";
         }
+        if(!(request.getParameter("description") instanceof String) || (request.getParameter("description").length() == 0)){
+            erro += "Nome é obrigatório\n";
+        }
+        if(!erro.equals("")){
+            request.setAttribute("erro", erro);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("create-test.jsp"); 
+            dispatcher.forward(request, response);
+        } else {
+            try  {
+                String descricao = request.getParameter("description");
+                String titulo = request.getParameter("name");
+                if(ServiceFactory.getTesteService().existeNomeTeste(titulo) == 1){
+                    erro += "Título do teste já existe\n";
+                    request.setAttribute("erro", erro);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("create-test.jsp"); 
+                    dispatcher.forward(request, response);
+                } else {
+                    //fazer a operação
+                    Teste teste = new Teste(request.getParameter("description"), request.getParameter("name"), pesquisador.getId(), 0);
+                    ServiceFactory.getTesteService().salvarTeste(teste);
+                    Integer id = ServiceFactory.getTesteService().getId(teste);
+                    if(id != null){
+                        response.sendRedirect(request.getContextPath()+"/TesteController.do?id="+id);
+                    }
+                }
+            } catch(Exception e) {
+                response.sendRedirect(request.getContextPath()+"/error500.html");
+            }
+        }
+        
     }
     /**
      * Returns a short description of the servlet.
