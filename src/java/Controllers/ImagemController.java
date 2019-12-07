@@ -44,7 +44,7 @@ public class ImagemController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        request.setCharacterEncoding("UTF-8");
         String busca = request.getParameter("tagImg");
         ArrayList<String> imagens = null;
         try(PrintWriter out = response.getWriter()) {
@@ -77,6 +77,7 @@ public class ImagemController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         boolean isMultiPart = FileUpload.isMultipartContent(request);
         if (isMultiPart) {
             FileItemFactory factory = new DiskFileItemFactory();
@@ -90,7 +91,8 @@ public class ImagemController extends HttpServlet {
                 while (iter.hasNext()) {
                     FileItem item = (FileItem) iter.next();
                     if (item.getFieldName().equals("tag")) {
-                        imagem.setTag(item.getString());
+                        String tag = new String (item.getString().getBytes ("iso-8859-1"), "UTF-8");
+                        imagem.setTag(tag);
                     }
                     if (!item.isFormField()) {
                         fileItem = item;
