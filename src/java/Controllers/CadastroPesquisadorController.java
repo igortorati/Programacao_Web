@@ -43,9 +43,9 @@ public class CadastroPesquisadorController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException { 
             response.setContentType("text/html;charset=UTF-8");
+            LoginControl.checkLogin(request, response);
             PrintWriter out = response.getWriter();
             try {
-                LoginControl.checkLogin(request, response);
                 ArrayList<String> listaPesquisadores = ServiceFactory.getPesquisadorService().getPesquisadores();
                 if(request.getParameter("q") != null){
                     listaPesquisadores = null;

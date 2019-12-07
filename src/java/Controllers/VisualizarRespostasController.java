@@ -6,6 +6,7 @@
 package Controllers;
 
 import Models.Usuario;
+import Utils.LoginControl;
 import Utils.ServiceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,6 +38,7 @@ public class VisualizarRespostasController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Integer id = null;
+        LoginControl.checkLogin(request, response); 
         if(request.getParameter("id") != null){
             id = Integer.parseInt(request.getParameter("id"));
         }
