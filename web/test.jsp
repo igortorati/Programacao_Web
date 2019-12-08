@@ -38,7 +38,7 @@
 
         <div class="row justify-content-center add-button-row">
             <div class="row col-md-10 justify-content-between">
-                <button class="btn btn-primary button-with-icon" id="editSaveButton" onclick="edit()">
+                <button class="btn btn-primary button-with-icon" id="editSaveButton" onclick="edit(<%out.print(teste.getJaVisivel());%>)">
                     Editar
                     <i class="material-icons">edit</i>
                 </button>
@@ -52,7 +52,7 @@
                             data-target="#myModal3">
                             Chaves disponíveis
                         </button>
-                        <button class="btn btn-primary button-with-icon" onClick="createQuestion()">
+                        <button class="btn btn-primary button-with-icon" onClick="createQuestion(<%out.print(teste.getJaVisivel());%>)">
                             Criar pergunta
                             <i class="material-icons">add</i>
                         </button>
@@ -69,7 +69,7 @@
                         <i class="material-icons handle">drag_indicator</i>
                         <div class="container">
                             <div class="row">
-                                <div class="col-9 item-text" onClick="editQuestion(<% out.print(p.getIndice()); %>)">
+                                <div class="col-9 item-text" onClick="editQuestion(<% out.print(p.getIndice()); %>,<%out.print(teste.getJaVisivel());%>)">
                                     <span class="test-name"><%out.print("Pergunta "+p.getIndice()+".");%></span>
                                     <% if(p.getDescricao() == null){ %>
                                         <p class="test-description d-none d-md-block">
@@ -108,10 +108,10 @@
             $('.sortable').sortable('disable');
         }
 
-        function save() {
+        function save(jaVisivel) {
             var btn = document.getElementById("editSaveButton")
             btn.innerHTML = 'Editar <i class="material-icons">edit</i>'
-            btn.onclick = () => edit()
+            btn.onclick = () => edit(jaVisivel)
             makeUnsortable()
             var handles = document.querySelectorAll(".handle")
             handles.forEach((item) => {
@@ -138,15 +138,19 @@
                 data: JSON.stringify(req)
             });
         }
-        function edit() {
-            var btn = document.getElementById("editSaveButton")
-            btn.innerHTML = 'Salvar <i class="material-icons">save</i>'
-            btn.onclick = () => save()
-            makeSortable()
-            var handles = document.querySelectorAll(".handle")
-            handles.forEach((item) => {
-                item.style.visibility = 'visible'
-            })
+        function edit(jaVisivel) {
+            if(jaVisivel==false){
+                var btn = document.getElementById("editSaveButton")
+                btn.innerHTML = 'Salvar <i class="material-icons">save</i>'
+                btn.onclick = () => save(jaVisivel)
+                makeSortable()
+                var handles = document.querySelectorAll(".handle")
+                handles.forEach((item) => {
+                    item.style.visibility = 'visible'
+                })
+            }else{
+                alert("Este teste já foi disponibilizado para ser respondido e não pode mais ser alterado!");
+            }
         }
         function getQueryVariable(variable) {
             var query = window.location.search.substring(1);
@@ -158,14 +162,23 @@
             return (false);
         }
 
-        function createQuestion() {
-            var idTest = getQueryVariable("id")
-            window.location.href = 'create-question.jsp?id=' + idTest
+        function createQuestion(jaVisivel) {
+            if(jaVisivel==false){
+                var idTest = getQueryVariable("id")
+                window.location.href = 'create-question.jsp?id=' + idTest
+            }else{
+                alert("Este teste já foi disponibilizado para ser respondido e não pode mais ser alterado!");
+            }
+            
         }
 
-        function editQuestion(indice) {
-            var idTest = getQueryVariable("id")
-            window.location.href = 'cadastroPergunta.do?idTeste=' + idTest + '&indice=' + indice
+        function editQuestion(indice,jaVisivel) {
+            if(jaVisivel==false){
+                var idTest = getQueryVariable("id")
+                window.location.href = 'cadastroPergunta.do?idTeste=' + idTest + '&indice=' + indice
+            }else{
+                alert("Este teste já foi disponibilizado para ser respondido e não pode mais ser alterado!");
+            }
         }
 
         function visualizarRespostas() {

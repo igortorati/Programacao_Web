@@ -44,7 +44,7 @@ public class TesteService {
                 teste.setDescricao(rs.getString("TES_descricao"));
                 teste.setVisibilidade(rs.getInt("TES_visibilidade"));
                 teste.setCreatedAt(rs.getTimestamp("TES_createdAt"));
-
+                teste.setJaVisivel(rs.getBoolean("TES_once_visible"));
                 testes.add(teste);
             }
         } finally {
@@ -176,6 +176,35 @@ public class TesteService {
         }
         return id;
     }
+    
+    public Boolean getOnceVisible(Integer id) throws Exception {
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Boolean onceVisible = false;
+        try {
+            ps = conn.prepareStatement("SELECT TES_once_visible FROM Teste WHERE TES_idTeste= ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if(rs.first()){
+                int i = rs.getInt("TES_once_visible");
+                if(i == 1){
+                    onceVisible = true;
+                }else{
+                    onceVisible = false;
+                }
+            }
+        } finally {
+            if(ps != null){
+                ps.close();
+            }
+            if(rs != null){
+                rs.close();
+            }
+            conn.close();
+        }
+        return onceVisible;
+    }
 
     public Teste getTeste(Integer id) throws Exception {
         Connection conn = DbConnection.getInstance().getConnection();
@@ -187,9 +216,13 @@ public class TesteService {
             ps.setInt(1, id);
             rs = ps.executeQuery();
             if(rs.first()){
+                Boolean onceVisible = false;
+                if(rs.getInt("TES_once_visible")==1){
+                    onceVisible = true;
+                }
                 teste = new Teste(rs.getInt("TES_idTeste"), rs.getString("TES_descricao"), rs.getString("TES_titulo"), 
                         rs.getInt("Pesquisador_PES_id"), rs.getInt("TES_visibilidade"), rs.getDate("TES_createdAt"), 
-                        rs.getDate("TES_updatedAt"));
+                        rs.getDate("TES_updatedAt"),onceVisible);
             }
         } finally {
             if(ps != null){
@@ -306,7 +339,8 @@ public class TesteService {
         Connection conn = DbConnection.getInstance().getConnection();
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE Teste SET TES_visibilidade= IF(TES_visibilidade=1, 0, 1) WHERE TES_idTeste=?");
+            System.out.println("AQ");
+            ps = conn.prepareStatement("UPDATE Teste SET TES_visibilidade= IF(TES_visibilidade=1, 0, 1),TES_once_visible = 1 WHERE TES_idTeste=?");
             ps.setInt(1, idTeste);
             ps.execute();
         } finally {

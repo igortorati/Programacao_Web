@@ -11,6 +11,7 @@ public class Teste {
     private String titulo;
     private Integer idPesquisador;
     private Integer visibilidade;
+    private Boolean jaVisivel;
     private Date createdAt;
     private Date updatedAt;
 
@@ -34,10 +35,25 @@ public class Teste {
         this.updatedAt = updatedAt;
     }
     
+    public Teste(Integer id, String descricao, String titulo, Integer idPesquisador, Integer visibilidade, Date createdAt, Date updatedAt,Boolean jaVisivel) {
+        this.id = id;
+        this.descricao = descricao;
+        this.titulo = titulo;
+        this.idPesquisador = idPesquisador;
+        this.visibilidade = visibilidade;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.jaVisivel = jaVisivel;
+    }
+    
     public int getId() {
         return id;
     }
-
+    
+    public Boolean getJaVisivel(){
+        return jaVisivel;
+    }
+    
     public String getDescricao() {
         return descricao;
     }
@@ -68,6 +84,10 @@ public class Teste {
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+    
+    public void setJaVisivel(Boolean jaVisivel){
+        this.jaVisivel = jaVisivel;
     }
     
     public void setId(Integer id) {

@@ -46,13 +46,18 @@ public class CadastroPergunta extends HttpServlet {
         Integer idTeste = Integer.parseInt(request.getParameter("idTeste"));
         Integer indice = Integer.parseInt(request.getParameter("indice"));
         try {
-            Pergunta pergunta = ServiceFactory.getPerguntaService().getPergunta(idTeste, indice);
-            Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(idTeste, indice);
-            ArrayList<String> imagens = ServiceFactory.getPerguntaService().getImagensEmPergunta(idPergunta);
-            request.setAttribute("pergunta", pergunta);
-            request.setAttribute("imagens", imagens);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("edit-question.jsp"); 
-            dispatcher.forward(request, response);
+            Boolean jaVisivel = ServiceFactory.getTesteService().getOnceVisible(idTeste);
+            if(!jaVisivel){
+                Pergunta pergunta = ServiceFactory.getPerguntaService().getPergunta(idTeste, indice);
+                Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(idTeste, indice);
+                ArrayList<String> imagens = ServiceFactory.getPerguntaService().getImagensEmPergunta(idPergunta);
+                request.setAttribute("pergunta", pergunta);
+                request.setAttribute("imagens", imagens);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("edit-question.jsp"); 
+                dispatcher.forward(request, response);
+            }else{
+                response.sendRedirect("TesteController.do?id="+idTeste);
+            }
         } catch (Exception e){
             PrintWriter out = response.getWriter();
             out.print(e);
@@ -86,38 +91,44 @@ public class CadastroPergunta extends HttpServlet {
         JSONObject jsonObject =  new JSONObject(jb.toString());
         try {
             Integer idTeste = Integer.parseInt(request.getParameter("idTeste"));
-            Integer tipo = jsonObject.getInt("tipo");
-            JSONArray jArray = jsonObject.getJSONArray("imagens");
-            ArrayList<String> imagens = new ArrayList();
-            for(int i = 0; i < jArray.length(); ++i){
-               imagens.add(jArray.getString(i));
-            }
-            Integer codigo = jsonObject.getInt("codigo");
-            String descricao = null;
-            JSONObject erros = new JSONObject();
-            if(codigo == 0 && (!jsonObject.has("descricao") || !(jsonObject.getString("descricao").length() > 0))){
-                erros.put("erro", "Descrição é obrigatória");
-                out.print(erros);
-            } else {
-                if(codigo == 0){
-                    descricao = jsonObject.getString("descricao");
+            Boolean jaVisivel = ServiceFactory.getTesteService().getOnceVisible(idTeste);
+            if(!jaVisivel){
+                Integer tipo = jsonObject.getInt("tipo");
+                JSONArray jArray = jsonObject.getJSONArray("imagens");
+                ArrayList<String> imagens = new ArrayList();
+                for(int i = 0; i < jArray.length(); ++i){
+                   imagens.add(jArray.getString(i));
                 }
-                Integer indice = ServiceFactory.getTesteService().getNovoIndicePergunta(idTeste);
-                //salvando pergunta
-                Pergunta pergunta = new Pergunta(descricao, tipo, codigo, idTeste, indice);
-                ServiceFactory.getPerguntaService().criarPergunta(pergunta);
-                //salvando imagens em pergunta has imagem
-                Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(idTeste, indice);
-
-                for(int i = 0; i < imagens.size(); ++i){
-                    Integer idImagem = ServiceFactory.getImagemService().getIdByCaminho(imagens.get(i));
-                    if(idImagem != null){
-                        ServiceFactory.getPerguntaService().salvarImagemEmPergunta(idPergunta, idImagem, i);
+                Integer codigo = jsonObject.getInt("codigo");
+                String descricao = null;
+                JSONObject erros = new JSONObject();
+                if(codigo == 0 && (!jsonObject.has("descricao") || !(jsonObject.getString("descricao").length() > 0))){
+                    erros.put("erro", "Descrição é obrigatória");
+                    out.print(erros);
+                } else {
+                    if(codigo == 0){
+                        descricao = jsonObject.getString("descricao");
                     }
-                }
+                    Integer indice = ServiceFactory.getTesteService().getNovoIndicePergunta(idTeste);
+                    //salvando pergunta
+                    Pergunta pergunta = new Pergunta(descricao, tipo, codigo, idTeste, indice);
+                    ServiceFactory.getPerguntaService().criarPergunta(pergunta);
+                    //salvando imagens em pergunta has imagem
+                    Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(idTeste, indice);
 
-                out.print(true);
+                    for(int i = 0; i < imagens.size(); ++i){
+                        Integer idImagem = ServiceFactory.getImagemService().getIdByCaminho(imagens.get(i));
+                        if(idImagem != null){
+                            ServiceFactory.getPerguntaService().salvarImagemEmPergunta(idPergunta, idImagem, i);
+                        }
+                    }
+
+                    out.print(true);
+                }
+            }else{
+                response.sendRedirect("TesteController.do?id="+idTeste);
             }
+            
         } catch (Exception e){
             out.print(false);
         }

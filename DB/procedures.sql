@@ -157,4 +157,3 @@ DELIMITER ;
 CALL answers_to_csv(1);CALL answers_to_csv(2);
 
 
-

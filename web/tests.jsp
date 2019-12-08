@@ -43,13 +43,12 @@
             <div class="container col-md-10 col-12 list">
                 <% for(Teste t:testes){%>
                     <div class="item-list dense" >
-                        
                             <% if(t.getVisibilidade() == 1){ %>
-                            <button class="icon-button visibility" onClick="changeVisibility(<%out.print(t.getId());%>)">
+                            <button class="icon-button visibility" onClick="changeVisibility(<%out.print(t.getId());%>,<%out.print(t.getJaVisivel());%>)">
                                    <i class="material-icons">visibility</i>
                                 </button>
                             <%} else {%>
-                                <button class="icon-button visibility-off" onClick="changeVisibility(<%out.print(t.getId());%>)">
+                                <button class="icon-button visibility-off" onClick="changeVisibility(<%out.print(t.getId());%>,<%out.print(t.getJaVisivel());%>)">
                                    <i class="material-icons">visibility_off</i>
                                 </button>
                             <%}%>
@@ -102,8 +101,15 @@
         </div>        
             
         <script>
-            function changeVisibility(id){
-                window.location.href = "alterarTeste.do?id="+id
+            function changeVisibility(id,jaVisivel){
+                if(jaVisivel == false){
+                    var result = confirm("Deixar este teste visível pela primeira vez impedirá a criação de novas perguntas ou alteração da ordem das mesmas, deseja continuar?"); 
+                    if (result == true) { 
+                        window.location.href = "alterarTeste.do?id="+id;
+                    }
+                }else{
+                    window.location.href = "alterarTeste.do?id="+id;
+                }
             }
         </script>
     </body>
