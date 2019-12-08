@@ -103,7 +103,7 @@
         <script>
             function changeVisibility(id,jaVisivel){
                 if(jaVisivel == false){
-                    var result = confirm("Deixar este teste visível pela primeira vez impedirá a criação de novas perguntas ou alteração da ordem das mesmas, deseja continuar?"); 
+                    var result = confirm("Após deixar este teste visível pela primeira vez realizar alterações nas perguntas por fazer com que ele perca validade cientifica, deseja torná-lo visível?"); 
                     if (result == true) { 
                         window.location.href = "alterarTeste.do?id="+id;
                     }

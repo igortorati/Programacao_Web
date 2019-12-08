@@ -139,7 +139,11 @@
             });
         }
         function edit(jaVisivel) {
-            if(jaVisivel==false){
+            var result = true;
+            if(jaVisivel){
+                result = confirm("Este teste já foi disponibilizado para ser respondido alterar suas perguntas pode invalida-lo cientificamente e alterar a ordem das perguntas ou deleta-las pode fazer com que quem não terminou de responder o teste precise de um novo código para responde-lo novamente!");
+            }
+            if(result==true){
                 var btn = document.getElementById("editSaveButton")
                 btn.innerHTML = 'Salvar <i class="material-icons">save</i>'
                 btn.onclick = () => save(jaVisivel)
@@ -148,8 +152,6 @@
                 handles.forEach((item) => {
                     item.style.visibility = 'visible'
                 })
-            }else{
-                alert("Este teste já foi disponibilizado para ser respondido e não pode mais ser alterado!");
             }
         }
         function getQueryVariable(variable) {
@@ -163,21 +165,25 @@
         }
 
         function createQuestion(jaVisivel) {
-            if(jaVisivel==false){
+            var result = true;
+            if(jaVisivel){
+                result = confirm("Este teste já foi disponibilizado para ser respondido alterar suas perguntas pode invalida-lo cientificamente e alterar a ordem das perguntas ou deleta-las pode fazer com que quem não terminou de responder o teste precise de um novo código para responde-lo novamente!");
+            }
+            if(result==true){
                 var idTest = getQueryVariable("id")
                 window.location.href = 'create-question.jsp?id=' + idTest
-            }else{
-                alert("Este teste já foi disponibilizado para ser respondido e não pode mais ser alterado!");
             }
             
         }
 
         function editQuestion(indice,jaVisivel) {
-            if(jaVisivel==false){
+            var result = true;
+            if(jaVisivel){
+                result = confirm("Este teste já foi disponibilizado para ser respondido alterar suas perguntas pode invalida-lo cientificamente e alterar a ordem das perguntas ou deleta-las pode fazer com que quem não terminou de responder o teste precise de um novo código para responde-lo novamente!");
+            }
+            if(result==true){
                 var idTest = getQueryVariable("id")
                 window.location.href = 'cadastroPergunta.do?idTeste=' + idTest + '&indice=' + indice
-            }else{
-                alert("Este teste já foi disponibilizado para ser respondido e não pode mais ser alterado!");
             }
         }
 

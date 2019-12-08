@@ -49,7 +49,7 @@
                                     <span class="test-name"><%out.print(p);%></span>
                                 </div>
                                 <div class="col-3 icons">
-                                    <form method="GET" id="deleteForm" action="pesquisador-deletar.do" onsubmit="return confirm('Você tem certeza que deseja excluir este pesquisador?')">
+                                    <form method="GET" id="deleteForm" action="pesquisador-deletar.do">
                                         <button type="submit" class="icon-button delete" data-toggle="modal" data-target="#myModal2">
                                             <i class="material-icons" >delete</i>
                                             <input type="hidden" name="email" value="<%out.print(p);%>" />

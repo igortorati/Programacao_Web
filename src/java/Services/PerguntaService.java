@@ -2,11 +2,9 @@ package Services;
 
 import Models.Pergunta;
 import Utils.DbConnection;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 
@@ -296,29 +294,5 @@ public class PerguntaService {
             }
             conn.close();
         }
-    }
-    
-    public Integer getTesteId(Integer idPergunta) throws Exception{
-        Connection conn = DbConnection.getInstance().getConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        Integer idTeste = null;
-        try {
-            ps = conn.prepareStatement("SELECT Teste_TES_idTeste FROM Pergunta WHERE PER_idPergunta = ?");
-            ps.setInt(1, idPergunta);
-            rs = ps.executeQuery();
-            if(rs.first()){
-                idTeste = rs.getInt("PER_codigo");
-            }
-        }finally {
-            if(ps != null){
-                ps.close();
-            }
-            if(rs != null){
-                rs.close();
-            }
-            conn.close();
-        }
-        return idTeste;
     }
 }

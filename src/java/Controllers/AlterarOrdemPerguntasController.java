@@ -68,13 +68,9 @@ public class AlterarOrdemPerguntasController extends HttpServlet {
             perguntas.add(jArray.getInt(i));
         }
         try {
-            Integer idTeste = ServiceFactory.getPerguntaService().getTesteId(perguntas.get(0));
-            if(!ServiceFactory.getTesteService().getOnceVisible(idTeste)){
-                for(int i = 0; i < perguntas.size(); ++i){
-                    ServiceFactory.getPerguntaService().alterarIndice(perguntas.get(i), i+1);
-                }
+            for(int i = 0; i < perguntas.size(); ++i){
+                ServiceFactory.getPerguntaService().alterarIndice(perguntas.get(i), i+1);
             }
-            
             out.print(true);
         } catch (Exception e) {
             out.print(e);
