@@ -22,7 +22,7 @@ import java.util.ArrayList;
  *
  * @author sid
  */
-@WebServlet(urlPatterns = {"/respondenteController.do"})
+@WebServlet(displayName = "RespondenteController", urlPatterns = {"/respondenteController.do"})
 public class RespondenteController extends HttpServlet {
 
 
@@ -38,7 +38,12 @@ public class RespondenteController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         CodigoUnico codigoUnico = (CodigoUnico) request.getSession().getAttribute("code");
+        String erro = request.getParameter("erro");
+        if(erro != null && !erro.equals("")){
+            request.setAttribute("erro", erro);
+        }
         PrintWriter out = response.getWriter();
         if(codigoUnico != null){
             if(codigoUnico.getIndice() == 0){
@@ -60,11 +65,11 @@ public class RespondenteController extends HttpServlet {
                         response.sendRedirect(request.getContextPath()+"/finalizarTeste.do");
                     }
                 } catch (Exception e){
-                    out.print(e);
+                    response.sendRedirect(request.getContextPath()+"/error500.html");
                 }
             }
         } else {
-            out.print("Você não tem permissão para acessar este teste");
+            out.print("Não autorizado");
         }
     }
 

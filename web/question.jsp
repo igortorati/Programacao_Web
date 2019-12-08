@@ -41,6 +41,12 @@
                                     <input type="text" id="idItem" name="idItem" class="form-control" placeholder="Identificador do item" />
                                 </div>
                                 <% } %>
+                                <% String error = (String) request.getAttribute("erro");%>
+                                <% if(error != null){ %>
+                                    <div class="row justify-content-center">
+                                        <p class="error-text" style="text-align: center"><%out.print(error);%></p>
+                                    </div>
+                                <%}%>
                             </div>
                         </div>
                         <div class="row justify-content-center">

@@ -34,13 +34,16 @@
                             Adicionar Pesquisador
                         </h5>
                     </div>
-                    <form method="POST" name="addResearcherForm" action="pesquisador.do" onSubmit="return validateForm()">
+                    <form method="POST" name="addResearcherForm" id="addResearcherForm" action="pesquisador.do">
                         <!-- Modal body -->
                         <div class="modal-body">
                             <div class="row justify-content-center">
                                     <div class='form-group'>
                                         <label for="email">Email do pesquisador</label>
                                         <input type="text" class="form-control" name="email" placeholder="Email" />
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <p class="error-text" id="errorMessage"></p>
                                     </div>
                             </div>
                         </div>
@@ -56,18 +59,28 @@
                 </div>
             </div>
         </div>
-        <script>
-            function validateForm(){
-                var errorText = document.getElementById('error-text')
-                errorText.innerHTML = ""
-                var email = document.forms["addResearcherForm"]["email"].value
-                var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                if(!re.test((email).toLowerCase())){
-                    errorText.innerHTML = "O email não foi inserido corretamente"
-                    return false
-                }
-                return true
-            }
+        <script>            
+            $("#addResearcherForm").submit(function(e){
+               e.preventDefault()
+               var form = $(this)
+               var url = form.attr("action")
+               $.ajax({
+                   type: "POST",
+                   url: url,
+                   data: form.serialize(),
+                   success: function (msg) {
+                       if(msg === "true"){
+                           window.location.href= "pesquisador.do"
+                       } else {
+                           const errorText = document.getElementById('error-text')
+                           errorText.innerHTML = msg;
+                       }
+                   },
+                   error: function(jqXhr, textStatus, errorMessage){
+                       window.location.href = "error500.html"
+                   },
+               })
+           })
         </script>
     </body>
 

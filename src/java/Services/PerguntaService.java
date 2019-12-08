@@ -224,10 +224,8 @@ public class PerguntaService {
                     + "WHERE Pergunta_PER_idPergunta = ? ORDER BY PHI_indice");
             ps.setInt(1, idPergunta);
             rs = ps.executeQuery();
-            System.out.println("teste");
             imagens = new ArrayList();
             while(rs.next()){
-                System.out.println(rs.getString("IMG_endereco"));
                 imagens.add(rs.getString("IMG_endereco"));
             }
         } finally {
@@ -241,6 +239,30 @@ public class PerguntaService {
         }
         
         return imagens;
+    }
+    
+    public Integer getCodigoPergunta(Integer idPergunta) throws Exception{
+        Connection conn = DbConnection.getInstance().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Integer codigo = null;
+        try {
+            ps = conn.prepareStatement("SELECT PER_codigo FROM Pergunta WHERE PER_idPergunta=?");
+            ps.setInt(1, idPergunta);
+            rs = ps.executeQuery();
+            if(rs.first()){
+                codigo = rs.getInt("PER_codigo");
+            }
+        }finally {
+            if(ps != null){
+                ps.close();
+            }
+            if(rs != null){
+                rs.close();
+            }
+            conn.close();
+        }
+        return codigo;
     }
     
     public void deletarPergunta(Integer idPergunta) throws Exception{

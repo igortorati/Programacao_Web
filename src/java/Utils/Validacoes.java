@@ -15,18 +15,9 @@ import javax.mail.internet.InternetAddress;
  */
 public class Validacoes {
     public static Boolean emailValido(String email){
-        Boolean emailValido = false;
-        if(!(email instanceof String)){
-        } else {
-            try {
-                InternetAddress emailAddr = new InternetAddress(email);
-                emailAddr.validate();
-                emailValido = true;
-            } catch(Exception e){
-                emailValido = false;
-            }
-        }
-        return emailValido;
+        Pattern p = Pattern.compile("^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"); 
+        Matcher m = p.matcher(email); 
+        return (m.find() && m.group().equals(email));
     }
     
     public static Boolean telefoneValido(String telefone){

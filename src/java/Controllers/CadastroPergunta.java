@@ -16,6 +16,7 @@ import Models.Pergunta;
 import Utils.LoginControl;
 import Utils.ServiceFactory;
 import java.io.BufferedReader;
+import java.net.URLEncoder;
 import javax.servlet.RequestDispatcher;
 import java.util.ArrayList;
 import org.json.JSONArray;
@@ -69,6 +70,7 @@ public class CadastroPergunta extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         LoginControl.checkLogin(request, response);
         PrintWriter out = response.getWriter();
@@ -82,41 +84,42 @@ public class CadastroPergunta extends HttpServlet {
             out.print(e);
         }
         JSONObject jsonObject =  new JSONObject(jb.toString());
-        Integer idTeste = Integer.parseInt(request.getParameter("idTeste"));
-        Integer tipo = jsonObject.getInt("tipo");
-        JSONArray jArray = jsonObject.getJSONArray("imagens");
-        ArrayList<String> imagens = new ArrayList();
-        for(int i = 0; i < jArray.length(); ++i){
-           imagens.add(jArray.getString(i));
-        }
-        Integer codigo = jsonObject.getInt("codigo");
-        String descricao = null;
-        if(codigo == 0){
-            descricao = jsonObject.getString("descricao");
-        }
-        if(codigo == 0 && descricao == null){
-            out.print("Descrição é obrigatório");
-        } else {
-            try {
+        try {
+            Integer idTeste = Integer.parseInt(request.getParameter("idTeste"));
+            Integer tipo = jsonObject.getInt("tipo");
+            JSONArray jArray = jsonObject.getJSONArray("imagens");
+            ArrayList<String> imagens = new ArrayList();
+            for(int i = 0; i < jArray.length(); ++i){
+               imagens.add(jArray.getString(i));
+            }
+            Integer codigo = jsonObject.getInt("codigo");
+            String descricao = null;
+            JSONObject erros = new JSONObject();
+            if(codigo == 0 && (!jsonObject.has("descricao") || !(jsonObject.getString("descricao").length() > 0))){
+                erros.put("erro", "Descrição é obrigatória");
+                out.print(erros);
+            } else {
+                if(codigo == 0){
+                    descricao = jsonObject.getString("descricao");
+                }
                 Integer indice = ServiceFactory.getTesteService().getNovoIndicePergunta(idTeste);
                 //salvando pergunta
                 Pergunta pergunta = new Pergunta(descricao, tipo, codigo, idTeste, indice);
                 ServiceFactory.getPerguntaService().criarPergunta(pergunta);
                 //salvando imagens em pergunta has imagem
                 Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(idTeste, indice);
-                
+
                 for(int i = 0; i < imagens.size(); ++i){
                     Integer idImagem = ServiceFactory.getImagemService().getIdByCaminho(imagens.get(i));
-                    System.out.println(idImagem + " / " + imagens.get(i));
                     if(idImagem != null){
                         ServiceFactory.getPerguntaService().salvarImagemEmPergunta(idPergunta, idImagem, i);
                     }
                 }
-                
+
                 out.print(true);
-            } catch (Exception e) {
-                out.print(e);
             }
+        } catch (Exception e){
+            out.print(false);
         }
         
     }

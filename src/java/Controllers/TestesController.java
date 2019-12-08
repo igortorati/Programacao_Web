@@ -24,7 +24,7 @@ import Utils.LoginControl;
  *
  * @author sid
  */
-@WebServlet(name = "Testes", urlPatterns = {"/testes.do"})
+@WebServlet(name = "Testes", displayName= "testes", urlPatterns = {"/testes.do"})
 public class TestesController extends HttpServlet {
 
     
@@ -57,10 +57,7 @@ public class TestesController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("tests.jsp");
             dispatcher.forward(request, response);
         } catch(Exception e){
-            request.setAttribute("erro", e);
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("erro.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect(request.getContextPath()+"/error500.html");
         }
     }
 

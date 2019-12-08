@@ -58,6 +58,9 @@
                             </div>
                         </div>
                         <div class="row justify-content-center">
+                            <p class="error-text" id="errorMessage"></p>
+                        </div>
+                        <div class="row justify-content-center">
                             <nav class="nav nav-pills">
                                 <%if(pergunta.getTipo() == 1){%>
                                 <a href="#" onClick="handleTab(1)"
@@ -331,9 +334,18 @@
             url: url,
             dataType: "json",
             success: function (msg) {
-                console.log(msg)
-                window.location.href= "TesteController.do?id="+getQueryVariable("idTeste")
+                if(msg === true){
+                    window.location.href= "TesteController.do?id="+getQueryVariable("idTeste")
+                } else if(msg === false){
+                    window.location.href = "error500.html"
+                } else {
+                    const errorMessage = document.getElementById("errorMessage")
+                    errorMessage.innerHTML = msg.erro;
+                }
             },
+            error: function(jqXhr, textStatus, errorMessage){
+                window.location.href = "error500.html"
+            },  
             data: JSON.stringify(question)
         })
     }

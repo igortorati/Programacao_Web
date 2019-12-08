@@ -45,6 +45,9 @@
                         </div>
                     </div>
                     <div class="row justify-content-center">
+                            <p class="error-text" id="errorMessage"></p>
+                    </div>
+                    <div class="row justify-content-center">
                         <nav class="nav nav-pills">
                             <a href="#" onClick="handleTab(1)" class="nav-item1 nav-item nav-link active">Contínuo</a>
                             <a href="#" onClick="handleTab(2)" class="nav-item1 nav-item nav-link">Ordinal</a>
@@ -112,12 +115,6 @@
                     </div>
                 </div>
             </div>
-            <% String error = (String) request.getAttribute("erro");%>
-            <% if(error != null){ %>
-                <div class="row justify-content-center">
-                    <p class="error-text" style="text-align: center"><%out.print(error);%></p>
-                </div>
-            <%}%>
             <div class="row justify-content-center align-items-end save-button">
                 <button class="btn btn-primary button-with-icon" onClick="createQuestion()">
                     Salvar
@@ -258,10 +255,21 @@
                  $.ajax({
                     type: "POST",
                     url: url,
+                    contentType: "charset=utf-8", 
                     dataType: "json",
                     success: function (resp) {
-                        window.location.href= "TesteController.do?id="+getQueryVariable("id")
+                        if(resp === true){
+                            window.location.href= "TesteController.do?id="+getQueryVariable("id")
+                        } else if (resp === false){
+                            window.location.href = "error500.html"
+                        } else {
+                            const errorMessage = document.getElementById("errorMessage")
+                            errorMessage.innerHTML = resp.erro;
+                        }
                     },
+                    error: function(jqXhr, textStatus, errorMessage){
+                        window.location.href = "error500.html"
+                    },  
                     data: JSON.stringify(question)
                 });
             }

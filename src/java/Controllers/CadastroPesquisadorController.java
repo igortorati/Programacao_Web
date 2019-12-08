@@ -19,7 +19,9 @@ import java.util.logging.Logger;
 import Models.Pesquisador;
 import Utils.LoginControl;
 import Utils.ServiceFactory;
+import Utils.Validacoes;
 import java.util.ArrayList;
+import org.json.JSONObject;
 
 
 
@@ -59,7 +61,7 @@ public class CadastroPesquisadorController extends HttpServlet {
                 }
                 
             }  catch (Exception ex) {
-            out.print(ex);
+            response.sendRedirect(request.getContextPath()+"/error500.html");
         }
     }
 
@@ -77,23 +79,22 @@ public class CadastroPesquisadorController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         LoginControl.checkLogin(request, response);
-        Pesquisador pesquisador = new Pesquisador(request.getParameter("email"));
-        ArrayList<String> pesquisadores = null;
-        try (PrintWriter out = response.getWriter()){
-            if(!ServiceFactory.getPesquisadorService().ehCadastrado(pesquisador)){
-               ServiceFactory.getPesquisadorService().adicionarPesquisador(pesquisador);
-               pesquisadores = ServiceFactory.getPesquisadorService().getPesquisadores();
-               request.setAttribute("pesquisadores", pesquisadores);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("researchers.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                out.println("Email já cadastrado no sistema");  
+        PrintWriter out = response.getWriter();
+        if(Validacoes.emailValido(request.getParameter("email"))){
+            Pesquisador pesquisador = new Pesquisador(request.getParameter("email"));
+            ArrayList<String> pesquisadores = null;
+            try {
+                if(!ServiceFactory.getPesquisadorService().ehCadastrado(pesquisador)){
+                    ServiceFactory.getPesquisadorService().adicionarPesquisador(pesquisador);
+                    out.print(true);
+                } else {
+                    out.print("E-Mail já cadastrado no sistema");  
+                }
+            } catch (Exception e) {
+                response.sendRedirect(request.getContextPath()+"/error500.html");
             }
-        } catch (Exception e) {
-            request.setAttribute("erro", e);
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, e);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index..html");
-            dispatcher.forward(request, response);
+        } else {
+            out.print("E-Mail inválido");  
         }
     }
     

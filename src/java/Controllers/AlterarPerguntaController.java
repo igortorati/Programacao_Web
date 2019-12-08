@@ -50,8 +50,7 @@ public class AlterarPerguntaController extends HttpServlet {
             }
             response.sendRedirect(request.getContextPath()+"/TesteController.do?id="+idTeste);
         } catch (Exception e){
-            PrintWriter out = response.getWriter();
-            out.print(e);
+            response.sendRedirect(request.getContextPath()+"/error500.html");
         }
     }
 
@@ -66,6 +65,7 @@ public class AlterarPerguntaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         StringBuilder jb = new StringBuilder();
@@ -78,23 +78,28 @@ public class AlterarPerguntaController extends HttpServlet {
             out.print(e);
         }
         JSONObject jsonObject =  new JSONObject(jb.toString());
-        Integer idTeste = Integer.parseInt(request.getParameter("idTeste"));
-        Integer indice = Integer.parseInt(request.getParameter("indice"));
-        Integer tipo = jsonObject.getInt("tipo");
-        JSONArray jArray = jsonObject.getJSONArray("imagens");
-        ArrayList<String> imagens = new ArrayList();
-        for(int i = 0; i < jArray.length(); ++i){
-           imagens.add(jArray.getString(i));
-        }
-        Integer codigo = jsonObject.getInt("codigo");
-        String descricao = null;
-        if(jsonObject.has("descricao")){
-            descricao = jsonObject.getString("descricao");
-        }
-        if(codigo == 0 && descricao == null){
-            out.print("Descrição é obrigatório");
-        } else {
-            try {
+        try {
+            Integer idTeste = Integer.parseInt(request.getParameter("idTeste"));
+            Integer indice = Integer.parseInt(request.getParameter("indice"));
+            Integer tipo = jsonObject.getInt("tipo");
+            JSONArray jArray = jsonObject.getJSONArray("imagens");
+            ArrayList<String> imagens = new ArrayList();
+            for(int i = 0; i < jArray.length(); ++i){
+               imagens.add(jArray.getString(i));
+            }
+            Integer codigo = jsonObject.getInt("codigo");
+            String descricao = null;
+            if(jsonObject.has("descricao")){
+                descricao = jsonObject.getString("descricao");
+            }
+            JSONObject erros = new JSONObject();
+            if(codigo == 0 && (!jsonObject.has("descricao") || !(jsonObject.getString("descricao").length() > 0))){
+                erros.put("erro", "Descrição é obrigatória");
+                out.print(erros);
+            } else {
+                if(codigo == 0){
+                    descricao = jsonObject.getString("descricao");
+                }
                 Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(idTeste, indice);
                 Pergunta pergunta = new Pergunta(descricao, tipo, codigo, idPergunta, idTeste, indice);
                 //alterando pergunta
@@ -104,16 +109,15 @@ public class AlterarPerguntaController extends HttpServlet {
                     Integer idImagem = ServiceFactory.getImagemService().getIdByCaminho(imagens.get(i));
                     if(idImagem != null){
                         if(ServiceFactory.getPerguntaService().existeImagem(idPergunta, idImagem, i) == 0){
-                            System.out.println("teste");
                             ServiceFactory.getPerguntaService().deletarImagemEmPergunta(idPergunta, i);
                             ServiceFactory.getPerguntaService().salvarImagemEmPergunta(idPergunta, idImagem, i);
                         }
                     }
                 }
                 out.print(true);
-            } catch (Exception e){
-                out.print(e);
             }
+        } catch (Exception e){
+            out.print(false);
         }
     }
 

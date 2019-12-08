@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import Utils.ServiceFactory;
 import Models.Resposta;
 import Models.CodigoUnico;
+import java.net.URLEncoder;
+import javax.servlet.RequestDispatcher;
 /**
  *
  * @author sid
@@ -50,6 +52,7 @@ public class RespostaController extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         request.setCharacterEncoding("UTF-8");
+        String erro = "";
         if((request.getParameter("ordinal") != null) || (request.getParameter("continua") != null)){
             Integer respOrdinal = null;
             Double respContinua = null;
@@ -58,8 +61,6 @@ public class RespostaController extends HttpServlet {
             } else {
                 respContinua = Double.parseDouble(request.getParameter("continua"));
             }
-            
-            String idItem = request.getParameter("idItem");
             try {
                 CodigoUnico codigoUnico = (CodigoUnico) request.getSession().getAttribute("code");
                 if(codigoUnico != null){
@@ -67,29 +68,36 @@ public class RespostaController extends HttpServlet {
                     if(idPergunta != null){
                         Integer idUsuario = ServiceFactory.getUsuarioService().getIdUsuarioByCodigoUnico(codigoUnico.getIdCodigoUnico());
                         if(idUsuario != null){
-                            Resposta resposta = new Resposta(respContinua, respOrdinal, idItem, idUsuario, idPergunta);
-                            
-                            ServiceFactory.getRespostaService().salvarResposta(resposta);
-                            //incrementando indice
-                            codigoUnico.setIndice(codigoUnico.getIndice()+1);
-                            ServiceFactory.getCodigoUnicoService().incrementarIndice(codigoUnico.getIdCodigoUnico());
-                            request.getSession().setAttribute("code", codigoUnico);
-                            //direcionando para controle de perguntas
-                            response.sendRedirect(request.getContextPath()+"/respondenteController.do");
+                            if(((request.getParameter("idItem") instanceof String) && (request.getParameter("idItem").length() > 0)) 
+                                    || (ServiceFactory.getPerguntaService().getCodigoPergunta(idPergunta) == 0)){
+                                String idItem = request.getParameter("idItem");
+                                Resposta resposta = new Resposta(respContinua, respOrdinal, idItem, idUsuario, idPergunta);
+                                ServiceFactory.getRespostaService().salvarResposta(resposta);
+                                //incrementando indice
+                                codigoUnico.setIndice(codigoUnico.getIndice()+1);
+                                ServiceFactory.getCodigoUnicoService().incrementarIndice(codigoUnico.getIdCodigoUnico());
+                                request.getSession().setAttribute("code", codigoUnico);
+                                //direcionando para controle de perguntas
+                                response.sendRedirect(request.getContextPath()+"/respondenteController.do");
+                            } else {
+                                erro += "Item é obrigatório";
+                                response.sendRedirect(request.getContextPath()+"/respondenteController.do?erro="+URLEncoder.encode(erro, "UTF-8"));
+                            }
                         } else {
-                            out.print("Não existe essa pergunta");
+                            response.sendRedirect(request.getContextPath()+"/error500.html");
                         }
                     } else {
-                        out.print("Pergunta não existe");
+                        response.sendRedirect(request.getContextPath()+"/error500.html");
                     }
                 } else {
-                    out.print("Sem permissão");
+                    response.sendRedirect(request.getContextPath()+"/error500.html");
                 }
             } catch (Exception e){
-                out.print(e);
+                response.sendRedirect(request.getContextPath()+"/error500.html");
             }
         } else {
-            out.print("Responda o teste primeiro!");
+            erro += "Resposta inválida";
+            response.sendRedirect(request.getContextPath()+"/respondenteController.do?erro="+URLEncoder.encode(erro, "UTF-8"));
         }
         
     }
