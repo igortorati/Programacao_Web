@@ -83,10 +83,10 @@ public class TesteController extends HttpServlet {
         PrintWriter out = response.getWriter();
         String erro = ""; //para validacao
         Pesquisador pesquisador = (Pesquisador) request.getSession().getAttribute("login");
-        if(!(request.getParameter("description") instanceof String) || (request.getParameter("description").length() == 0)){
+        if(!(request.getParameter("description") instanceof String) || (request.getParameter("description").length() < 5)){
             erro += "Descrição é obrigatória<br>";
         }
-        if(!(request.getParameter("description") instanceof String) || (request.getParameter("description").length() == 0)){
+        if(!(request.getParameter("description") instanceof String) || (request.getParameter("description").length() < 10)){
             erro += "Título é obrigatório<br>";
         }
         if(!erro.equals("")){

@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                             <div class='form-group'>
-                                <textarea id="description" class="form-control" rows="3" placeholder="Descrição" required></textarea>
+                                <textarea id="description" class="form-control" rows="3" placeholder="Descrição" minlength=1 required></textarea>
                             </div>
                         </div>
                     </div>

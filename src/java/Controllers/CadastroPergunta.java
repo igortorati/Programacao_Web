@@ -92,6 +92,7 @@ public class CadastroPergunta extends HttpServlet {
         try {
             Integer idTeste = Integer.parseInt(request.getParameter("idTeste"));
             Boolean jaVisivel = ServiceFactory.getTesteService().getOnceVisible(idTeste);
+            System.out.println(jaVisivel);
             if(!jaVisivel){
                 Integer tipo = jsonObject.getInt("tipo");
                 JSONArray jArray = jsonObject.getJSONArray("imagens");
@@ -126,6 +127,7 @@ public class CadastroPergunta extends HttpServlet {
                     out.print(true);
                 }
             }else{
+                System.out.println("A");
                 response.sendRedirect("TesteController.do?id="+idTeste);
             }
             

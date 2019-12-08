@@ -31,11 +31,11 @@
                             </div>
                             <div class='form-group'>
                                 <label for="name">Nome do Teste</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Nome" required/>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Nome" minlength=5 required/>
                             </div>
                             <div class='form-group'>
                                 <label for="description">Descrição do Teste</label>
-                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Descrição" required></textarea>
+                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Descrição" minlength=10 required></textarea>
                             </div>
                         </div>
                     </div>
