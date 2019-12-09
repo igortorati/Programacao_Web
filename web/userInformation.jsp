@@ -20,7 +20,7 @@
             <% String error = (String) request.getAttribute("erro");%>
             <div class="row align-items-center full">
                 <div class="container col-md-12">
-                    <form method="POST" name="addUser" action="CadastroUsuarioController.do">
+                    <form method="POST" name="addUser" action="CadastroUsuarioController.do" accept-charset="UTF-8">
                         <div class="row justify-content-center">
                             <div class="col-md-5">
                                 <div class='title'>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class='form-group'>
                                     <label for="disease" required>Enfermidade</label>
-                                    <input type="text" class="form-control" name="disease" placeholder="Problema de visão severo..."/>
+                                    <input type="text"  class="form-control" name="disease" placeholder="Problema de visão severo..."/>
                                 </div>
                             </div>
                         </div>

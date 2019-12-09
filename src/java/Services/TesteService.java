@@ -121,7 +121,6 @@ public class TesteService {
             if(rs.next()){
                 conteudo= rs.getString("@write_data");
             }
-            System.out.println("contudo");
         } finally{
             if(ps != null){
                 ps.close();
