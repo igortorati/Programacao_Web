@@ -39,16 +39,21 @@ public class DeletarPesquisadorController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         LoginControl.checkLogin(request, response);
-        System.out.println(request.getParameter("email"));
+        Pesquisador current = (Pesquisador) request.getSession().getAttribute("login");
         Pesquisador pesquisador = new Pesquisador(request.getParameter("email"));
         ArrayList<String> listaPesquisadores = null;
         try{
-            if(ServiceFactory.getPesquisadorService().ehCadastrado(pesquisador)){
+            System.out.println(pesquisador.getEmail()+"|"+current.getEmail()+"|"+pesquisador.getEmail().equals(current.getEmail()));
+            if(ServiceFactory.getPesquisadorService().ehCadastrado(pesquisador) && !pesquisador.getEmail().equals(current.getEmail())){
                 ServiceFactory.getPesquisadorService().deletarPesquisadores(pesquisador);
                 listaPesquisadores = ServiceFactory.getPesquisadorService().getPesquisadores();
                 request.setAttribute("pesquisadores", listaPesquisadores);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("researchers.jsp");
                 dispatcher.forward(request, response);
+            }
+            if(pesquisador.getEmail().equals(current.getEmail())){
+                
+                response.sendRedirect("pesquisador.do");
             }
         } catch (Exception e) {
             System.out.println(e);

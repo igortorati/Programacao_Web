@@ -22,6 +22,7 @@
     <body>
         <div class="container col-md-12 justify-content-center">
             <% ArrayList<String> pesquisadores = (ArrayList<String>) request.getAttribute("pesquisadores");%>
+            <% Pesquisador current = (Pesquisador) request.getSession().getAttribute("login"); %>
             <%@include file="header2.jsp"%>
             <div class="row justify-content-center">
                 <div class="title">Pesquisadores</div>
@@ -48,6 +49,7 @@
                                 <div class="col-9 item-text">
                                     <span class="test-name"><%out.print(p);%></span>
                                 </div>
+                                <%if(!current.getEmail().equals(p)){%>
                                 <div class="col-3 icons">
                                     <form method="GET" id="deleteForm" action="pesquisador-deletar.do">
                                         <button type="submit" class="icon-button delete" data-toggle="modal" data-target="#myModal2">
@@ -56,6 +58,7 @@
                                         </button>
                                     </form>
                                 </div>
+                                <%}%>
                             </div>
                         </div>
                     </div>
