@@ -141,7 +141,7 @@
         function edit(jaVisivel) {
             var result = true;
             if(jaVisivel){
-                result = confirm("Este teste já foi disponibilizado para ser respondido alterar suas perguntas pode invalida-lo cientificamente e alterar a ordem das perguntas ou deleta-las pode fazer com que quem não terminou de responder o teste precise de um novo código para responde-lo novamente!");
+                result = confirm("Este teste já foi disponibilizado para ser respondido, alterar suas perguntas pode invalida-lo cientificamente e alterar a ordem das perguntas ou deleta-las pode fazer com que quem não terminou de responder o teste precise de um novo código para responde-lo novamente!");
             }
             if(result==true){
                 var btn = document.getElementById("editSaveButton")
@@ -167,7 +167,7 @@
         function createQuestion(jaVisivel) {
             var result = true;
             if(jaVisivel){
-                result = confirm("Este teste já foi disponibilizado para ser respondido alterar suas perguntas pode invalida-lo cientificamente e alterar a ordem das perguntas ou deleta-las pode fazer com que quem não terminou de responder o teste precise de um novo código para responde-lo novamente!");
+                result = confirm("Este teste já foi disponibilizado para ser respondido, alterar suas perguntas pode invalida-lo cientificamente e alterar a ordem das perguntas ou deleta-las pode fazer com que quem não terminou de responder o teste precise de um novo código para responde-lo novamente!");
             }
             if(result==true){
                 var idTest = getQueryVariable("id")
@@ -179,7 +179,7 @@
         function editQuestion(indice,jaVisivel) {
             var result = true;
             if(jaVisivel){
-                result = confirm("Este teste já foi disponibilizado para ser respondido alterar suas perguntas pode invalida-lo cientificamente e alterar a ordem das perguntas ou deleta-las pode fazer com que quem não terminou de responder o teste precise de um novo código para responde-lo novamente!");
+                result = confirm("Este teste já foi disponibilizado para ser respondido, alterar suas perguntas pode invalida-lo cientificamente e alterar a ordem das perguntas ou deleta-las pode fazer com que quem não terminou de responder o teste precise de um novo código para responde-lo novamente!");
             }
             if(result==true){
                 var idTest = getQueryVariable("id")

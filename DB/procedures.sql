@@ -154,5 +154,5 @@ BEGIN
 END;$$
 DELIMITER ;
 ##Setar o --secure-file-priv para uma pasta específica.
-CALL answers_to_csv(1);CALL answers_to_csv(2);
+##CALL answers_to_csv(1);CALL answers_to_csv(2);
 

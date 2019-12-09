@@ -51,7 +51,7 @@
                                 </div>
                                 <%if(!current.getEmail().equals(p)){%>
                                 <div class="col-3 icons">
-                                    <form method="GET" id="deleteForm" action="pesquisador-deletar.do">
+                                    <form method="GET" id="deleteForm" action="pesquisador-deletar.do" onsubmit="return confirm('Você tem certeza que deseja excluir este pesquisador?')">
                                         <button type="submit" class="icon-button delete" data-toggle="modal" data-target="#myModal2">
                                             <i class="material-icons" >delete</i>
                                             <input type="hidden" name="email" value="<%out.print(p);%>" />
