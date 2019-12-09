@@ -14,7 +14,7 @@ BEGIN
 	WHILE @count > 0 DO
 		SET @gen = LEFT(MD5(RAND()), 8);
         
-        if not exists (select * from `progweb`.`codigounico` where `idCodigoUnico` LIKE CONCAT(@gen,'%')) then
+        if not exists (select * from `progweb`.`CodigoUnico` where `idCodigoUnico` LIKE CONCAT(@gen,'%')) then
 			SET @i = 1;
             SET @sum = 0;
 			verifier_digit_1: LOOP
@@ -37,7 +37,7 @@ BEGIN
             END LOOP;
             SET @sum = MOD(@sum,7);
             SET @fin = CONCAT(@gen,@sum);
-            insert into `progweb`.`codigounico` (`idCodigoUnico`, `Teste_TES_idTeste`) Values(@fin,TES_id);
+            insert into `progweb`.`CodigoUnico` (`idCodigoUnico`, `Teste_TES_idTeste`) Values(@fin,TES_id);
             SET @count = @count-1;
         end if;
         
