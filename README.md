@@ -13,8 +13,11 @@
 > 9. Copiar a imagem no caminho home/"user"/Programacao_Web/web/img/default.png para o caminho atual
 > 10. Entrar dentro da pasta home/"user"/Programacao_Web/DB/
 > 11. Logar no mysql com o usuario e senha configurados em codigo
-> 12. Executar scripts BD_Prog_Web.sql e depois procedures.sql (usar comando source "nome do arquivo")
-> 13. Acessar site pelo domínio ao qual foi implantado /Research_Website
+> 12. Abrir o arquivo BD_Prog_Web.sql no MySQL Workbench.
+> 13. Inserir na linha 197 do arquivo aberto o seguinte "INSERT INTO `Pesquisador` (`PES_id`,`PES_email`) VALUES (null,'SEU_GMAIL');", sem aspas, onde SEU_GMAIL deve ser substituído pelo gmail do administrador/pesquisador inicial.
+> 14. Salvar o arquivo BD_Prog_Web.sql com a alteração feita no passo 13.
+> 15. Executar scripts BD_Prog_Web.sql e depois procedures.sql (usar comando source "nome do arquivo")
+> 16. Acessar site pelo domínio ao qual foi implantado /Research_Website
 
 ## Erros corrigidos após apresentação
 > 1. Erro 500 ao deletar resposta de um Teste corrigido, a resposta é deletada.
