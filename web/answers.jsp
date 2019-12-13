@@ -58,7 +58,7 @@
                             <td>
                                 <form method="GET" action="deletarUsuario.do" onsubmit="return confirm('Você tem certeza que deseja excluir este respondente?')">
                                     <input type="hidden" name="id" value="<%out.print(u.getIdUsuario());%>" />
-                                    <input type="hidden" name="idTeste" id="idTeste" value="" />
+                                    <input type="hidden" name="idTeste" class="idTeste" value="" />
                                     <button class="delete-button" type="submit">
                                         <i class="material-icons">delete</i>
                                     </button>
@@ -87,8 +87,10 @@
             window.location.href = "DownloadController.do?id="+getQueryVariable("id")
         }
         
-        const input = document.getElementById("idTeste")
-        input.value = getQueryVariable("id")
+        const inputs = document.querySelectorAll(".idTeste")
+        for(let input of inputs){
+            input.value = getQueryVariable("id")
+        }
     </script>
 </body>
 

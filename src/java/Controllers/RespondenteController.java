@@ -17,6 +17,7 @@ import Models.CodigoUnico;
 import Utils.ServiceFactory;
 import javax.servlet.RequestDispatcher;
 import Models.Pergunta;
+import Models.Teste;
 import java.util.ArrayList;
 /**
  *
@@ -45,31 +46,34 @@ public class RespondenteController extends HttpServlet {
             request.setAttribute("erro", erro);
         }
         PrintWriter out = response.getWriter();
-        if(codigoUnico != null){
-            if(codigoUnico.getIndice() == 0){
-                RequestDispatcher dispatcher = request.getRequestDispatcher("userInformation.jsp");
-                dispatcher.forward(request, response);
-            } else {
-                try {
-                    Pergunta pergunta = ServiceFactory.getPerguntaService().getPergunta(codigoUnico.getIdTeste(), codigoUnico.getIndice());
-                    if(pergunta != null){
-                        request.setAttribute("pergunta", pergunta);
-                        Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(pergunta.getIdTeste(), pergunta.getIndice());
-                        ArrayList<String> imagens = ServiceFactory.getPerguntaService().getImagensEmPergunta(idPergunta);
-                        if(imagens != null){
-                            request.setAttribute("imagens", imagens);
+        try {
+            if(codigoUnico != null){
+                if(codigoUnico.getIndice() == 0){
+                    Teste teste = ServiceFactory.getTesteService().getTeste(codigoUnico.getIdTeste());
+                    request.setAttribute("teste", teste);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("userInformation.jsp");
+                    dispatcher.forward(request, response);
+                } else {
+
+                        Pergunta pergunta = ServiceFactory.getPerguntaService().getPergunta(codigoUnico.getIdTeste(), codigoUnico.getIndice());
+                        if(pergunta != null){
+                            request.setAttribute("pergunta", pergunta);
+                            Integer idPergunta = ServiceFactory.getPerguntaService().getIdPergunta(pergunta.getIdTeste(), pergunta.getIndice());
+                            ArrayList<String> imagens = ServiceFactory.getPerguntaService().getImagensEmPergunta(idPergunta);
+                            if(imagens != null){
+                                request.setAttribute("imagens", imagens);
+                            }
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("question.jsp");
+                            dispatcher.forward(request, response);
+                        } else {
+                            response.sendRedirect(request.getContextPath()+"/finalizarTeste.do");
                         }
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("question.jsp");
-                        dispatcher.forward(request, response);
-                    } else {
-                        response.sendRedirect(request.getContextPath()+"/finalizarTeste.do");
-                    }
-                } catch (Exception e){
-                    response.sendRedirect(request.getContextPath()+"/error500.html");
                 }
+            } else {
+                out.print("Não autorizado");
             }
-        } else {
-            out.print("Não autorizado");
+        } catch (Exception e){
+            response.sendRedirect(request.getContextPath()+"/error500.html");
         }
     }
 

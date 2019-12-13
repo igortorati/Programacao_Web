@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Models.Teste"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,13 +19,17 @@
     <body>
         <div class="container col-md-12 justify-content-center">
             <% String error = (String) request.getAttribute("erro");%>
+            <% Teste teste = (Teste) request.getAttribute("teste");%>
             <div class="row align-items-center full">
                 <div class="container col-md-12">
                     <form method="POST" name="addUser" action="CadastroUsuarioController.do" accept-charset="UTF-8">
                         <div class="row justify-content-center">
                             <div class="col-md-5">
-                                <div class='title'>
-                                    Informações iniciais
+                                <div class="title" style="margin-top: 30px">
+                                    <%out.print(teste.getTitulo());%>
+                                </div>
+                                <div class="subtitle">
+                                    <%out.print(teste.getDescricao());%>
                                 </div>
                                 <div class='form-group'>
                                     <label for="email">Email</label>
